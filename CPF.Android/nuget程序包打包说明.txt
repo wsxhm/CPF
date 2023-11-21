@@ -1,0 +1,3 @@
+﻿手动修改 CPF.Android.nuspec 版本信息
+修改CPF.Android里安卓SDK目录连接
+在程序包管理器控制台输入  nuget pack CPF.Android

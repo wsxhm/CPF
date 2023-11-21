@@ -1,0 +1,122 @@
+﻿* {
+    FontFamily: 苹方-简; /*所有元素设置为 苹方-简 为了在Mac能正常显示中文*/
+}
+
+@keyframes buttonAnimationEnter {
+    0% {
+        Background: rgb(250,125,60);
+    }
+
+    100% {
+        Background: rgb(255,145,80);
+    }
+}
+
+#DropDownPanel TextBlock {
+    MarginLeft: 5;
+}
+
+Button {
+    Background: rgb(250,125,60);
+    Foreground: #fff;
+    BorderFill: null;
+}
+
+    Button[IsMouseOver=true] {
+        Background: rgb(250,125,60);
+        animation-name: buttonAnimationEnter;
+        animation-duration: 0.2s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    Button[IsPressed=true] {
+        Background: rgb(240,105,50);
+    }
+
+CheckBox #indeterminateMark {
+    Fill: rgb(250,125,60);
+}
+
+CheckBox #checkBoxBorder {
+    Background: #fff;
+    BorderFill: rgb(250,125,60);
+}
+
+CheckBox[IsChecked=true] #checkBoxBorder {
+    Background: rgb(250,125,60);
+    BorderFill: rgb(250,125,60);
+}
+
+CheckBox Polyline {
+    StrokeFill: #fff;
+}
+
+RadioButton #radioButtonBorder {
+    StrokeFill: rgb(250,125,60);
+}
+
+RadioButton #optionMark {
+    StrokeFill: rgb(250,125,60);
+    Fill: rgb(250,125,60);
+}
+
+ComboBox {
+    BorderFill: rgb(220,220,220);
+    BorderStroke: 1;
+    Background: #fff;
+}
+
+TextBox {
+    BorderFill: rgb(220,220,220);
+    BorderStroke: 1;
+}
+
+    TextBox #contentPresenter {
+        Padding: 3;
+    }
+
+.Single { /*单行文本框*/
+    AcceptsReturn: false;
+    HScrollBarVisibility: Hidden;
+    VScrollBarVisibility: Hidden;
+}
+
+TabControl #headBorder {
+    Background: #fff;
+}
+
+TabItem > Border {
+    BorderThickness: 0,0,0,2;
+}
+
+TabItem[IsSelected=true] > Border {
+    BorderFill: rgb(250,125,60);
+}
+
+TabItem[IsSelected=true] {
+    Foreground: rgb(250,125,60);
+}
+
+@keyframes testAnimation1 {
+    0% {
+        Background: #ff0000;
+    }
+
+    50% {
+        Background: #0f0;
+    }
+
+    100% {
+        Background: #00f;
+    }
+}
+
+.testAnimation1[IsMouseOver=true] {
+    animation-name: testAnimation1;
+    animation-duration: 0.8s;
+    animation-iteration-count: 1;
+}
+#caption {
+    Background: rgb(250,125,60);
+}

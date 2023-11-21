@@ -1,0 +1,130 @@
+﻿* {
+    FontFamily: 微软雅黑; /*所有元素设置为 苹方-简 为了在Mac能正常显示中文*/
+}
+@keyframes buttonAnimationEnter {
+    0% {
+        Background: #1E9FFF;
+    }
+
+    100% {
+        Background: rgb(75,178,255);
+    }
+}
+@font-face {
+    font-family: '微软雅黑';
+    src: url('res://ConsoleApp1/msyh.ttc');
+}
+
+#DropDownPanel TextBlock {
+    MarginLeft: 5;
+}
+
+Button {
+    Background: #1E9FFF;
+    Foreground: #fff;
+    BorderFill: null;
+}
+
+    Button[IsMouseOver=true] {
+        Background: #1E9FFF;
+        animation-name: buttonAnimationEnter;
+        animation-duration: 0.2s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    Button[IsPressed=true] {
+        Background: rgb(30,159,255);
+    }
+
+CheckBox #indeterminateMark {
+    Fill: #1E9FFF;
+}
+
+CheckBox #checkBoxBorder {
+    Background: #fff;
+    BorderFill: #1E9FFF;
+}
+
+CheckBox[IsChecked=true] #checkBoxBorder {
+    Background: #1E9FFF;
+    BorderFill: #1E9FFF;
+}
+
+CheckBox Polyline {
+    StrokeFill: #fff;
+}
+
+RadioButton #radioButtonBorder {
+    StrokeFill: #1E9FFF;
+}
+
+RadioButton #optionMark {
+    StrokeFill: #1E9FFF;
+    Fill: #1E9FFF;
+}
+
+ComboBox {
+    BorderFill: rgb(220,220,220);
+    BorderStroke: 1;
+    Background: #fff;
+}
+
+TextBox {
+    BorderFill: rgb(220,220,220);
+    BorderStroke: 1;
+}
+
+    TextBox #contentPresenter {
+        Padding: 3;
+    }
+
+.Single { /*单行文本框*/
+    AcceptsReturn: false;
+    HScrollBarVisibility:Hidden; 
+    VScrollBarVisibility :Hidden;
+}
+.singleLine { /*单行文本框*/
+    AcceptsReturn: false;
+    HScrollBarVisibility: Hidden;
+    VScrollBarVisibility: Hidden;
+}
+
+TabControl #headBorder {
+    Background:#fff;
+}
+TabItem > Border {
+    BorderThickness:0,0,0,2;
+}
+TabItem[IsSelected=true] > Border {
+    BorderFill: #1E9FFF;
+}
+TabItem[IsSelected=true]{
+    Foreground: #1E9FFF;
+}
+
+@keyframes testAnimation1 {
+    0% {
+        Background: #ff0000;
+    }
+    50% {
+        Background: #0f0;
+    }
+    100% {
+        Background: #00f;
+    }
+}
+.testAnimation1[IsMouseOver=true] {
+    animation-name: testAnimation1;
+    animation-duration: 0.8s;
+    animation-iteration-count: 1;
+}
+
+#caption {
+    Background: #1E9FFF;
+}
+
+MenuItem #contentPanel {
+    Background: #f00;
+    FontSize:10;
+}

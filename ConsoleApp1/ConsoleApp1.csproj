@@ -1,0 +1,136 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.0;net40;net5;net6</TargetFrameworks>
+    <ApplicationIcon />
+    <StartupObject />
+    <OutputType>WinExe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Platforms>AnyCPU</Platforms>
+	  <!--<LangVersion>10.0</LangVersion>-->
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="InvokeST\**" />
+    <EmbeddedResource Remove="InvokeST\**" />
+    <None Remove="InvokeST\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="HotReload.cs" />
+    <Compile Remove="OpenGlTest.cs" />
+    <Compile Remove="OpenGLWindow.cs" />
+    <Compile Remove="SqliteDataAdapter.cs" />
+    <Compile Remove="VideoPlayTest.cs" />
+    <Compile Remove="Window7.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="BrowserFile.css" />
+    <None Remove="icon.png" />
+    <None Remove="Icons\directory.png" />
+    <None Remove="Icons\Drive.png" />
+    <None Remove="Icons\file.png" />
+    <None Remove="msyh.ttc" />
+    <None Remove="Resources\1.gif" />
+    <None Remove="Resources\arrow.png" />
+    <None Remove="Resources\icon.png" />
+    <None Remove="Resources\loading.gif" />
+    <None Remove="Resources\主页.png" />
+    <None Remove="Stylesheet.css" />
+    <None Remove="Stylesheet1.css" />
+    <None Remove="Stylesheet2.css" />
+    <None Remove="Stylesheet3.css" />
+    <None Remove="svg1.svg" />
+    <None Remove="test.svg" />
+    <None Remove="test2.svg" />
+    <None Remove="testApend.css" />
+    <None Remove="汉仪清庭-55简.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="BrowserFile.css" />
+    <EmbeddedResource Include="Icons\directory.png" />
+    <EmbeddedResource Include="Icons\Drive.png" />
+    <EmbeddedResource Include="Icons\file.png" />
+    <EmbeddedResource Include="msyh.ttc" />
+    <EmbeddedResource Include="Resources\1.gif" />
+    <EmbeddedResource Include="Resources\loading.gif" />
+    <EmbeddedResource Include="Stylesheet.css" />
+    <EmbeddedResource Include="svg1.svg" />
+    <EmbeddedResource Include="test.svg" />
+    <EmbeddedResource Include="test2.svg" />
+    <EmbeddedResource Include="testApend.css" />
+    <EmbeddedResource Include="汉仪清庭-55简.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icon.png" />
+    <EmbeddedResource Include="Resources\arrow.png" />
+    <EmbeddedResource Include="Resources\icon.png" />
+    <EmbeddedResource Include="Resources\主页.png" />
+    <EmbeddedResource Include="Stylesheet1.css" />
+    <EmbeddedResource Include="Stylesheet2.css" />
+    <EmbeddedResource Include="Stylesheet3.css" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net40'">
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <!--<ItemGroup>
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.16" />
+    <ProjectReference Include="..\CPF.Vlc\CPF.Vlc.csproj" />
+  </ItemGroup>-->
+  <ItemGroup>
+    <ProjectReference Include="..\CPF.Windows\CPF.Windows.csproj" />
+    <ProjectReference Include="..\CPF\CPF.csproj" />
+    <ProjectReference Include="..\CPF.Cef\CPF.Cef.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'!='net40'">
+    <ProjectReference Include="..\CPF.Skia\CPF.Skia.csproj" />
+    <ProjectReference Include="..\CPF.Linux\CPF.Linux.csproj" />
+    <ProjectReference Include="..\CPF.Mac\CPF.Mac.csproj" />
+  </ItemGroup>
+  <!--<ItemGroup Condition="'$(TargetFramework)'!='net40'">
+    <PackageReference Include="System.Reactive">
+      <Version>5.0.0</Version>
+    </PackageReference>
+  </ItemGroup>-->
+  <PropertyGroup>
+    <DefineConstants Condition="'$(TargetFramework)'=='net40'">Net4</DefineConstants>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.0|AnyCPU'">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <!--<PropertyGroup>
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+  </PropertyGroup>
+  <ItemGroup>
+    <RdXmlFile Include="rd.xml" />
+    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-preview.2.22152.2" />
+  </ItemGroup>-->
+  <ItemGroup>
+    <Compile Update="MainView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'!= 'net40'">
+    <!--<PackageReference Include="PdfPig">
+      <Version>0.1.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Data.Sqlite">
+      <Version>7.0.9</Version>
+    </PackageReference>-->
+  </ItemGroup>
+</Project>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CPF.Mac</name>
+    </assembly>
+    <members>
+        <member name="P:CPF.Mac.CPFNSApplication.IsHandlingSendEvent">
+            <summary>
+            Cef需要用的属性
+            </summary>
+        </member>
+        <member name="M:CPF.Mac.CPFNSApplication.SetHandlingSendEvent(System.Boolean)">
+            <summary>
+            Cef需要用的属性
+            </summary>
+        </member>
+    </members>
+</doc>

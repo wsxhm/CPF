@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Xhm.CPF.Android</id>
+    <version>0.9.6</version>
+    <authors>QQ:761716178</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>http://cpf.cskin.net/</projectUrl>
+    <iconUrl>https://www.nuget.org/Content/gallery/img/default-package-icon.svg</iconUrl>
+    <description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</description>
+    <releaseNotes>CPF安卓支持预览版</releaseNotes>
+    <copyright>Copyright (c) 2020 by http://cpf.cskin.net/</copyright>
+    <tags>CPF Android</tags>
+    <dependencies>
+      <dependency id="Xamarin.Essentials" version="1.6.1" />
+      <dependency id="Xhm.CPF" version="0.9.6" />
+    </dependencies>
+  </metadata>
+</package>

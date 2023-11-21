@@ -1,0 +1,900 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CPF.Windows</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "F:CPF.Windows.ClipboardImpl.Text" -->
+        <!-- Badly formed XML comment ignored for member "F:CPF.Windows.ClipboardImpl.UnicodeText" -->
+        <!-- Badly formed XML comment ignored for member "F:CPF.Windows.ClipboardImpl.Dib" -->
+        <member name="F:CPF.Windows.ClipboardImpl.Bitmap">
+            <devdoc>
+            <para>Specifies a Windows bitmap format. This <see langword='static '/> field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.EnhancedMetafile">
+            <devdoc>
+               <para>Specifies the Windows enhanced metafile format. This 
+               <see langword='static '/> field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.MetafilePict">
+            <devdoc>
+               <para>Specifies the Windows metafile format, which Win Forms 
+                  does not directly use. This <see langword='static '/>
+                  field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.SymbolicLink">
+            <devdoc>
+               <para>Specifies the Windows symbolic link format, which Win 
+                  Forms does not directly use. This <see langword='static '/>
+                  field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.Dif">
+            <devdoc>
+               <para>Specifies the Windows data interchange format, which Win 
+                  Forms does not directly use. This <see langword='static '/>
+                  field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.Tiff">
+            <devdoc>
+               <para>Specifies the Tagged Image File Format (TIFF), which Win 
+                  Forms does not directly use. This <see langword='static '/>
+                  field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.OemText">
+            <devdoc>
+               <para>Specifies the standard Windows original equipment 
+                  manufacturer (OEM) text format. This <see langword='static '/> field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.Palette">
+            <devdoc>
+            <para>Specifies the Windows palette format. This <see langword='static '/> 
+            field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.PenData">
+            <devdoc>
+               <para>Specifies the Windows pen data format, which consists of 
+                  pen strokes for handwriting software; Win Forms does not use this format. This
+               <see langword='static '/> 
+               field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.Riff">
+            <devdoc>
+               <para>Specifies the Resource Interchange File Format (RIFF) 
+                  audio format, which Win Forms does not directly use. This <see langword='static '/> field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.WaveAudio">
+            <devdoc>
+               <para>Specifies the wave audio format, which Win Forms does not 
+                  directly use. This <see langword='static '/> field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.FileDrop">
+            <devdoc>
+               <para>Specifies the Windows file drop format, which Win Forms 
+                  does not directly use. This <see langword='static '/>
+                  field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.Locale">
+            <devdoc>
+               <para>Specifies the Windows culture format, which Win Forms does 
+                  not directly use. This <see langword='static '/> field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.Html">
+            <devdoc>
+               <para>Specifies text consisting of HTML data. This 
+               <see langword='static '/> field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.Rtf">
+            <devdoc>
+               <para>Specifies text consisting of Rich Text Format (RTF) data. This 
+               <see langword='static '/> field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ClipboardImpl.CommaSeparatedValue">
+            <devdoc>
+               <para>Specifies a comma-separated value (CSV) format, which is a 
+                  common interchange format used by spreadsheets. This format is not used directly
+                  by Win Forms. This <see langword='static '/>
+                  field is read-only.</para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.ClassName">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.ClassName&quot;]/*" />
+            <devdoc>
+                Name of the window class to subclass. The default value for this field
+                is null, indicating that the window is not a subclass of an existing
+                window class. To subclass an existing window class, store the window
+                class name in this field. For example, to subclass the standard edit
+                control, set this field to "EDIT".
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.Caption">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.Caption&quot;]/*" />
+            <devdoc>
+                The initial caption your control will have.
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.Style">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.Style&quot;]/*" />
+            <devdoc>
+                Window style bits. This must be a combination of WS_XXX style flags and
+                other control-specific style flags.
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.ExStyle">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.ExStyle&quot;]/*" />
+            <devdoc>
+                Extended window style bits. This must be a combination of WS_EX_XXX
+                style flags.
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.ClassStyle">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.ClassStyle&quot;]/*" />
+            <devdoc>
+                Class style bits. This must be a combination of CS_XXX style flags. This
+                field is ignored if the className field is not null.
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.X">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.X&quot;]/*" />
+            <devdoc>
+                The left portion of the initial proposed location.
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.Y">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.Y&quot;]/*" />
+            <devdoc>
+                The top portion of the initial proposed location.
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.Width">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.Width&quot;]/*" />
+            <devdoc>
+                The initially proposed width.
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.Height">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.Height&quot;]/*" />
+            <devdoc>
+                The initially proposed height.
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.Parent">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.Parent&quot;]/*" />
+            <devdoc>
+                The controls parent.
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.CreateParams.Param">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.Param&quot;]/*" />
+            <devdoc>
+                Any extra information that the underlying handle might want.
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.CreateParams.ToString">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\CreateParams.uex" path="docs/doc[@for=&quot;CreateParams.ToString&quot;]/*" />
+            <devdoc>
+               <para>[To be supplied.]</para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.STATSTG.pwcsName">
+            <summary>
+            Pointer to the name.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.STATSTG.cbSize">
+            <summary>
+            Size of the stream in bytes.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.STATSTG.grfMode">
+            <summary>
+            The stream mode.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.STATSTG.grfLocksSupported">
+            <summary>
+            Supported locking modes.
+            <see href="https://docs.microsoft.com/en-us/windows/desktop/api/objidl/ne-objidl-taglocktype"/>
+            </summary>
+            <remarks>
+            '0' means does not support lock modes.
+            </remarks>
+        </member>
+        <member name="F:CPF.Windows.STATSTG.clsid">
+            <remarks>
+            Only for IStorage objects
+            </remarks>
+        </member>
+        <member name="F:CPF.Windows.STATSTG.grfStateBits">
+            <remarks>
+            Only valid for IStorage objects.
+            </remarks>
+        </member>
+        <member name="M:CPF.Windows.STATSTG.FreeName">
+            <summary>
+            Caller is responsible for freeing the name memory.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.STATSTG.AllocName(System.String)">
+            <summary>
+            Callee is repsonsible for allocating the name memory.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.STGM.Default">
+            <summary>
+            Read only, and each change to a storage or stream element is written as it occurs.
+            Fails if the given storage object already exists.
+            [STGM_DIRECT] [STGM_READ] [STGM_FAILIFTHERE] [STGM_SHARE_DENY_WRITE]
+            </summary>
+        </member>
+        <member name="P:CPF.Windows.Message.HWnd">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\Message.uex" path="docs/doc[@for=&quot;Message.HWnd&quot;]/*" />
+            <devdoc>
+               <para>Specifies the window handle of the message.</para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.Message.Msg">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\Message.uex" path="docs/doc[@for=&quot;Message.Msg&quot;]/*" />
+            <devdoc>
+               <para>Specifies the ID number for the message.</para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.Message.WParam">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\Message.uex" path="docs/doc[@for=&quot;Message.WParam&quot;]/*" />
+            <devdoc>
+            <para>Specifies the <see cref="!:System.Windows.Forms.Message.wparam" /> of the message.</para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.Message.LParam">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\Message.uex" path="docs/doc[@for=&quot;Message.LParam&quot;]/*" />
+            <devdoc>
+            <para>Specifies the <see cref="!:System.Windows.Forms.Message.lparam" /> of the message.</para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.Message.Result">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\Message.uex" path="docs/doc[@for=&quot;Message.Result&quot;]/*" />
+            <devdoc>
+               <para>Specifies the return value of the message.</para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.Message.Create(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\Message.uex" path="docs/doc[@for=&quot;Message.Create&quot;]/*" />
+            <devdoc>
+            <para>Creates a new <see cref="!:System.Windows.Forms.Message" /> object.</para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.Message.Equals(System.Object)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\Message.uex" path="docs/doc[@for=&quot;Message.Equals&quot;]/*" />
+        </member>
+        <member name="M:CPF.Windows.Message.GetHashCode">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\Message.uex" path="docs/doc[@for=&quot;Message.GetHashCode&quot;]/*" />
+        </member>
+        <member name="M:CPF.Windows.Message.ToString">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\Message.uex" path="docs/doc[@for=&quot;Message.ToString&quot;]/*" />
+            <internalonly />
+            <devdoc>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.#ctor">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.NotifyIcon&quot;]/*" />
+            <devdoc>
+               <para>
+                  Initializes a new instance of the <see cref="!:System.Windows.Forms.NotifyIcon" /> class.
+               </para>
+            </devdoc>
+        </member>
+        <member name="E:CPF.Windows.NotifyIcon.BalloonTipClicked">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\NotifyIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.BalloonTipClicked&quot;]/*" />
+            <devdoc>
+               <para>[This event is raised on the NIN_BALLOONUSERCLICK message.]</para>
+            </devdoc>
+        </member>
+        <member name="E:CPF.Windows.NotifyIcon.BalloonTipClosed">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\NotifyIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.BalloonTipClosed&quot;]/*" />
+            <devdoc>
+               <para>[This event is raised on the NIN_BALLOONTIMEOUT message.]</para>
+            </devdoc>
+        </member>
+        <member name="E:CPF.Windows.NotifyIcon.BalloonTipShown">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\NotifyIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.BalloonTipShown&quot;]/*" />
+            <devdoc>
+               <para>[This event is raised on the NIN_BALLOONSHOW or NIN_BALLOONHIDE message.]</para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.NotifyIcon.BalloonTipIcon">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.BalloonTipIcon&quot;]/*" />
+            <devdoc>
+               <para>
+                  Gets or sets the BalloonTip icon displayed when
+                  the mouse hovers over a system tray icon.
+               </para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.NotifyIcon.BalloonTipTitle">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.BalloonTipTitle&quot;]/*" />
+            <devdoc>
+               <para>
+                  Gets or sets the BalloonTip title displayed when
+                  the mouse hovers over a system tray icon.
+               </para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.NotifyIcon.ContextMenu">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.ContextMenu&quot;]/*" />
+            <devdoc>
+               <para>
+                  Gets or sets context menu
+                  for the tray icon.
+               </para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.NotifyIcon.Icon">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.Icon&quot;]/*" />
+            <devdoc>
+               <para>
+                  Gets or sets the current
+                  icon.
+               </para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.NotifyIcon.Text">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.Text&quot;]/*" />
+            <devdoc>
+               <para>
+                  Gets or sets the ToolTip text displayed when
+                  the mouse hovers over a system tray icon.
+               </para>
+            </devdoc>
+        </member>
+        <member name="P:CPF.Windows.NotifyIcon.Visible">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.Visible&quot;]/*" />
+            <devdoc>
+               <para>
+                  Gets or sets a value indicating whether the icon is visible in the Windows System Tray.
+               </para>
+            </devdoc>
+        </member>
+        <member name="E:CPF.Windows.NotifyIcon.Click">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.Click&quot;]/*" />
+            <devdoc>
+                Occurs when the user clicks the icon in the system tray.
+            </devdoc>
+        </member>
+        <member name="E:CPF.Windows.NotifyIcon.DoubleClick">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.DoubleClick&quot;]/*" />
+            <devdoc>
+                Occurs when the user double-clicks the icon in the system tray.
+            </devdoc>
+        </member>
+        <member name="E:CPF.Windows.NotifyIcon.MouseDown">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.MouseDown&quot;]/*" />
+            <devdoc>
+               <para>
+                  Occurs when the
+                  user presses a mouse button while the pointer is over the icon in the system tray.
+               </para>
+            </devdoc>
+        </member>
+        <member name="E:CPF.Windows.NotifyIcon.MouseMove">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.MouseMove&quot;]/*" />
+            <devdoc>
+               <para>
+                  Occurs
+                  when the user moves the mouse pointer over the icon in the system tray.
+               </para>
+            </devdoc>
+        </member>
+        <member name="E:CPF.Windows.NotifyIcon.MouseUp">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.MouseUp&quot;]/*" />
+            <devdoc>
+               <para>
+                  Occurs when the
+                  user releases the mouse button while the pointer
+                  is over the icon in the system tray.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.Dispose(System.Boolean)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.Dispose&quot;]/*" />
+            <devdoc>
+               <para>
+                  Disposes of the resources (other than memory) used by the
+               <see cref="!:System.Windows.Forms.NotifyIcon" />.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.OnBalloonTipClosed">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.OnBalloonTipClosed&quot;]/*" />
+            <devdoc>
+               <para>
+                  This method raised the BalloonTipClosed event. 
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.OnBalloonTipShown">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.OnBalloonTipShown&quot;]/*" />
+            <devdoc>
+               <para>
+                  This method raised the BalloonTipShown event. 
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.OnClick(System.EventArgs)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.OnClick&quot;]/*" />
+            <devdoc>
+               <para>
+                  This method actually raises the Click event. Inheriting classes should
+                  override this if they wish to be notified of a Click event. (This is far
+                  preferable to actually adding an event handler.) They should not,
+                  however, forget to call base.onClick(e); before exiting, to ensure that
+                  other recipients do actually get the event.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.OnDoubleClick(System.EventArgs)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.OnDoubleClick&quot;]/*" />
+            <devdoc>
+                Inheriting classes should override this method to handle this event.
+                Call base.onDoubleClick to send this event to any registered event listeners.
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.OnMouseClick(CPF.Windows.NotifyIconMouseEventArgs)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.OnMouseClick&quot;]/*" />
+            <devdoc>
+                Inheriting classes should override this method to handle this event.
+                Call base.OnMouseClick to send this event to any registered event listeners.
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.OnMouseDoubleClick(CPF.Windows.NotifyIconMouseEventArgs)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.OnMouseDoubleClick&quot;]/*" />
+            <devdoc>
+                Inheriting classes should override this method to handle this event.
+                Call base.OnMouseDoubleClick to send this event to any registered event listeners.
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.OnMouseDown(CPF.Windows.NotifyIconMouseEventArgs)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.OnMouseDown&quot;]/*" />
+            <devdoc>
+               <para>
+                  Raises the <see cref="!:System.Windows.Forms.NotifyIcon.MouseDown" /> event.
+                  Inheriting classes should override this method to handle this event.
+                  Call base.onMouseDown to send this event to any registered event listeners.
+                  
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.OnMouseMove(CPF.Windows.NotifyIconMouseEventArgs)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.OnMouseMove&quot;]/*" />
+            <devdoc>
+               <para>
+                  Inheriting classes should override this method to handle this event.
+                  Call base.onMouseMove to send this event to any registered event listeners.
+                  
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.OnMouseUp(CPF.Windows.NotifyIconMouseEventArgs)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.OnMouseUp&quot;]/*" />
+            <devdoc>
+               <para>
+                  Inheriting classes should override this method to handle this event.
+                  Call base.onMouseUp to send this event to any registered event listeners.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.ShowBalloonTip(System.Int32)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.ShowBalloonTip&quot;]/*" />
+            <devdoc>
+               <para>
+                  Displays a balloon tooltip in the taskbar.
+            
+                  The system enforces minimum and maximum timeout values. Timeout 
+                  values that are too large are set to the maximum value and values 
+                  that are too small default to the minimum value. The operating system's 
+                  default minimum and maximum timeout values are 10 seconds and 30 seconds, 
+                  respectively.
+                  
+                  No more than one balloon ToolTip at at time is displayed for the taskbar. 
+                  If an application attempts to display a ToolTip when one is already being displayed, 
+                  the ToolTip will not appear until the existing balloon ToolTip has been visible for at 
+                  least the system minimum timeout value. For example, a balloon ToolTip with timeout 
+                  set to 30 seconds has been visible for seven seconds when another application attempts 
+                  to display a balloon ToolTip. If the system minimum timeout is ten seconds, the first 
+                  ToolTip displays for an additional three seconds before being replaced by the second ToolTip.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.ShowBalloonTip(System.Int32,System.String,System.String,CPF.Windows.ToolTipIcon)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.ShowBalloonTip&quot;]/*" />
+            <devdoc>
+               <para>
+                  Displays a balloon tooltip in the taskbar with the specified title,
+                  text, and icon for a duration of the specified timeout value.
+            
+                  The system enforces minimum and maximum timeout values. Timeout 
+                  values that are too large are set to the maximum value and values 
+                  that are too small default to the minimum value. The operating system's 
+                  default minimum and maximum timeout values are 10 seconds and 30 seconds, 
+                  respectively.
+                  
+                  No more than one balloon ToolTip at at time is displayed for the taskbar. 
+                  If an application attempts to display a ToolTip when one is already being displayed, 
+                  the ToolTip will not appear until the existing balloon ToolTip has been visible for at 
+                  least the system minimum timeout value. For example, a balloon ToolTip with timeout 
+                  set to 30 seconds has been visible for seven seconds when another application attempts 
+                  to display a balloon ToolTip. If the system minimum timeout is ten seconds, the first 
+                  ToolTip displays for an additional three seconds before being replaced by the second ToolTip.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.ShowContextMenu">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.ShowContextMenu&quot;]/*" />
+            <devdoc>
+                Shows the context menu for the tray icon.
+            </devdoc>
+            <internalonly />
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.UpdateIcon(System.Boolean)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.UpdateIcon&quot;]/*" />
+            <devdoc>
+                Updates the icon in the system tray.
+            </devdoc>
+            <internalonly />
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.WmMouseDown(CPF.Windows.Message@,CPF.Input.MouseButton,System.Int32)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.WmMouseDown&quot;]/*" />
+            <devdoc>
+                Handles the mouse-down event
+            </devdoc>
+            <internalonly />
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.WmMouseMove(CPF.Windows.Message@)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.WmMouseMove&quot;]/*" />
+            <devdoc>
+                Handles the mouse-move event
+            </devdoc>
+            <internalonly />
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.WmMouseUp(CPF.Windows.Message@,CPF.Input.MouseButton)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.WmMouseUp&quot;]/*" />
+            <devdoc>
+                Handles the mouse-up event
+            </devdoc>
+            <internalonly />
+        </member>
+        <member name="T:CPF.Windows.NotifyIcon.NotifyIconNativeWindow">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.NotifyIconNativeWindow&quot;]/*" />
+            <devdoc>
+                Defines a placeholder window that the NotifyIcon is attached to.
+            </devdoc>
+            <internalonly />
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.NotifyIconNativeWindow.#ctor(CPF.Windows.NotifyIcon)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.NotifyIconNativeWindow.NotifyIconNativeWindow&quot;]/*" />
+            <devdoc>
+                Create a new NotifyIcon, and bind the window to the NotifyIcon component.
+            </devdoc>
+            <internalonly />
+        </member>
+        <member name="M:CPF.Windows.NotifyIcon.NotifyIconNativeWindow.WndProc(CPF.Windows.Message@)">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\TrayIcon.uex" path="docs/doc[@for=&quot;NotifyIcon.NotifyIconNativeWindow.WndProc&quot;]/*" />
+            <devdoc>
+                Pass messages on to the NotifyIcon object's wndproc handler.
+            </devdoc>
+            <internalonly />
+        </member>
+        <member name="T:CPF.Windows.ToolTipIcon">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\ToolTipIcon.uex" path="docs/doc[@for=&quot;ToolTipIcon&quot;]/*" />
+        </member>
+        <member name="F:CPF.Windows.ToolTipIcon.None">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\ToolTipIcon.uex" path="docs/doc[@for=&quot;ToolTipIcon.None&quot;]/*" />
+            <devdoc>
+               <para>
+                  No Icon.
+               </para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ToolTipIcon.Info">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\ToolTipIcon.uex" path="docs/doc[@for=&quot;ToolTipIcon.InfoIcon&quot;]/*" />
+            <devdoc>
+               <para>
+                  A Information Icon.
+               </para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ToolTipIcon.Warning">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\ToolTipIcon.uex" path="docs/doc[@for=&quot;ToolTipIcon.WarningIcon&quot;]/*" />
+            <devdoc>
+               <para>
+                  A Warning Icon.
+               </para>
+            </devdoc>
+        </member>
+        <member name="F:CPF.Windows.ToolTipIcon.Error">
+            <!--未能插入某些或全部所包含的 XML --><include file="doc\ToolTipIcon.uex" path="docs/doc[@for=&quot;ToolTipIcon.ErrorIcon&quot;]/*" />
+            <devdoc>
+               <para>
+                  A Error Icon.
+               </para>
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.IOleDataObject.GetData(CPF.Windows.FORMATETC@,CPF.Windows.STGMEDIUM@)">
+            <summary>
+                Called by a data consumer to obtain data from a source data object.
+                The GetData method renders the data described in the specified FORMATETC
+                structure and transfers it through the specified STGMEDIUM structure.
+                The caller then assumes responsibility for releasing the STGMEDIUM structure.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.IOleDataObject.GetDataHere(CPF.Windows.FORMATETC@,CPF.Windows.STGMEDIUM@)">
+            <summary>
+                Called by a data consumer to obtain data from a source data object.
+                This method differs from the GetData method in that the caller must
+                allocate and free the specified storage medium.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.IOleDataObject.QueryGetData(CPF.Windows.FORMATETC@)">
+            <summary>
+                Determines whether the data object is capable of rendering the data
+                described in the FORMATETC structure. Objects attempting a paste or
+                drop operation can call this method before calling IDataObject::GetData
+                to get an indication of whether the operation may be successful.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.IOleDataObject.GetCanonicalFormatEtc(CPF.Windows.FORMATETC@,CPF.Windows.FORMATETC@)">
+            <summary>
+                Provides a standard FORMATETC structure that is logically equivalent to one that is more
+                complex. You use this method to determine whether two different
+                FORMATETC structures would return the same data, removing the need
+                for duplicate rendering.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.IOleDataObject.SetData(CPF.Windows.FORMATETC@,CPF.Windows.STGMEDIUM@,System.Boolean)">
+            <summary>
+                Called by an object containing a data source to transfer data to
+                the object that implements this method.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.IOleDataObject.EnumFormatEtc(System.Runtime.InteropServices.ComTypes.DATADIR)">
+            <summary>
+                Creates an object for enumerating the FORMATETC structures for a
+                data object. These structures are used in calls to IDataObject::GetData
+                or IDataObject::SetData.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.IOleDataObject.DAdvise(CPF.Windows.FORMATETC@,System.Runtime.InteropServices.ComTypes.ADVF,System.Runtime.InteropServices.ComTypes.IAdviseSink,System.Int32@)">
+            <summary>
+                Called by an object supporting an advise sink to create a connection between
+                a data object and the advise sink. This enables the advise sink to be
+                notified of changes in the data of the object.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.IOleDataObject.DUnadvise(System.Int32)">
+            <summary>
+                Destroys a notification connection that had been previously set up.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.IOleDataObject.EnumDAdvise(System.Runtime.InteropServices.ComTypes.IEnumSTATDATA@)">
+            <summary>
+                Creates an object that can be used to enumerate the current advisory connections.
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.IEnumFORMATETC.Next(System.Int32,CPF.Windows.FORMATETC[],System.Int32[])">
+            <devdoc>
+                Retrieves the next celt items in the enumeration sequence. If there are 
+                fewer than the requested number of elements left in the sequence, it 
+                retrieves the remaining elements. The number of elements actually 
+                retrieved is returned through pceltFetched (unless the caller passed 
+                in NULL for that parameter).
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.IEnumFORMATETC.Skip(System.Int32)">
+            <devdoc>
+                Skips over the next specified number of elements in the enumeration sequence.
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.IEnumFORMATETC.Reset">
+            <devdoc>
+                Resets the enumeration sequence to the beginning.
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.IEnumFORMATETC.Clone(CPF.Windows.IEnumFORMATETC@)">
+            <devdoc>
+                Creates another enumerator that contains the same enumeration state as 
+                the current one. Using this function, a client can record a particular 
+                point in the enumeration sequence and then return to that point at a 
+                later time. The new enumerator supports the same interface as the original one.
+            </devdoc>
+        </member>
+        <member name="M:CPF.Windows.OpenGL.Wgl.GlDebug(CPF.Windows.OpenGL.Wgl.DebugCallbackDelegate)">
+            <summary>
+            注册debug消息,委托要自己保存，不要直接用临时的Lambda
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.UnmanagedMethods.GetDIBits(System.IntPtr,System.IntPtr,System.UInt32,System.UInt32,System.Byte[],CPF.Windows.UnmanagedMethods.BITMAPINFOHEADER@,CPF.Windows.DIB_Color_Mode)">
+            <summary>
+                   Retrieves the bits of the specified compatible bitmap and copies them into a buffer as a DIB using the specified format.
+            </summary>
+            <param name="hdc">A handle to the device context.</param>
+            <param name="hbmp">A handle to the bitmap. This must be a compatible bitmap (DDB).</param>
+            <param name="uStartScan">The first scan line to retrieve.</param>
+            <param name="cScanLines">The number of scan lines to retrieve.</param>
+            <param name="lpvBits">A pointer to a buffer to receive the bitmap data. If this parameter is <see cref="F:System.IntPtr.Zero"/>, the function passes the dimensions and format of the bitmap to the <see cref="T:CPF.Windows.UnmanagedMethods.BITMAPINFO"/> structure pointed to by the <paramref name="lpbi"/> parameter.</param>
+            <param name="lpbi">A pointer to a <see cref="T:CPF.Windows.UnmanagedMethods.BITMAPINFO"/> structure that specifies the desired format for the DIB data.</param>
+            <param name="uUsage">The format of the bmiColors member of the <see cref="T:CPF.Windows.UnmanagedMethods.BITMAPINFO"/> structure. It must be one of the following values.</param>
+            <returns>If the lpvBits parameter is non-NULL and the function succeeds, the return value is the number of scan lines copied from the bitmap.
+            If the lpvBits parameter is NULL and GetDIBits successfully fills the <see cref="T:CPF.Windows.UnmanagedMethods.BITMAPINFO"/> structure, the return value is nonzero.
+            If the function fails, the return value is zero.
+            This function can return the following value: ERROR_INVALID_PARAMETER (87 (0×57))</returns>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.COPYDATASTRUCT.dwData">
+            <summary>
+            不使用
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.COPYDATASTRUCT.cbData">
+            <summary>
+            数据长度
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.COPYDATASTRUCT.lpData">
+            <summary>
+            数据地址
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.ClipboardFormat.CF_TEXT">
+            <summary>
+            Text format. Each line ends with a carriage return/linefeed (CR-LF) combination. A null character signals the end of the data. Use this format for ANSI text.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.ClipboardFormat.CF_BITMAP">
+            <summary>
+            A handle to a bitmap
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.ClipboardFormat.CF_DIB">
+            <summary>
+            A memory object containing a BITMAPINFO structure followed by the bitmap bits.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.ClipboardFormat.CF_UNICODETEXT">
+            <summary>
+            Unicode text format. Each line ends with a carriage return/linefeed (CR-LF) combination. A null character signals the end of the data.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.ClipboardFormat.CF_HDROP">
+            <summary>
+            A handle to type HDROP that identifies a list of files. 
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.WINDOWPLACEMENT.Length">
+            <summary>
+            The length of the structure, in bytes. Before calling the GetWindowPlacement or SetWindowPlacement functions, set this member to sizeof(WINDOWPLACEMENT).
+            <para>
+            GetWindowPlacement and SetWindowPlacement fail if this member is not set correctly.
+            </para>
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.WINDOWPLACEMENT.Flags">
+            <summary>
+            Specifies flags that control the position of the minimized window and the method by which the window is restored.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.WINDOWPLACEMENT.ShowCmd">
+            <summary>
+            The current show state of the window.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.WINDOWPLACEMENT.MinPosition">
+            <summary>
+            The coordinates of the window's upper-left corner when the window is minimized.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.WINDOWPLACEMENT.MaxPosition">
+            <summary>
+            The coordinates of the window's upper-left corner when the window is maximized.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.UnmanagedMethods.WINDOWPLACEMENT.NormalPosition">
+            <summary>
+            The window's coordinates when the window is in the restored position.
+            </summary>
+        </member>
+        <member name="P:CPF.Windows.UnmanagedMethods.WINDOWPLACEMENT.Default">
+            <summary>
+            Gets the default (empty) value.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.TouchInputFlags.TOUCHEVENTF_MOVE">
+            <summary>
+            Movement has occurred. Cannot be combined with TOUCHEVENTF_DOWN.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.TouchInputFlags.TOUCHEVENTF_DOWN">
+            <summary>
+            The corresponding touch point was established through a new contact. Cannot be combined with TOUCHEVENTF_MOVE or TOUCHEVENTF_UP.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.TouchInputFlags.TOUCHEVENTF_UP">
+            <summary>
+            A touch point was removed.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.TouchInputFlags.TOUCHEVENTF_INRANGE">
+            <summary>
+            A touch point is in range. This flag is used to enable touch hover support on compatible hardware. Applications that do not want support for hover can ignore this flag.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.TouchInputFlags.TOUCHEVENTF_PRIMARY">
+            <summary>
+            Indicates that this TOUCHINPUT structure corresponds to a primary contact point. See the following text for more information on primary touch points.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.TouchInputFlags.TOUCHEVENTF_NOCOALESCE">
+            <summary>
+            When received using GetTouchInputInfo, this input was not coalesced.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.TouchInputFlags.TOUCHEVENTF_PALM">
+            <summary>
+            The touch event came from the user's palm.
+            </summary>
+        </member>
+        <member name="T:CPF.Windows.STATFLAG">
+            <summary>
+            Stat flags for <see cref="!:IStream.Stat(out STATSTG, STATFLAG)"/>.
+            <see href="https://docs.microsoft.com/en-us/windows/desktop/api/wtypes/ne-wtypes-tagstatflag"/>
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.STATFLAG.STATFLAG_DEFAULT">
+            <summary>
+            Stat includes the name.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.STATFLAG.STATFLAG_NONAME">
+            <summary>
+            Stat doesn't include the name.
+            </summary>
+        </member>
+        <member name="F:CPF.Windows.WindowImpl.ScalingChangedPosition">
+            <summary>
+            为了防止多屏幕拖动的时候抖动
+            </summary>
+        </member>
+        <member name="P:CPF.Windows.WindowImpl.WndPro">
+            <summary>
+            处理WindowProc
+            </summary>
+        </member>
+        <member name="P:CPF.Windows.WindowImpl.RenderBitmap">
+            <summary>
+            RenderToBitmap=true，图像渲染到这个位图里，界面将不显示
+            </summary>
+        </member>
+        <member name="P:CPF.Windows.WindowImpl.Bounds">
+            <summary>
+            窗体位置和尺寸，屏幕像素
+            </summary>
+        </member>
+        <member name="M:CPF.Windows.WindowsPlatform.#ctor(System.Boolean)">
+            <summary>
+            初始化Windows平台
+            </summary>
+            <param name="RegisterForMarshalling">net5以上才有用的，为了兼容aot，自动注册COM的。 如果你要使用Winform控件出现com问题，你可以把这个改成false</param>
+        </member>
+    </members>
+</doc>

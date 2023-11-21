@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.9.6.5</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>QQ:761716178</Authors>
+    <Company>QQ:761716178</Company>
+    <Product>QQ:761716178 跨平台UI框架</Product>
+    <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>
+    <Copyright>Copyright (c) 2020 by http://cpf.cskin.net/</Copyright>
+    <PackageReleaseNotes>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</PackageReleaseNotes>
+    <PackageId>Xhm.CPF.Linux</PackageId>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\xhm\Documents\Visual Studio 2019\ConsoleApp1\CPF.Linux\CPF.Linux.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="1.68.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CPF\CPF.csproj" />
+  </ItemGroup>
+
+</Project>

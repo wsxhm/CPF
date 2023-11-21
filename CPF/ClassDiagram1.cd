@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CPF.UIElement" Collapsed="true">
+    <Position X="12.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>pu1FvICO96v7zuTlvq3u5mxwHbr/8EtlubmU6TPCvzo=</HashCode>
+      <FileName>UIElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Visual" Collapsed="true">
+    <Position X="12.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAQAAAAAAAAAAAAAAAAAAAAAAAIAEABAAICEAAQA=</HashCode>
+      <FileName>Visual.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.CpfObject" Collapsed="true">
+    <Position X="12.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>mEWBAqAEM6MSksAQKgasABQghgABQCKggUBgA8BCpFA=</HashCode>
+      <FileName>CpfObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.Border" Collapsed="true">
+    <Position X="10" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAAACBQAYAAAhAAAIAQAAABAAAAAAIgJAAAAAA=</HashCode>
+      <FileName>Controls\Border.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Button" Collapsed="true">
+    <Position X="5.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ButtonBase" Collapsed="true">
+    <Position X="8.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAACAAAAAIAAAAQACAQIAAAAAoAAAAAACAgg=</HashCode>
+      <FileName>Controls\ButtonBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Calendar" Collapsed="true">
+    <Position X="25.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABgBAAQAAAFQAIAIKAAAAAAAUCAADAAAAAAA=</HashCode>
+      <FileName>Controls\Calendar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.CalendarButton" Collapsed="true">
+    <Position X="4" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\CalendarButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.CalendarDayButton" Collapsed="true">
+    <Position X="6.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAEAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\CalendarDayButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.CheckBox" Collapsed="true">
+    <Position X="8.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\CheckBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ComboBox" Collapsed="true">
+    <Position X="35" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQAAAAQAABgBQAAAAQQAIAACRA4AAAAAqAkAICASQgI=</HashCode>
+      <FileName>Controls\ComboBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ContentControl" Collapsed="true">
+    <Position X="10.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAgCAAAAAgAAAAAACABAAAACgCAAQAAAiAAAAgAAAAg=</HashCode>
+      <FileName>Controls\ContentControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ContentTemplate" Collapsed="true">
+    <Position X="58" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEAAAAAgAAAAAAAIAAAAACAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Controls\ContentTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ContextMenu" Collapsed="true">
+    <Position X="28.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>NEAABAQECKAkAAgAAQAAAAgCAABACAAAgAgACAAAAAY=</HashCode>
+      <FileName>Controls\ContextMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Control" Collapsed="true">
+    <Position X="33.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGMDAAAEAAAwAAABAAgoASAAAJAAAACAMgJAAAABA=</HashCode>
+      <FileName>Controls\Control.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGrid" Collapsed="true">
+    <Position X="32.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBIgKAgAAAAIAFAAQAAgAKCAUEggAAkiAgAUAgAAAU=</HashCode>
+      <FileName>Controls\DataGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridCell" Collapsed="true">
+    <Position X="44" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAEQAAAEAAQAABAAAACAAAAAgBAiAAAAAAAAAA=</HashCode>
+      <FileName>Controls\DataGridCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridCellTemplate" Collapsed="true">
+    <Position X="48.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAIBAAAACAAgBAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Controls\DataGridCellTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridCellTextEditTemplate" Collapsed="true">
+    <Position X="48.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\DataGridCellTextEditTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridCheckBoxColumn" Collapsed="true">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Controls\DataGridCheckBoxColumn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridColumn" Collapsed="true">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>REAAAAAEAABgAAAAAAAIBkAAAAAIIQEAgIAQgACIADA=</HashCode>
+      <FileName>Controls\DataGridColumn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridColumnTemplate" Collapsed="true">
+    <Position X="3" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABBAAACAAAAAAAAoAAAAAAAAAA=</HashCode>
+      <FileName>Controls\DataGridColumnTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridComboBoxColumn" Collapsed="true">
+    <Position X="3.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAgACAAAAAAABAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Controls\DataGridComboBoxColumn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridRow" Collapsed="true">
+    <Position X="37.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAgACAAAAAAAAiAEAAQAAAAA=</HashCode>
+      <FileName>Controls\DataGridRow.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.DataGridScrollViewer" Collapsed="true">
+    <Position X="17.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAACgAAQAAAAiAAAAAAAAAA=</HashCode>
+      <FileName>Controls\DataGridScrollViewer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridTemplateColumn" Collapsed="true">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAABAAAAAAAAAAAAAAAgAAAQAA=</HashCode>
+      <FileName>Controls\DataGridTemplateColumn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DataGridTextColumn" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Controls\DataGridTextColumn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DatePicker" Collapsed="true">
+    <Position X="55.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAhAAAQAABAAAAEAABQAIBICYAggAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Controls\DatePicker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Decorator" Collapsed="true">
+    <Position X="60.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAgQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Decorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DockPanel" Collapsed="true">
+    <Position X="12.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEEAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Controls\DockPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DocumentBlock" Collapsed="true">
+    <Position X="12.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEADAAAAAAAgAIAAAAAgAQAAIIAAACgAAgKAAAAAA=</HashCode>
+      <FileName>Controls\DocumentBlock.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.Expander" Collapsed="true">
+    <Position X="12.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAAQAAAAAAAAAAAAAAAAACAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Expander.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Grid" Collapsed="true">
+    <Position X="10.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgMAAAAEAAAAAAAAAAAQYAQAAAAAAQQwgAAIIIAAAI=</HashCode>
+      <FileName>Controls\Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.GridSplitter" Collapsed="true">
+    <Position X="63.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gMBAIAAAAkgCAAAQAAEFAEIIAAIAAAEIioiZAAAQAAg=</HashCode>
+      <FileName>Controls\GridSplitter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ItemsControl&lt;T&gt;" Collapsed="true">
+    <Position X="31.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgkAAAACAQAAQAAgAACAQFAAQQoGEgAAQgAAAU=</HashCode>
+      <FileName>Controls\ItemsControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Label" Collapsed="true">
+    <Position X="39.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Controls\Label.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ListBox" Collapsed="true">
+    <Position X="35" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAIAgAgAAIAEAAQAAAAICAQIgAAAAiAgAQAgAAAQ=</HashCode>
+      <FileName>Controls\ListBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ListBoxItem" Collapsed="true">
+    <Position X="15" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAFAAAAAAAAAACAAAAAAAAAAEAAAAAAAI=</HashCode>
+      <FileName>Controls\ListBoxItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.MenuItem" Collapsed="true">
+    <Position X="30.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ZAQACAQICCAAAEBAAQBCEAAGAgAAAEAAqAgAAAECAAQ=</HashCode>
+      <FileName>Controls\MenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.MultiSelector&lt;T&gt;" Collapsed="true">
+    <Position X="34" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAgAIBECAAABAAAAAIAAAIAAAIACRAgCAAA=</HashCode>
+      <FileName>Controls\MultiSelector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Panel" Collapsed="true">
+    <Position X="14.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGADAAAAAAAgAAABAEAoAQAAAJAAAAAAAgJAAAAAA=</HashCode>
+      <FileName>Controls\Panel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Picture" Collapsed="true">
+    <Position X="3.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAiAAEBFABAAQAAEQAAgAAAEAgAEQIACBAAQ=</HashCode>
+      <FileName>Controls\Picture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Popup" Collapsed="true">
+    <Position X="21" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAEAECAAAFAEAAAgACAAFAAAAgAgQAICAABA=</HashCode>
+      <FileName>Controls\Popup.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.ProgressBar" Collapsed="true">
+    <Position X="53.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAJAAKAACAAoAAAEAiAEAAAAAgFA=</HashCode>
+      <FileName>Controls\ProgressBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.RadioButton" Collapsed="true">
+    <Position X="10.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAgAAAAAAAUAAAEAAAE=</HashCode>
+      <FileName>Controls\RadioButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.RangeBase" Collapsed="true">
+    <Position X="53.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACEAAAAAAAAQAAAAAAAAAAACAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Controls\RangeBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.RepeatButton" Collapsed="true">
+    <Position X="13" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCAAAAAIAACgAAAAAIBAAAAIARIIAAAAoAAAAgACAAA=</HashCode>
+      <FileName>Controls\RepeatButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ScrollBar" Collapsed="true">
+    <Position X="51" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgBAIAAAAAQgCAAAAAAAAgAAAAAIAIAI=</HashCode>
+      <FileName>Controls\ScrollBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ScrollContentPresenter" Collapsed="true">
+    <Position X="14.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAIAIEAgAAAAIAIAwUIIEURiASQEYwAAQABAAABgAA=</HashCode>
+      <FileName>Controls\ScrollContentPresenter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.ScrollViewer" Collapsed="true">
+    <Position X="17.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAIAAAAAAABCIAQEIIAUCDACQMIQAgAAFAggAEAg=</HashCode>
+      <FileName>Controls\ScrollViewer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.SelectionContentTemplate" Collapsed="true">
+    <Position X="59" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAEAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Controls\SelectionItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.SelectionItem" Collapsed="true">
+    <Position X="10.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Controls\SelectionItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Separator" Collapsed="true">
+    <Position X="46.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Separator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Slider" Collapsed="true">
+    <Position X="55.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAVYAyBCIAIAAAwoTAAAICAEAuAAAwAIAMAI=</HashCode>
+      <FileName>Controls\Slider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.StackPanel" Collapsed="true">
+    <Position X="19.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAQAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\StackPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.TabControl" Collapsed="true">
+    <Position X="18.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEEAEAAAACQIAAAgACAACAAAAgAAACJAABAAAARA=</HashCode>
+      <FileName>Controls\TabControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.TabItem" Collapsed="true">
+    <Position X="5.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAAAAAAAAAEAAAAAAAAAACACAAQAAAiAAQAAAAAAA=</HashCode>
+      <FileName>Controls\TabItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.TextBlock" Collapsed="true">
+    <Position X="17.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEADAAAAAAAgAAEAAAAgAQAAAIAAAAgAAgKAAAAAA=</HashCode>
+      <FileName>Controls\TextBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.TextBox" Collapsed="true">
+    <Position X="35" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEQApJAGhAGEwAgZEEgMZNQGQhPIAqIDjQEQCEEUDUE=</HashCode>
+      <FileName>Controls\TextBox.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.TextBoxView" Collapsed="true">
+    <Position X="5.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IA0kACCAQCDAAgBBEQAAIAAwgBJCAAICoBAAKAAOAQE=</HashCode>
+      <FileName>Controls\TextBoxView.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.Thumb" Collapsed="true">
+    <Position X="63.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAIAgAAgAQAAEEAACARAAABgKoAAAAAACAAA=</HashCode>
+      <FileName>Controls\Thumb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.TickBar" Collapsed="true">
+    <Position X="7.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACCIAAAAgAAAAAAAAoAAAAACAAAAAAAIAAAEAQ=</HashCode>
+      <FileName>Controls\TickBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ToggleButton" Collapsed="true">
+    <Position X="9.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAqAAAACAAIAAAAACAAAAAAAAgARAAAEAAAA=</HashCode>
+      <FileName>Controls\ToggleButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.Track" Collapsed="true">
+    <Position X="57.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kBIEACCEAQAAIAAAgAARAAIRAZAGAAAAgEAgAAAGAAA=</HashCode>
+      <FileName>Controls\Track.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.TreeView" Collapsed="true">
+    <Position X="37.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBAAAAACAAAAAAAAQQAAgAAiAIAAAgAAgBgAQAACAAQ=</HashCode>
+      <FileName>Controls\TreeView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.TreeViewContentTemplate" Collapsed="true">
+    <Position X="56.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controls\TreeViewContentTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.TreeViewItem" Collapsed="true">
+    <Position X="26" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RgAAAQAAAgAAFAAAIQBAgAAiAIIAAAAAgAgAAAIAAAQ=</HashCode>
+      <FileName>Controls\TreeViewItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.View" Collapsed="true">
+    <Position X="22.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IACDAQYEAAAIBgFoKAEECAAIgCQJEoASgDUAoABYAYI=</HashCode>
+      <FileName>Controls\View.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.VirtualizationPresenter&lt;T&gt;" Collapsed="true">
+    <Position X="61.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAIAIAjgIAALAAIBwEoIkUTiAaREYwAigCxIBgBgAA=</HashCode>
+      <FileName>Controls\VirtualizationPresenter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.Window" Collapsed="true">
+    <Position X="23.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EGAIAAAAACgAAEAAFAEAgAkBBBAkCSIAgBoFCMGQIEQ=</HashCode>
+      <FileName>Controls\Window.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPF.Controls.WindowFrame" Collapsed="true">
+    <Position X="41.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAEAAgAAAQAAAAAAAAACAAAAAAAIAAEACAAAAAA=</HashCode>
+      <FileName>Controls\WindowFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.WrapPanel" Collapsed="true">
+    <Position X="17" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAQAAAACAAAAAAAAQAAAAAABAAEAAAAAAAAA=</HashCode>
+      <FileName>Controls\WrapPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.ColumnDefinition" Collapsed="true">
+    <Position X="15.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACIAAAAAAAAAABAAAAAAEAAAAAAAAEAAAAQAAAAABA=</HashCode>
+      <FileName>Controls\ColumnDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.DefinitionBase" Collapsed="true">
+    <Position X="17" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\DefinitionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.RowDefinition" Collapsed="true">
+    <Position X="18" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACIAAAAFAAAAABAAAAAAAAAAQAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Controls\RowDefinition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.FileDialog" Collapsed="true">
+    <Position X="25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\SystemDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.FileSystemDialog" Collapsed="true">
+    <Position X="23.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\SystemDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.OpenFileDialog" Collapsed="true">
+    <Position X="27.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAA=</HashCode>
+      <FileName>Controls\SystemDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.OpenFolderDialog" Collapsed="true">
+    <Position X="21.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Controls\SystemDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.SaveFileDialog" Collapsed="true">
+    <Position X="27.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Controls\SystemDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPF.Controls.SystemDialog" Collapsed="true">
+    <Position X="23.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\SystemDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

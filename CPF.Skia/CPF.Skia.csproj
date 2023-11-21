@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>QQ:761716178 跨平台UI框架</Product>
+    <Version>0.9.6.5</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>Xhm.CPF.Skia</PackageId>
+    <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>
+    <Copyright>Copyright (c) 2020 by http://cpf.cskin.net/</Copyright>
+    <PackageReleaseNotes>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</PackageReleaseNotes>
+    <Authors>QQ:761716178</Authors>
+    <Company>QQ:761716178</Company>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>D:\xhm\Documents\Visual Studio 2019\ConsoleApp1\CPF.Skia\CPF.Skia.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="GlContexts\**" />
+    <EmbeddedResource Remove="GlContexts\**" />
+    <None Remove="GlContexts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="SkiaFont.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="1.68.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CPF\CPF.csproj" />
+  </ItemGroup>
+
+</Project>

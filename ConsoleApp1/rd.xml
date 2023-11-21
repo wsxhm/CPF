@@ -1,0 +1,13 @@
+﻿<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+  <Application>
+    <Assembly Name="CPF" Dynamic="Required All" >
+      <Type Name="CPF.Animation.KeyFrame`1[[CPF.Drawing.Color,CPF]]" Dynamic="Required All" />
+    </Assembly>
+    <Assembly Name="CPF.Windows" Dynamic="Required All">
+      <Type Name="CPF.Windows.OpenGL.WglCreateContextAttribsARBDelegate" MarshalDelegate="Required All" />
+      <!--<Type Name="CPF.Windows.STGMEDIUM" MarshalStructure="Required All" />
+      <Type Name="CPF.Windows.FORMATETC" MarshalStructure="Required All" />
+      <Type Name="CPF.Windows.ComWrapper.CpfComWrappers" MarshalObject="Required All" />-->
+    </Assembly>
+  </Application>
+</Directives>

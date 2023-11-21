@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CPF.Linux</name>
+    </assembly>
+    <members>
+        <member name="P:CPF.Linux.LinuxPlatform.EnabledTouch">
+            <summary>
+            启用触摸事件，之所有加上这个，因为部分Linux对XI2支持有问题
+            </summary>
+        </member>
+        <member name="T:CPF.Linux.XEventHandler">
+            <summary>
+            处理事件，返回值为true的时候不调用默认处理方法
+            </summary>
+            <param name="xEvent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CPF.Linux.CancelHandle.SetResult(System.Object)">
+            <summary>
+            设置数据，同时设置Cancel=true
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:CPF.Linux.LinuxSynchronizationContext.Post(System.Threading.SendOrPostCallback,System.Object)">
+            <summary>
+            异步
+            </summary>
+            <param name="d"></param>
+            <param name="state"></param>
+        </member>
+        <member name="F:CPF.Linux.XIMValuesList.count_values">
+            unsigned short
+        </member>
+        <member name="F:CPF.Linux.XIMValuesList.supported_values">
+            char**
+        </member>
+        <member name="F:CPF.Linux.XEventName.Expose">
+            <summary>
+            绘制
+            </summary>
+        </member>
+        <member name="M:CPF.Linux.X11Window.OnPropertyChange(System.IntPtr,System.Boolean,System.Nullable{CPF.Controls.WindowState})">
+            <summary>
+            
+            </summary>
+            <param name="atom"></param>
+            <param name="hasValue"></param>
+            <param name="windowState">部分Linux里会丢失状态消息</param>
+        </member>
+        <member name="F:CPF.Linux.XrmValue.size">
+            unsigned int
+        </member>
+        <member name="F:CPF.Linux.XrmValue.addr">
+            XPointer->char*
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,10 @@
+﻿DataGridCellTemplate{
+    BorderFill:null;
+}
+DataGridCellTemplate ContentControl{
+    MarginLeft:5;
+}
+DataGridRow{
+    BorderFill:null;
+    Height:25;
+}

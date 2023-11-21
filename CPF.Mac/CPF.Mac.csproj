@@ -1,0 +1,281 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Product>QQ:761716178 跨平台UI框架</Product>
+    <Version>0.9.6.5</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>Xhm.CPF.Mac</PackageId>
+    <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>
+    <Copyright>Copyright (c) 2020 by http://cpf.cskin.net/</Copyright>
+    <PackageReleaseNotes>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</PackageReleaseNotes>
+    <Authors>QQ:761716178</Authors>
+    <Company>QQ:761716178</Company>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\xhm\Documents\Visual Studio 2019\ConsoleApp1\CPF.Mac\CPF.Mac.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Mac\CoreAnimation\**" />
+    <Compile Remove="Mac\CoreMedia\**" />
+    <Compile Remove="Mac\CoreText\**" />
+    <Compile Remove="Mac\ImageIO\**" />
+    <Compile Remove="Mac\ImageKit\**" />
+    <EmbeddedResource Remove="Mac\CoreAnimation\**" />
+    <EmbeddedResource Remove="Mac\CoreMedia\**" />
+    <EmbeddedResource Remove="Mac\CoreText\**" />
+    <EmbeddedResource Remove="Mac\ImageIO\**" />
+    <EmbeddedResource Remove="Mac\ImageKit\**" />
+    <None Remove="Mac\CoreAnimation\**" />
+    <None Remove="Mac\CoreMedia\**" />
+    <None Remove="Mac\CoreText\**" />
+    <None Remove="Mac\ImageIO\**" />
+    <None Remove="Mac\ImageKit\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Mac\AppKit\NSAlert.cs" />
+    <Compile Remove="Mac\AppKit\NSAlertButtonReturn.cs" />
+    <Compile Remove="Mac\AppKit\NSAlertDelegate.cs" />
+    <Compile Remove="Mac\AppKit\NSAlertDidEndDispatcher.cs" />
+    <Compile Remove="Mac\AppKit\NSAlertPredicate.cs" />
+    <Compile Remove="Mac\AppKit\NSAlertStyle.cs" />
+    <Compile Remove="Mac\AppKit\NSAlertType.cs" />
+    <Compile Remove="Mac\AppKit\NSBrowser.cs" />
+    <Compile Remove="Mac\AppKit\NSBrowserCell.cs" />
+    <Compile Remove="Mac\AppKit\NSBrowserColumnResizingType.cs" />
+    <Compile Remove="Mac\AppKit\NSBrowserDelegate.cs" />
+    <Compile Remove="Mac\AppKit\NSBrowserDropOperation.cs" />
+    <Compile Remove="Mac\AppKit\NSColorPanel.cs" />
+    <Compile Remove="Mac\AppKit\NSColorPanelFlags.cs" />
+    <Compile Remove="Mac\AppKit\NSColorPanelMode.cs" />
+    <Compile Remove="Mac\AppKit\NSColorPicker.cs" />
+    <Compile Remove="Mac\AppKit\NSDatePicker.cs" />
+    <Compile Remove="Mac\AppKit\NSDatePickerCell.cs" />
+    <Compile Remove="Mac\AppKit\NSDatePickerCellDelegate.cs" />
+    <Compile Remove="Mac\AppKit\NSDatePickerElementFlags.cs" />
+    <Compile Remove="Mac\AppKit\NSDatePickerMode.cs" />
+    <Compile Remove="Mac\AppKit\NSDatePickerStyle.cs" />
+    <Compile Remove="Mac\AppKit\NSDatePickerValidatorEventArgs.cs" />
+    <Compile Remove="Mac\AppKit\NSDocument.cs" />
+    <Compile Remove="Mac\AppKit\NSDocumentChangeType.cs" />
+    <Compile Remove="Mac\AppKit\NSDocumentCompletionHandler.cs" />
+    <Compile Remove="Mac\AppKit\NSDocumentController.cs" />
+    <Compile Remove="Mac\AppKit\NSPopUpArrowPosition.cs" />
+    <Compile Remove="Mac\AppKit\NSPopUpButton.cs" />
+    <Compile Remove="Mac\AppKit\NSPopUpButtonCell.cs" />
+    <Compile Remove="Mac\AppKit\NSPredicateEditor.cs" />
+    <Compile Remove="Mac\AppKit\NSPredicateEditorRowTemplate.cs" />
+    <Compile Remove="Mac\AppKit\NSSearchField.cs" />
+    <Compile Remove="Mac\AppKit\NSSearchFieldCell.cs" />
+    <Compile Remove="Mac\AppKit\NSSecureTextField.cs" />
+    <Compile Remove="Mac\AppKit\NSSecureTextFieldCell.cs" />
+    <Compile Remove="Mac\AppKit\NSSegmentedCell.cs" />
+    <Compile Remove="Mac\AppKit\NSSegmentedControl.cs" />
+    <Compile Remove="Mac\AppKit\NSSegmentStyle.cs" />
+    <Compile Remove="Mac\AppKit\NSSegmentSwitchTracking.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingService.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServiceDelegate.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServiceDidFailToShareItemsEventArgs.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServiceItemsEventArgs.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServiceName.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServicePicker.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServicePickerDelegate.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServicePickerDelegateForSharingService.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServicePickerDidChooseSharingServiceEventArgs.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServicePickerSharingServicesForItems.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServiceSourceFrameOnScreenForShareItem.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServiceSourceWindowForShareItems.cs" />
+    <Compile Remove="Mac\AppKit\NSSharingServiceTransitionImageForShareItem.cs" />
+    <Compile Remove="Mac\AppKit\NSSlider.cs" />
+    <Compile Remove="Mac\AppKit\NSSliderCell.cs" />
+    <Compile Remove="Mac\AppKit\NSSliderType.cs" />
+    <Compile Remove="Mac\AppKit\NSSpeechBoundary.cs" />
+    <Compile Remove="Mac\AppKit\NSSpeechRecognizer.cs" />
+    <Compile Remove="Mac\AppKit\NSSpeechRecognizerDelegate.cs" />
+    <Compile Remove="Mac\AppKit\NSSpeechSynthesizer.cs" />
+    <Compile Remove="Mac\AppKit\NSSpeechSynthesizerDelegate.cs" />
+    <Compile Remove="Mac\AppKit\NSSpellChecker.cs" />
+    <Compile Remove="Mac\AppKit\NSSplitView.cs" />
+    <Compile Remove="Mac\AppKit\NSSplitViewDelegate.cs" />
+    <Compile Remove="Mac\AppKit\NSSplitViewDividerStyle.cs" />
+    <Compile Remove="Mac\AppKit\NSWindowController.cs" />
+    <Compile Remove="Mac\AppKit\OpenDocumentCompletionHandler.cs" />
+    <Compile Remove="Mac\CoreGraphics\CGImageProperties.cs" />
+    <Compile Remove="Mac\CoreGraphics\CGImagePropertiesExif.cs" />
+    <Compile Remove="Mac\CoreGraphics\CGImagePropertiesGps.cs" />
+    <Compile Remove="Mac\CoreGraphics\CGImagePropertiesIptc.cs" />
+    <Compile Remove="Mac\CoreGraphics\CGImagePropertiesJfif.cs" />
+    <Compile Remove="Mac\CoreGraphics\CGImagePropertiesPng.cs" />
+    <Compile Remove="Mac\CoreGraphics\CGImagePropertiesTiff.cs" />
+    <Compile Remove="Mac\CoreImage\CIImageInitializationOptionsWithMetadata.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="resizeeastwest.png" />
+    <None Remove="resizenortheastsouthwest.png" />
+    <None Remove="resizenorthsouth.png" />
+    <None Remove="resizenorthwestsoutheast.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Mac\CoreAnimation\CAAnimation.cs" />
+    <Compile Include="Mac\CoreAnimation\CAAnimationDelegate.cs" />
+    <Compile Include="Mac\CoreAnimation\CAAnimationGroup.cs" />
+    <Compile Include="Mac\CoreAnimation\CAAnimationStateEventArgs.cs" />
+    <Compile Include="Mac\CoreAnimation\CAAutoresizingMask.cs" />
+    <Compile Include="Mac\CoreAnimation\CAConstraint.cs" />
+    <Compile Include="Mac\CoreAnimation\CAConstraintAttribute.cs" />
+    <Compile Include="Mac\CoreAnimation\CAConstraintLayoutManager.cs" />
+    <Compile Include="Mac\CoreAnimation\CAEdgeAntialiasingMask.cs" />
+    <Compile Include="Mac\CoreAnimation\CALayer.cs" />
+    <Compile Include="Mac\CoreAnimation\CALayerDelegate.cs" />
+    <Compile Include="Mac\CoreAnimation\CAMediaTimingFunction.cs" />
+    <Compile Include="Mac\CoreAnimation\CATransform3D.cs" />
+    <Compile Include="Mac\CoreAnimation\CATransformLayer.cs" />
+    <Compile Include="Mac\CoreMedia\CMTime.cs" />
+    <Compile Include="Mac\CoreMedia\CMTimeMapping.cs" />
+    <Compile Include="Mac\CoreMedia\CMTimeRange.cs" />
+    <Compile Include="Mac\CoreMedia\CMTimeRoundingMethod.cs" />
+    <Compile Include="Mac\CoreText\Adapter.cs" />
+    <Compile Include="Mac\CoreText\ConstructorError.cs" />
+    <Compile Include="Mac\CoreText\CTBaselineClass.cs" />
+    <Compile Include="Mac\CoreText\CTBaselineClassID.cs" />
+    <Compile Include="Mac\CoreText\CTBaselineFondID.cs" />
+    <Compile Include="Mac\CoreText\CTBaselineFont.cs" />
+    <Compile Include="Mac\CoreText\CTCharacterCollection.cs" />
+    <Compile Include="Mac\CoreText\CTFont.cs" />
+    <Compile Include="Mac\CoreText\CTFontCollection.cs" />
+    <Compile Include="Mac\CoreText\CTFontCollectionOptionKey.cs" />
+    <Compile Include="Mac\CoreText\CTFontCollectionOptions.cs" />
+    <Compile Include="Mac\CoreText\CTFontDescriptor.cs" />
+    <Compile Include="Mac\CoreText\CTFontDescriptorAttributeKey.cs" />
+    <Compile Include="Mac\CoreText\CTFontDescriptorAttributes.cs" />
+    <Compile Include="Mac\CoreText\CTFontDescriptorMatchingState.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureAllTypographicFeatures.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureAlternateKana.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureAnnotation.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureCaseSensitiveLayout.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureCharacterAlternatives.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureCharacterShape.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureCJKRomanSpacing.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureCJKSymbolAlternatives.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureCJKVerticalRomanPlacement.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureContextualAlternates.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureCursiveConnection.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureDesignComplexity.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureDiacritics.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureFractions.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureIdeographicAlternatives.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureIdeographicSpacing.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureItalicCJKRoman.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureKanaSpacing.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureKey.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureLetterCase.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureLigatures.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureLinguisticRearrangementConnection.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureLowerCase.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureMathematicalExtras.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureNumberCase.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureNumberSpacing.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureOrnamentSets.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureOverlappingCharacters.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureRubyKana.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatures.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureSelectorKey.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureSelectors.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureSettings.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureSmartSwash.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureStyleOptions.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureStylisticAlternatives.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureTextSpacing.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureTransliteration.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureTypographicExtras.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureUnicodeDecomposition.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureUpperCase.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureVerticalPosition.cs" />
+    <Compile Include="Mac\CoreText\CTFontFeatureVerticalSubstitutionConnection.cs" />
+    <Compile Include="Mac\CoreText\CTFontFormat.cs" />
+    <Compile Include="Mac\CoreText\CTFontManager.cs" />
+    <Compile Include="Mac\CoreText\CTFontManagerAutoActivation.cs" />
+    <Compile Include="Mac\CoreText\CTFontManagerError.cs" />
+    <Compile Include="Mac\CoreText\CTFontManagerScope.cs" />
+    <Compile Include="Mac\CoreText\CTFontNameKey.cs" />
+    <Compile Include="Mac\CoreText\CTFontNameKeyId.cs" />
+    <Compile Include="Mac\CoreText\CTFontOptions.cs" />
+    <Compile Include="Mac\CoreText\CTFontOrientation.cs" />
+    <Compile Include="Mac\CoreText\CTFontPriority.cs" />
+    <Compile Include="Mac\CoreText\CTFontStylisticClass.cs" />
+    <Compile Include="Mac\CoreText\CTFontSymbolicTraits.cs" />
+    <Compile Include="Mac\CoreText\CTFontTable.cs" />
+    <Compile Include="Mac\CoreText\CTFontTableOptions.cs" />
+    <Compile Include="Mac\CoreText\CTFontTraitKey.cs" />
+    <Compile Include="Mac\CoreText\CTFontTraits.cs" />
+    <Compile Include="Mac\CoreText\CTFontUIFontType.cs" />
+    <Compile Include="Mac\CoreText\CTFontVariation.cs" />
+    <Compile Include="Mac\CoreText\CTFontVariationAxes.cs" />
+    <Compile Include="Mac\CoreText\CTFontVariationAxisKey.cs" />
+    <Compile Include="Mac\CoreText\CTFrame.cs" />
+    <Compile Include="Mac\CoreText\CTFrameAttributeKey.cs" />
+    <Compile Include="Mac\CoreText\CTFrameAttributes.cs" />
+    <Compile Include="Mac\CoreText\CTFramePathFillRule.cs" />
+    <Compile Include="Mac\CoreText\CTFrameProgression.cs" />
+    <Compile Include="Mac\CoreText\CTFramesetter.cs" />
+    <Compile Include="Mac\CoreText\CTGlyphInfo.cs" />
+    <Compile Include="Mac\CoreText\CTLigatureFormation.cs" />
+    <Compile Include="Mac\CoreText\CTLine.cs" />
+    <Compile Include="Mac\CoreText\CTLineBoundsOptions.cs" />
+    <Compile Include="Mac\CoreText\CTLineBreakMode.cs" />
+    <Compile Include="Mac\CoreText\CTLineTruncation.cs" />
+    <Compile Include="Mac\CoreText\CTParagraphStyle.cs" />
+    <Compile Include="Mac\CoreText\CTParagraphStyleSetting.cs" />
+    <Compile Include="Mac\CoreText\CTParagraphStyleSettings.cs" />
+    <Compile Include="Mac\CoreText\CTParagraphStyleSettingValue.cs" />
+    <Compile Include="Mac\CoreText\CTParagraphStyleSpecifier.cs" />
+    <Compile Include="Mac\CoreText\CTParagraphStyleSpecifierByteValue.cs" />
+    <Compile Include="Mac\CoreText\CTParagraphStyleSpecifierIntPtrsValue.cs" />
+    <Compile Include="Mac\CoreText\CTParagraphStyleSpecifierSingleValue.cs" />
+    <Compile Include="Mac\CoreText\CTParagraphStyleSpecifierValue.cs" />
+    <Compile Include="Mac\CoreText\CTRun.cs" />
+    <Compile Include="Mac\CoreText\CTRunDelegate.cs" />
+    <Compile Include="Mac\CoreText\CTRunDelegateCallbacks.cs" />
+    <Compile Include="Mac\CoreText\CTRunDelegateDeallocateCallback.cs" />
+    <Compile Include="Mac\CoreText\CTRunDelegateGetAscentCallback.cs" />
+    <Compile Include="Mac\CoreText\CTRunDelegateGetDescentCallback.cs" />
+    <Compile Include="Mac\CoreText\CTRunDelegateGetWidthCallback.cs" />
+    <Compile Include="Mac\CoreText\CTRunDelegateOperations.cs" />
+    <Compile Include="Mac\CoreText\CTRunDelegateVersion.cs" />
+    <Compile Include="Mac\CoreText\CTRunStatus.cs" />
+    <Compile Include="Mac\CoreText\CTStringAttributeKey.cs" />
+    <Compile Include="Mac\CoreText\CTStringAttributes.cs" />
+    <Compile Include="Mac\CoreText\CTSuperscriptStyle.cs" />
+    <Compile Include="Mac\CoreText\CTTextAlignment.cs" />
+    <Compile Include="Mac\CoreText\CTTextTab.cs" />
+    <Compile Include="Mac\CoreText\CTTextTabOptionKey.cs" />
+    <Compile Include="Mac\CoreText\CTTextTabOptions.cs" />
+    <Compile Include="Mac\CoreText\CTTypesetter.cs" />
+    <Compile Include="Mac\CoreText\CTTypesetterOptionKey.cs" />
+    <Compile Include="Mac\CoreText\CTTypesetterOptions.cs" />
+    <Compile Include="Mac\CoreText\CTUnderlineStyle.cs" />
+    <Compile Include="Mac\CoreText\CTUnderlineStyleModifiers.cs" />
+    <Compile Include="Mac\CoreText\CTWritingDirection.cs" />
+    <Compile Include="Mac\CoreText\FontFeatureGroup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="resizeeastwest.png" />
+    <EmbeddedResource Include="resizenortheastsouthwest.png" />
+    <EmbeddedResource Include="resizenorthsouth.png" />
+    <EmbeddedResource Include="resizenorthwestsoutheast.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CPF\CPF.csproj" />
+  </ItemGroup>
+
+</Project>

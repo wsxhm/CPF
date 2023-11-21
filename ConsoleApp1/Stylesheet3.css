@@ -1,0 +1,266 @@
+﻿@font-face {
+    font-family: '微软雅黑';
+    src: url('res://ConsoleApp1/msyh.ttc');
+}
+/*设计模式下有效*/
+@media DesignMode {
+        * {
+        FontFamily: '微软雅黑';
+    }
+}
+
+@media windows {
+    * {
+        FontFamily: '微软雅黑'; /*不同系统的字体不同，自己根据情况改或者使用内嵌字体*/
+    }
+}
+
+@media osx {
+    * {
+        FontFamily: '苹方-简';
+    }
+}
+
+@media linux {
+    * {
+        FontFamily: 'sans-serif';
+    }
+}
+.Test.Single{
+
+}
+DataGridCellTemplate, DataGridRow {
+    BorderFill: #f00 !important;
+}
+#caption {
+    Background: #00000000;
+}
+
+#frame {
+    /*Background: url('data:image/png;base64,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);*/
+    Background: rgb(75,178,255);
+}
+
+#headBorder {
+    Background: #00000000;
+    BorderFill: #00000000;
+}
+
+#mainTab #headerPanel {
+    Width: 150;
+}
+
+TabItemTemplate TextBlock {
+    MarginLeft: 0;
+    Foreground: #fff;
+    FontSize: 14;
+}
+
+TabItemTemplate[IsSelected=true] > Border {
+    Background: #00000040;
+    BorderFill: #00000000;
+}
+
+@keyframes tabItemMouseLeave {
+    0% {
+        Background: #00000040;
+    }
+
+    100% {
+        Background: #00000000;
+    }
+}
+
+TabItemTemplate[IsMouseOver=false] {
+/*    Background: #00000040;*/
+    animation-name: tabItemMouseLeave;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+TabItemTemplate[IsMouseOver=true] {
+    Background: #00000040;
+}
+
+@keyframes buttonAnimationEnter {
+    0% {
+        Background: #1E9FFF;
+    }
+
+    100% {
+        Background: rgb(75,178,255);
+    }
+}
+
+#DropDownPanel TextBlock {
+    MarginLeft: 5;
+}
+Button {
+    Background: #1E9FFF;
+    Foreground: #fff;
+    BorderFill: null;
+}
+Button.Test {
+    Foreground: #f00;
+}
+
+    Button[IsMouseOver=true] {
+        Background: #1E9FFF;
+        animation-name: buttonAnimationEnter;
+        animation-duration: 0.2s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    Button[IsPressed=true] {
+        Background: rgb(30,159,255);
+    }
+
+CheckBox #indeterminateMark {
+    Fill: #1E9FFF;
+}
+
+CheckBox #checkBoxBorder {
+    Background: #fff;
+    BorderFill: #1E9FFF;
+}
+
+CheckBox[IsChecked=true] #checkBoxBorder {
+    Background: #1E9FFF;
+    BorderFill: #1E9FFF;
+}
+
+CheckBox Polyline {
+    StrokeFill: #fff;
+}
+
+RadioButton #radioButtonBorder {
+    StrokeFill: #1E9FFF;
+}
+
+RadioButton #optionMark {
+    StrokeFill: #1E9FFF;
+    Fill: #1E9FFF;
+}
+
+ComboBox {
+    BorderFill: #1E9FFF;
+    BorderStroke: 1;
+    Background: #fff;
+    UseLayoutRounding: true;
+}
+
+/*TextBox {
+    BorderFill: #1E9FFF;
+    BorderStroke: 1;
+    UseLayoutRounding: true;
+    Background: #00000000;
+}
+
+    TextBox #contentPresenter {
+        Padding: 3;
+    }*/
+
+.Single { /*单行文本框*/
+    AcceptsReturn: false;
+    HScrollBarVisibility: Hidden;
+    VScrollBarVisibility: Hidden;
+}
+
+TextBox ScrollBar {
+    Background: #fff;
+}
+
+    TextBox ScrollBar Thumb {
+        CornerRadius: 5;
+    }
+
+    TextBox ScrollBar[Orientation=Horizontal] {
+        Height: 12;
+    }
+
+    TextBox ScrollBar[Orientation=Vertical] {
+        Width: 12;
+    }
+
+    TextBox ScrollBar #PART_LineUpButton, TextBox ScrollBar #PART_LineDownButton {
+        Visibility: Collapsed;
+    }
+
+@keyframes shadowEffect {
+    0% {
+        ShadowColor: #00000000;
+    }
+
+    100% {
+        ShadowColor: #1E9FFF;
+    }
+}
+
+#shadowEffect[IsKeyboardFocusWithin=true] {
+    animation-name: shadowEffect;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+Window.Single{
+
+}
+
+Window>.Single{
+
+}
+/*[IsMouseOver=true]{
+
+}*/
+/*#testGrid {
+    RenderTransform: rotate(20) skew(15,3) translate(100,200);
+}*/
+
+#controlBox #min Line {
+    StrokeFill: #f00;
+}
+#controlBox #min[IsMouseOver=true] {
+    Background: #808080;
+}
+#icon{
+    Visibility:Collapsed;
+}
+
+TreeViewItem[Level=1] Panel{
+    MarginLeft:15;
+}
+
+/*
+DatePicker SVG {
+    Fill: #f00;
+}
+
+DatePicker[IsMouseOver=true] SVG {
+    Fill: #00f;
+}*/
+/*#testGrid {
+    RowDefinitions-1-Height: '3*';
+    RowDefinitions-0-Height: '*';
+}*/
+
+ListBoxItemTemplate[IsMouseOver=true]{
+    Background:#f00;
+}
+ListBoxItemTemplate[IsSelected=true] {
+    Background: #0ff !important;
+}
+ScrollBar Thumb[IsDragging=true] {
+    Background:#f00;
+}
+ListBoxItemTemplate[AttachedExtenstions.AlternationIndex=1] {
+    Background: #ff0;
+}
+DataGridRowTemplate[AttachedExtenstions.AlternationIndex=1] {
+    Background: #ff0;
+}
+DataGridRowTemplate[IsSelected=true]{
+    Background: #00000040 !important;
+}

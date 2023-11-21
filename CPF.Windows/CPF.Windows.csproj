@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net40;netstandard2.0;net5</TargetFrameworks>
+    <Product>QQ:761716178 跨平台UI框架</Product>
+    <Version>0.9.6.5</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>Xhm.CPF.Windows</PackageId>
+    <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>
+    <PackageProjectUrl>http://cpf.cskin.net/</PackageProjectUrl>
+    <Copyright>Copyright (c) 2020 by http://cpf.cskin.net/</Copyright>
+    <PackageReleaseNotes>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</PackageReleaseNotes>
+    <Authors>QQ:761716178</Authors>
+    <Company>QQ:761716178</Company>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants />
+    <DocumentationFile>D:\xhm\Documents\Visual Studio 2019\ConsoleApp1\CPF.Windows\CPF.Windows.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Json\**" />
+    <Compile Remove="MicroCom\**" />
+    <EmbeddedResource Remove="Json\**" />
+    <EmbeddedResource Remove="MicroCom\**" />
+    <None Remove="Json\**" />
+    <None Remove="MicroCom\**" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net40' Or '$(TargetFramework)'=='netstandard2.0'">
+    <Compile Remove="ComWrapper\**" />
+    <EmbeddedResource Remove="ComWrapper\**" />
+    <None Remove="ComWrapper\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ClipboardFormats.cs" />
+    <Compile Remove="CommandMessage.cs" />
+    <Compile Remove="OpenGL\OpenGl.cs" />
+    <Compile Remove="OpenGL\OpenGLEnumerations.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CPF\CPF.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net40'">
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefineConstants Condition="'$(TargetFramework)'=='net40'">Net4</DefineConstants>
+  </PropertyGroup>
+  
+</Project>
