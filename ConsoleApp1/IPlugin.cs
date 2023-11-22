@@ -24,7 +24,7 @@ namespace ConsoleApp1
         /// </summary>
         public string PluginName { get { return GetValue<string>(); } set { SetValue(value); } }
         /// <summary>
-        /// 关闭插件
+        /// 关闭插件 
         /// </summary>
         public virtual void Close()
         {
