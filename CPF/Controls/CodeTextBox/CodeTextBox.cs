@@ -558,8 +558,9 @@ namespace CPF.Controls
             if (codeTextView.Text.Length >= caretIndex)
             {
                 //Text = codeTextView.Text.Insert((int)caretIndex, e.Text);
-                codeTextView.InsertText(caretIndex, e.Text);
+                var caretIndex_old = caretIndex;
                 caretIndex = caretIndex + (uint)e.Text.Length;
+                codeTextView.InsertText(caretIndex_old, e.Text);
                 selectionEnd = caretIndex;
             }
             else
