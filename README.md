@@ -39,7 +39,12 @@ CPF为主要框架，CPF.Skia为用skia做图形适配，CPF.Windows、CPF.Linux
 
 #### 参与贡献
 
-![微信](Other/weixin.png) ![支付宝](Other/zhifubao.png)
+打赏/捐赠
+
+微信/支付宝
+
+<img src="https://gitee.com/csharpui/CPF/raw/master/Other/weixin.png" title="微信">
+<img src="https://gitee.com/csharpui/CPF/raw/master/Other/zhifubao.png" title="支付宝">
 
 1.  Fork 本仓库
 2.  新建 Feat_xxx 分支
