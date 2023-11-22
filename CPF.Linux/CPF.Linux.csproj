@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\xhm\Documents\Visual Studio 2019\ConsoleApp1\CPF.Linux\CPF.Linux.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\CPF.Linux.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

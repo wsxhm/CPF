@@ -18,7 +18,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants />
-    <DocumentationFile>D:\xhm\Documents\Visual Studio 2019\ConsoleApp1\CPF.Windows\CPF.Windows.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\CPF.Windows.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
