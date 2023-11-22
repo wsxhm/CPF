@@ -4,8 +4,7 @@
     <TargetFrameworks>net40;netstandard2.0;net5</TargetFrameworks>
     <Product>QQ:761716178 跨平台UI框架</Product>
     <Version>0.9.6.5</Version>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
+    <SignAssembly>false</SignAssembly>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>Xhm.CPF.Windows</PackageId>
     <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>

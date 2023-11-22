@@ -8,9 +8,8 @@
     <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>
     <Version>0.9.6.5</Version>
     <LangVersion>9.0</LangVersion>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>Xhm.CPF</PackageId>
     <PackageProjectUrl></PackageProjectUrl>

@@ -30,6 +30,7 @@
     <Compile Remove="OpenGLWindow.cs" />
     <Compile Remove="SqliteDataAdapter.cs" />
     <Compile Remove="VideoPlayTest.cs" />
+    <Compile Remove="Window3.cs" />
     <Compile Remove="Window7.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +95,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CPF.Windows\CPF.Windows.csproj" />
     <ProjectReference Include="..\CPF\CPF.csproj" />
-    <ProjectReference Include="..\CPF.Cef\CPF.Cef.csproj" />
+    <!--<ProjectReference Include="..\CPF.Cef\CPF.Cef.csproj" />-->
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'!='net40'">
     <ProjectReference Include="..\CPF.Skia\CPF.Skia.csproj" />
