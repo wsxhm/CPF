@@ -39,6 +39,8 @@ CPF为主要框架，CPF.Skia为用skia做图形适配，CPF.Windows、CPF.Linux
 
 #### 参与贡献
 
+![微信](Other/weixin.png) ![支付宝](Other/zhifubao.png)
+
 1.  Fork 本仓库
 2.  新建 Feat_xxx 分支
 3.  提交代码
