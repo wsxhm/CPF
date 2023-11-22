@@ -29,6 +29,13 @@ CPF为主要框架，CPF.Skia为用skia做图形适配，CPF.Windows、CPF.Linux
 
 直接克隆/下载就可以编译，直接启动ConsoleApp1看运行效果
 
+### 关于设计器
+
+设计器不开源，设计器是需要另外收费的，可以免费试用一个月
+更多详细内容可以到 http://cpf.cskin.net/ 
+![输入图片说明](Other/3image.png)
+![输入图片说明](Other/4image.png)
+
 #### 参与贡献
 
 1.  Fork 本仓库
