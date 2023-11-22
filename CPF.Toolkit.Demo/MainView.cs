@@ -65,6 +65,16 @@ namespace CPF.Toolkit.Demo
                         Content = "关闭窗体",
                         Commands = { { nameof(Button.Click),(s,e) => vm.Test() } }
                     },
+                    new Button
+                    {
+                        Content = "关闭窗体",
+                        Commands = { { nameof(Button.Click),(s,e) => vm.Test() } }
+                    },
+                    new Button
+                    {
+                        Content = "loading",
+                        Commands = { { nameof(Button.Click),(s,e) => vm.LoadingTest() } }
+                    },
                 }
             }));
         }

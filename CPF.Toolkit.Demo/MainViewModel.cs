@@ -24,5 +24,18 @@ namespace CPF.Toolkit.Demo
             e.Cancel = !this.isClose;
             base.OnClose(e);
         }
+
+        public async void LoadingTest()
+        {
+            await this.ShowLoading(Task.Delay(3000));
+            this.Dialog.Sucess("test");
+
+            //var result = await this.ShowLoading(async () =>
+            //{
+            //    await Task.Delay(5000);
+            //    return "test";
+            //});
+            //this.Dialog.Sucess(result);
+        }
     }
 }

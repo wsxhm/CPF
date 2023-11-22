@@ -8,7 +8,7 @@ namespace CPF.Toolkit.Dialogs
 {
     internal interface IClosable
     {
-        event EventHandler<bool?> Closable;
+        event EventHandler<object> Closable;
         void OnClosable(object sender, ClosingEventArgs e);
     }
 }

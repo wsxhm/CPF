@@ -97,38 +97,25 @@ namespace CPF.Toolkit.Dialogs
                             { nameof(TextBox.Text),nameof(Text),this,BindingMode.OneWay}
                         }
                     }.Assign(out var textBox),
-                    //new Border
-                    //{
-                    //    Attacheds = { { Grid.RowIndex,2 } },
-                    //    BorderThickness = new Thickness(0,1,0,0),
-                    //    BorderType = BorderType.BorderThickness,
-                    //    BorderFill = "236,236,236",
-                    //    Size = SizeField.Fill,
-                    //    MarginBottom = 5,
-                    //},
                     new StackPanel
                     {
                         Height = "100%",
                         Attacheds = { { Grid.RowIndex,2 } },
                         MarginBottom = 4,
                         Orientation = Orientation.Horizontal,
-                    }.Assign(out var p),
+                    }
+                    .LoopCreate(this.Buttons.Length, i => new Button
+                    {
+                        Content = this.Buttons[i],
+                        MinWidth = this.Buttons.Length <= 1 ? 80 : 65,
+                        Background = "white",
+                        BorderFill = "236,236,236",
+                        Height = "95%",
+                        MarginRight = 5,
+                        Commands = { { nameof(Button.Click),(s,e) => this.DialogResult = i } }
+                    }),
                 }
             }));
-
-            this.Buttons.Select(x => new Button
-            {
-                Content = x,
-                MinWidth = this.Buttons.Length <= 1 ? 80 : 65,
-                Background = "white",
-                BorderFill = "236,236,236",
-                Height = "95%",
-                MarginRight = 5,
-            }).ToList().ForEach(c =>
-            {
-                p.Children.Add(c);
-                c.Click += Button_Click;
-            });
             textBox.TextChanged += TextBox_TextChanged;
         }
 
@@ -145,12 +132,6 @@ namespace CPF.Toolkit.Dialogs
                 textBox.TextAlignment = TextAlignment.Center;
                 textBox.Height = "auto";
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = (sender as Button).Content;
-            this.Close();
         }
 
         protected override void OnKeyUp(KeyEventArgs e)

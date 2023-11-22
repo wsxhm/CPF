@@ -3,6 +3,7 @@ using CPF.Toolkit.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CPF.Toolkit
 {
@@ -36,7 +37,42 @@ namespace CPF.Toolkit
                 {
                     dialog.Dialog = new DialogService(view);
                 }
+                if (view.DataContext is ILoading loading)
+                {
+                    loading.ShowLoadingFunc += async (message, task) =>
+                    {
+                        var loadingBox = new LoadingBox { Message = message };
+                        var layer = new LayerDialog
+                        {
+                            Name = "loadingDialog",
+                            Content = loadingBox,
+                            ShowCloseButton = false,
+                            Background = null,
+                        };
+                        layer.ShowDialog(view);
+                        dynamic t = task;
+                        var result = await t;
+                        loadingBox.Invoke(layer.CloseDialog);
+                        return (object)result;
+                    };
+                    loading.ShowLoading += async (message, task) =>
+                    {
+                        var loadingBox = new LoadingBox { Message = message };
+                        var layer = new LayerDialog
+                        {
+                            Name = "loadingDialog",
+                            Content = loadingBox,
+                            ShowCloseButton = false,
+                            Background = null,
+                        };
+                        layer.ShowDialog(view);
+                        await task;
+                        loadingBox.Invoke(layer.CloseDialog);
+                    };
+                }
             }
+
+            
         }
 
         private static void View_Closing(object sender, ClosingEventArgs e)
