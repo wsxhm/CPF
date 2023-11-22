@@ -28,6 +28,7 @@ CPF为主要框架，CPF.Skia为用skia做图形适配，CPF.Windows、CPF.Linux
 #### 使用说明
 
 直接克隆/下载就可以编译，直接启动ConsoleApp1看运行效果
+CPF使用文档 http://cpf.cskin.net/Course/#/
 
 #### 关于设计器
 
