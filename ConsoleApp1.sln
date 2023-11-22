@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29324.140
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{ABE4ED47-CB9F-4183-9CE3-65E3E521BE2A}"
 EndProject
@@ -59,12 +59,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPF.Demo", "CPF_Demo\CPF.De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "蓝图重制版", "蓝图重制版\蓝图重制版.csproj", "{003E155A-8C40-41AF-A796-ED17E729E013}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Toolkit", "Toolkit", "{28FB518C-2103-4772-A245-C5F1D40E1EF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPF.Toolkit", "CPF.Toolkit\CPF.Toolkit.csproj", "{09C160EB-D2C3-42E5-82B3-7047CF87CE6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPF.Toolkit.Demo", "CPF.Toolkit.Demo\CPF.Toolkit.Demo.csproj", "{AEA7FF33-1621-4A0A-9C08-6C4CB10C76FF}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Private\SharedVSIX\SharedVSIX.projitems*{db53e8d7-dfb6-48eb-a7b6-d1cf762acb9b}*SharedItemsImports = 4
-		Private\SharedVSIX\SharedVSIX.projitems*{df526631-d060-47f2-afd4-62c6cea2fe9a}*SharedItemsImports = 4
-		Private\SharedVSIX\SharedVSIX.projitems*{f34cffee-546f-490e-a76a-2792840b284d}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -224,6 +225,18 @@ Global
 		{003E155A-8C40-41AF-A796-ED17E729E013}.Release|Any CPU.Build.0 = Release|Any CPU
 		{003E155A-8C40-41AF-A796-ED17E729E013}.类库d|Any CPU.ActiveCfg = 类库d|Any CPU
 		{003E155A-8C40-41AF-A796-ED17E729E013}.类库d|Any CPU.Build.0 = 类库d|Any CPU
+		{09C160EB-D2C3-42E5-82B3-7047CF87CE6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C160EB-D2C3-42E5-82B3-7047CF87CE6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C160EB-D2C3-42E5-82B3-7047CF87CE6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C160EB-D2C3-42E5-82B3-7047CF87CE6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09C160EB-D2C3-42E5-82B3-7047CF87CE6C}.类库d|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C160EB-D2C3-42E5-82B3-7047CF87CE6C}.类库d|Any CPU.Build.0 = Debug|Any CPU
+		{AEA7FF33-1621-4A0A-9C08-6C4CB10C76FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEA7FF33-1621-4A0A-9C08-6C4CB10C76FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEA7FF33-1621-4A0A-9C08-6C4CB10C76FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEA7FF33-1621-4A0A-9C08-6C4CB10C76FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEA7FF33-1621-4A0A-9C08-6C4CB10C76FF}.类库d|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEA7FF33-1621-4A0A-9C08-6C4CB10C76FF}.类库d|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -240,5 +253,15 @@ Global
 		{1278A1BC-327D-4D13-AD04-C6FF2B680530} = {2B729C46-7592-425A-87E9-D769A94881F7}
 		{F34CFFEE-546F-490E-A76A-2792840B284D} = {2B729C46-7592-425A-87E9-D769A94881F7}
 		{DF526631-D060-47F2-AFD4-62C6CEA2FE9A} = {2B729C46-7592-425A-87E9-D769A94881F7}
+		{09C160EB-D2C3-42E5-82B3-7047CF87CE6C} = {28FB518C-2103-4772-A245-C5F1D40E1EF5}
+		{AEA7FF33-1621-4A0A-9C08-6C4CB10C76FF} = {28FB518C-2103-4772-A245-C5F1D40E1EF5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E38AA5AA-8B93-40BD-8A5E-2E0D1538EB8D}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Private\SharedVSIX\SharedVSIX.projitems*{db53e8d7-dfb6-48eb-a7b6-d1cf762acb9b}*SharedItemsImports = 4
+		Private\SharedVSIX\SharedVSIX.projitems*{df526631-d060-47f2-afd4-62c6cea2fe9a}*SharedItemsImports = 4
+		Private\SharedVSIX\SharedVSIX.projitems*{f34cffee-546f-490e-a76a-2792840b284d}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

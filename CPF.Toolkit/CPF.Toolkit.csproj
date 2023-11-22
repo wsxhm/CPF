@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\ask.png" />
+    <None Remove="Images\error.png" />
+    <None Remove="Images\sucess.png" />
+    <None Remove="Images\warn.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\ask.png" />
+    <EmbeddedResource Include="Images\error.png" />
+    <EmbeddedResource Include="Images\sucess.png" />
+    <EmbeddedResource Include="Images\warn.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CPF\CPF.csproj" />
+  </ItemGroup>
+
+</Project>

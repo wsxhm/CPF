@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CPF.Linux\CPF.Linux.csproj" />
+    <ProjectReference Include="..\CPF.Mac\CPF.Mac.csproj" />
+    <ProjectReference Include="..\CPF.Skia\CPF.Skia.csproj" />
+    <ProjectReference Include="..\CPF.Toolkit\CPF.Toolkit.csproj" />
+    <ProjectReference Include="..\CPF.Windows\CPF.Windows.csproj" />
+    <ProjectReference Include="..\CPF\CPF.csproj" />
+  </ItemGroup>
+
+</Project>
