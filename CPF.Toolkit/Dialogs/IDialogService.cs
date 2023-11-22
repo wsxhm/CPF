@@ -1,10 +1,16 @@
 ﻿using CPF.Controls;
+using CPF.Platform;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CPF.Toolkit.Dialogs
 {
+    public interface IDialog
+    {
+        IDialogService Dialog { get; set; }
+    }
+
     public interface IDialogService
     {
         string Alert(string text, string title, DialogType dialogType, string defaultButton, params string[] buttons);
@@ -26,9 +32,8 @@ namespace CPF.Toolkit.Dialogs
         public string Alert(string text, string title, DialogType dialogType, string defaultButton, params string[] buttons)
         {
             var view = new DialogView(text, title, dialogType, defaultButton, buttons);
-            view.MarginLeft = this.owner.MarginLeft.Value - this.owner.Width.Value / 2;
-            view.MarginTop = this.owner.MarginTop.Value - this.owner.Height.Value / 2;
-            return view.ShowDialogSync(this.owner)?.ToString();
+            var result = view.ShowDialogSync(owner);
+            return result?.ToString();
         }
 
         public void Alert(string text)

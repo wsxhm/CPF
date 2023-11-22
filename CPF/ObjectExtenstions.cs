@@ -28,7 +28,7 @@ namespace CPF
         /// <param name="o"></param>
         /// <param name="v"></param>
         /// <returns></returns>
-        public static T Assign<T>(this T o,out T v)
+        public static T Assign<T>(this T o, out T v)
         {
             v = o;
             return o;
@@ -651,6 +651,18 @@ namespace CPF
                 element.afterStyle = action;
             }
             return element;
+        }
+
+        public static bool Or<T>(this T obj, params T[] ps)
+        {
+            foreach (var item in ps)
+            {
+                if (obj.Equals(item))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

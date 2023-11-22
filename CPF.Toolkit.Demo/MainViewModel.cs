@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CPF.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,20 @@ namespace CPF.Toolkit.Demo
 {
     internal class MainViewModel : ViewModelBase
     {
+        bool isClose = false;
+        public void Test()
+        {
+            if (this.Dialog.Ask("确定要关闭吗") == "确定")
+            {
+                this.isClose = true;
+                this.Close();
+            }
+        }
 
-       
+        protected override void OnClose(ClosingEventArgs e)
+        {
+            e.Cancel = !this.isClose;
+            base.OnClose(e);
+        }
     }
 }

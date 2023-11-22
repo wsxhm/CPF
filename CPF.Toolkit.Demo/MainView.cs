@@ -28,7 +28,6 @@ namespace CPF.Toolkit.Demo
             Background = null;
             var vm = new MainViewModel();
             this.DataContext = this.CommandContext = vm;
-            vm.Dialog = new DialogService(this);
 
             Children.Add(new WindowFrame(this, new WrapPanel
             {
@@ -61,8 +60,13 @@ namespace CPF.Toolkit.Demo
                         Content = "Warn",
                         Commands = { { nameof(Button.Click),(s,e) => vm.Dialog.Warn("这是一条测试消息") } }
                     },
+                    new Button
+                    {
+                        Content = "关闭窗体",
+                        Commands = { { nameof(Button.Click),(s,e) => vm.Test() } }
+                    },
                 }
-            })) ;
+            }));
         }
     }
 }

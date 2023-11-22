@@ -27,7 +27,7 @@ namespace CPF.Controls
         public static IEnumerable<Window> Windows { get { return windows; } }
 
         IWindowImpl windowImpl;
-
+        bool? isDialog;
         public event EventHandler Closed
         {
             add { AddHandler(value); }
@@ -314,8 +314,11 @@ namespace CPF.Controls
             }
         }
 
+        public bool? IsDialogMode => this.isDialog;
+
         void SetDialog(bool enable, Window child)
         {
+            this.isDialog = true;
             if (dialogChildren == null)
             {
                 dialogChildren = new HashSet<Window>();

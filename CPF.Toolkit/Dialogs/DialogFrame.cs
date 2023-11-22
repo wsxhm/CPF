@@ -16,17 +16,6 @@ namespace CPF.Toolkit.Dialogs
             this.window = window;
             this.content = content;
         }
-
-        /// <summary>
-        /// 是否显示最大化还原按钮
-        /// </summary>
-        public bool MaximizeBox { get { return GetValue<bool>(); } set { SetValue(value); } }
-        /// <summary>
-        /// 是否显示最小化
-        /// </summary>
-        [PropertyMetadata(true)]
-        public bool MinimizeBox { get { return GetValue<bool>(); } set { SetValue(value); } }
-
         IWindow window;
         /// <summary>
         /// 关联的窗体
@@ -47,15 +36,6 @@ namespace CPF.Toolkit.Dialogs
             get { return content; }
         }
 
-        IEnumerable<UIElement> systemButtons;
-        /// <summary>
-        /// 系统按钮集合
-        /// </summary>
-        [NotCpfProperty]
-        public IEnumerable<UIElement> SystemButtons
-        {
-            get { return systemButtons; }
-        }
 
         /// <summary>
         /// 阴影宽度
@@ -79,7 +59,6 @@ namespace CPF.Toolkit.Dialogs
 
         protected override void InitializeComponent()
         {
-
             ViewFill color = "black";
             ViewFill hoverColor = "255,255,255,40";
             Width = "100%";
@@ -155,10 +134,6 @@ namespace CPF.Toolkit.Dialogs
                         nameof(MouseDown),
                         nameof(IWindow.DragMove),
                         Window
-                    },
-                    {
-                        nameof(DoubleClick),
-                        (s,e)=> DoubleClickTitle()
                     }
                 },
                 Children =
@@ -290,20 +265,6 @@ namespace CPF.Toolkit.Dialogs
             if (Content != null)
             {
                 grid.Children.Add(Content, 0, 1);
-            }
-        }
-
-        protected void DoubleClickTitle()
-        {
-            if (MaximizeBox)
-            {
-                this.Delay(TimeSpan.FromMilliseconds(100), () =>
-                {
-                    if (Window.WindowState == WindowState.Normal)
-                    { Window.WindowState = WindowState.Maximized; }
-                    else if (Window.WindowState == WindowState.Maximized)
-                    { Window.WindowState = WindowState.Normal; }
-                });
             }
         }
     }

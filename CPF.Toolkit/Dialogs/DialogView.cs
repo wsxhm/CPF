@@ -3,6 +3,7 @@ using CPF.Animation;
 using CPF.Charts;
 using CPF.Controls;
 using CPF.Drawing;
+using CPF.Input;
 using CPF.Shapes;
 using CPF.Styling;
 using CPF.Svg;
@@ -126,11 +127,7 @@ namespace CPF.Toolkit.Dialogs
             }).ToList().ForEach(c =>
             {
                 p.Children.Add(c);
-                c.Click += C_Click;
-                if (c.Content.ToString() == this.DefaultButton)
-                {
-                    c.Focus();
-                }
+                c.Click += Button_Click;
             });
             textBox.TextChanged += TextBox_TextChanged;
         }
@@ -150,9 +147,22 @@ namespace CPF.Toolkit.Dialogs
             }
         }
 
-        private void C_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = (sender as Button).Content;
+            this.Close();
+        }
+
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            if (e.Key.Or(Keys.Enter, Keys.Space))
+            {
+                var buttons = this.Find<Button>();
+                var btn = buttons.FirstOrDefault(x => x.IsFocused) ?? buttons.FirstOrDefault(x => x.Content?.ToString() == this.DefaultButton);
+                this.DialogResult = btn.Content.ToString();
+                e.Handled = true;
+            }
+            base.OnKeyUp(e);
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using CPF.Platform;
+﻿using CPF.Controls;
+using CPF.Platform;
 using CPF.Skia;
+using CPF.Toolkit.Dialogs;
 using CPF.Windows;
 
 namespace CPF.Toolkit.Demo
@@ -14,7 +16,8 @@ namespace CPF.Toolkit.Demo
                   , (OperatingSystemType.OSX, new CPF.Mac.MacPlatform(), new SkiaDrawingFactory { UseGPU = false })
                   , (OperatingSystemType.Linux, new CPF.Linux.LinuxPlatform(), new SkiaDrawingFactory { UseGPU = false })
                   );
-            Application.Run(new MainView { });
+
+            Application.Run(ViewManager.View<MainView>());
         }
     }
 }
