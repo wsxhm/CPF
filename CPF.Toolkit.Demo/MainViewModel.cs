@@ -1,6 +1,7 @@
 ﻿using CPF.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,16 @@ namespace CPF.Toolkit.Demo
 
         public async void LoadingTest()
         {
-            await this.ShowLoading(Task.Delay(3000));
+            await this.ShowLoading(async () => 
+            {
+                await Task.Delay(1000);
+                Debug.WriteLine(1);
+                await Task.Delay(1000);
+                Debug.WriteLine(2);
+                await Task.Delay(1000);
+                Debug.WriteLine(3);
+            });
+            //await this.ShowLoading(Task.Delay(3000));
             this.Dialog.Sucess("test");
 
             //var result = await this.ShowLoading(async () =>

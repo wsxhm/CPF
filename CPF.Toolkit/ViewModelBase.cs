@@ -22,10 +22,7 @@ namespace CPF.Toolkit
 
         protected void Close(object dialogResult = null)
         {
-            if (this._close == null)
-            {
-                throw new ArgumentNullException();
-            }
+            if (this._close == null) throw new ArgumentNullException();
             this._close.Invoke(this, dialogResult);
         }
 
@@ -35,6 +32,12 @@ namespace CPF.Toolkit
         {
             if (this._showLading == null) throw new ArgumentNullException();
             await this._showLading.Invoke("加载中……", task);
+        }
+
+        protected async Task ShowLoading(Func<Task> task)
+        {
+            if (this._showLoadingFunc == null) throw new ArgumentNullException();
+            await this._showLading.Invoke("加载中……", task.Invoke());
         }
 
         protected async Task<T> ShowLoading<T>(Func<Task<T>> task)

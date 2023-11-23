@@ -14,7 +14,7 @@ using System.Text;
 
 namespace CPF.Toolkit.Dialogs
 {
-    public class DialogView : Window
+    internal class DialogView : Window
     {
         public DialogView(string text, string title, DialogType dialogType, string defaultButton, params string[] buttons)
         {
@@ -112,7 +112,7 @@ namespace CPF.Toolkit.Dialogs
                         BorderFill = "236,236,236",
                         Height = "95%",
                         MarginRight = 5,
-                        Commands = { { nameof(Button.Click),(s,e) => this.DialogResult = i } }
+                        Commands = { { nameof(Button.Click),(s,e) => this.DialogResult = this.Buttons[i] } }
                     }),
                 }
             }));
