@@ -1,4 +1,5 @@
 ﻿using CPF.Controls;
+using CPF.Toolkit.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,7 +29,7 @@ namespace CPF.Toolkit.Demo
 
         public async void LoadingTest()
         {
-            await this.ShowLoading(async () => 
+            await this.ShowLoading(async () =>
             {
                 await Task.Delay(1000);
                 Debug.WriteLine(1);
@@ -47,5 +48,11 @@ namespace CPF.Toolkit.Demo
             //});
             //this.Dialog.Sucess(result);
         }
+
+        public IAsyncCommand AsyncClick => new AsyncCommand(async () =>
+        {
+            await Task.Delay(5000);
+            this.Dialog.Alert("test");
+        });
     }
 }

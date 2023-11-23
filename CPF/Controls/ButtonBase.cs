@@ -260,7 +260,7 @@ namespace CPF.Controls
             OnClick(new RoutedEventArgs(this));
             //}
         }
-
+        
         protected virtual void OnClick(RoutedEventArgs e)
         {
             RaiseEvent(e, nameof(Click));

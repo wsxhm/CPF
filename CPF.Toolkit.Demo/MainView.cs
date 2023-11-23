@@ -6,6 +6,7 @@ using CPF.Drawing;
 using CPF.Shapes;
 using CPF.Styling;
 using CPF.Svg;
+using CPF.Toolkit.Controls;
 using CPF.Toolkit.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -69,6 +70,11 @@ namespace CPF.Toolkit.Demo
                     {
                         Content = "loading",
                         Commands = { { nameof(Button.Click),(s,e) => vm.LoadingTest() } }
+                    },
+                    new AsyncButton
+                    {
+                        Content = "AsyncButton",
+                        Command = vm.AsyncClick,
                     },
                 }
             }));
