@@ -4,6 +4,7 @@ using System.Text;
 using CPF.Input;
 using CPF.Drawing;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace CPF.Controls
 {
@@ -20,7 +21,7 @@ namespace CPF.Controls
         }
 
         bool isMouseLeftButtonPressed;
-        protected override void OnMouseDown(MouseButtonEventArgs e)
+        protected override async void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
             if (!e.Handled)
@@ -72,6 +73,7 @@ namespace CPF.Controls
                             try
                             {
                                 OnClick();
+                                await OnAsyncClick();
                                 exceptionThrown = false;
                             }
                             finally
@@ -100,7 +102,7 @@ namespace CPF.Controls
         //        e.Handled = true;
         //    }
         //}
-        protected override void OnMouseUp(MouseButtonEventArgs e)
+        protected override async void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
             if (e.MouseButton == MouseButton.Left)
@@ -128,6 +130,7 @@ namespace CPF.Controls
                             if (l.X >= 0 && l.Y >= 0 && l.X <= r.Width && l.Y <= r.Height)
                             {
                                 OnClick();
+                                await OnAsyncClick();
                             }
                         }
                     }
@@ -136,7 +139,7 @@ namespace CPF.Controls
         }
 
         bool IsSpaceKeyDown = false;
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override async void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
             if (ClickMode == ClickMode.Hover || e.Handled)
@@ -159,6 +162,7 @@ namespace CPF.Controls
                         if (ClickMode == ClickMode.Press)
                         {
                             OnClick();
+                            await OnAsyncClick();
                         }
 
                         e.Handled = true;
@@ -177,6 +181,7 @@ namespace CPF.Controls
                     }
 
                     OnClick();
+                    await OnAsyncClick();
                     e.Handled = true;
                 }
             }
@@ -195,7 +200,7 @@ namespace CPF.Controls
             }
         }
 
-        protected override void OnKeyUp(KeyEventArgs e)
+        protected override async void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
             if (ClickMode == ClickMode.Hover || e.Handled)
@@ -222,7 +227,10 @@ namespace CPF.Controls
                         }
 
                         if (shouldClick)
+                        {
                             OnClick();
+                            await OnAsyncClick();
+                        }
                     }
                     else
                     {
@@ -250,20 +258,27 @@ namespace CPF.Controls
                 IsPressed = false;
             }
         }
+
         protected void OnClick()
         {
-            //var p1 = PointToScreen(new Point());
-            //var p4 = PointToScreen(new Point(ActualSize.Width, ActualSize.Height));
-            //var rect = new Rect(p1, p4);
-            //if (rect.Contains(Root.InputManager.MouseDevice.Location))
-            //{
             OnClick(new RoutedEventArgs(this));
-            //}
         }
-        
+
         protected virtual void OnClick(RoutedEventArgs e)
         {
             RaiseEvent(e, nameof(Click));
+        }
+
+        protected async Task OnAsyncClick()
+        {
+            await OnAsyncClick(new RoutedEventArgs(this));
+        }
+
+        protected virtual async Task OnAsyncClick(RoutedEventArgs e)
+        {
+            this.IsEnabled = false;
+            await AsyncRaiseEvent(e, nameof(AsyncClick));
+            this.IsEnabled = true;
         }
 
         /// <summary>
@@ -292,6 +307,12 @@ namespace CPF.Controls
         }
 
         public event EventHandler<RoutedEventArgs> Click
+        {
+            add { AddHandler(value); }
+            remove { RemoveHandler(value); }
+        }
+
+        public event AsyncEventHandler<RoutedEventArgs> AsyncClick
         {
             add { AddHandler(value); }
             remove { RemoveHandler(value); }

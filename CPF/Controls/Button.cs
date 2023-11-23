@@ -38,6 +38,8 @@ namespace CPF.Controls
             overridePropertys.Override(nameof(Background), new UIPropertyMetadataAttribute((ViewFill)"221,221,221", UIPropertyOptions.AffectsRender));
         }
 
+      
+
         //protected override void OnPropertyChanged(string propertyName, object oldValue, object newValue, PropertyMetadataAttribute propertyMetadata)
         //{
         //    base.OnPropertyChanged(propertyName, oldValue, newValue, propertyMetadata);

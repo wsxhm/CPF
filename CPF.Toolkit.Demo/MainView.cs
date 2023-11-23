@@ -6,7 +6,6 @@ using CPF.Drawing;
 using CPF.Shapes;
 using CPF.Styling;
 using CPF.Svg;
-using CPF.Toolkit.Controls;
 using CPF.Toolkit.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -21,13 +20,13 @@ namespace CPF.Toolkit.Demo
         {
 
         }
+        MainViewModel vm = new MainViewModel();
         protected override void InitializeComponent()
         {
             Title = "标题";
             Width = 500;
             Height = 400;
             Background = null;
-            var vm = new MainViewModel();
             this.DataContext = this.CommandContext = vm;
 
             Children.Add(new WindowFrame(this, new WrapPanel
@@ -71,13 +70,19 @@ namespace CPF.Toolkit.Demo
                         Content = "loading",
                         Commands = { { nameof(Button.Click),(s,e) => vm.LoadingTest() } }
                     },
-                    new AsyncButton
+                    new Button
                     {
                         Content = "AsyncButton",
-                        Command = vm.AsyncClick,
-                    },
+                    }.Assign(out var asyncButton),
                 }
             }));
+
+            asyncButton.AsyncClick += AsyncButton_AsyncClick;
+        }
+
+        private async Task AsyncButton_AsyncClick(object sender, RoutedEventArgs e)
+        {
+            await this.vm.AsyncClick();
         }
     }
 }

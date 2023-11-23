@@ -15,5 +15,7 @@
     <ProjectReference Include="..\CPF.Windows\CPF.Windows.csproj" />
     <ProjectReference Include="..\CPF\CPF.csproj" />
   </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+	</ItemGroup>
 </Project>

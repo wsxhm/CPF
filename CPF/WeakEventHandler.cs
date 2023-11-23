@@ -4,6 +4,7 @@ using System.Text;
 using CPF.Reflection;
 using System.Reflection;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CPF
 {
@@ -39,6 +40,24 @@ namespace CPF
                     if (item.reference.TryGetTarget(out var target) || item.method.IsStatic)
                     {
                         item.method.FastInvoke(target, sender, e);
+                    }
+                    else
+                    {
+                        delegates.Remove(item);
+                    }
+                }
+            }
+        }
+
+        public async Task AsyncInvoke(object sender, object e)
+        {
+            if (delegates != null)
+            {
+                foreach (var item in delegates.ToArray())
+                {
+                    if (item.reference.TryGetTarget(out var target) || item.method.IsStatic)
+                    {
+                        await item.method.FastAsyncInvoke(target, sender, e);
                     }
                     else
                     {

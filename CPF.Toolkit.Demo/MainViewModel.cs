@@ -1,5 +1,4 @@
 ﻿using CPF.Controls;
-using CPF.Toolkit.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -49,10 +48,10 @@ namespace CPF.Toolkit.Demo
             //this.Dialog.Sucess(result);
         }
 
-        public IAsyncCommand AsyncClick => new AsyncCommand(async () =>
+        public async Task AsyncClick()
         {
-            await Task.Delay(5000);
+            await Task.Delay(3000);
             this.Dialog.Alert("test");
-        });
+        }
     }
 }

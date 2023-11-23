@@ -13,6 +13,7 @@ using CPF.Animation;
 using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace CPF
 {
@@ -1708,10 +1709,6 @@ namespace CPF
         /// <param name="eventName"></param>
         public void RaiseEvent<TEventArgs>(in TEventArgs eventArgs, string eventName)
         {
-            //if (eventArgs is RoutedEventArgs routed)
-            //{
-            //    routed.Sender = this;
-            //}
             OnRaiseEvent(eventArgs, eventName);
 
             if (observers != null && eventArgs is EventArgs args)
@@ -1739,10 +1736,6 @@ namespace CPF
                                 v = item.Target.Target;
                                 objs.Add(v);
                             }
-                            //else if (item.Relation != null && this is UIElement)
-                            //{
-                            //    objs.AddRange(item.Relation.Query(this as UIElement));
-                            //}
                             else
                             {
                                 v = CommandContext;
@@ -1778,14 +1771,6 @@ namespace CPF
                                         }
                                     }
                                 }
-                                //v.GetType().GetMethod(item.MethodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).FastInvoke(v, ps);
-
-                                //var m = obj.GetType().GetMethod(item.MethodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                                //if (m == null)
-                                //{
-                                //    throw new Exception("未找到该方法 " + item.MethodName);
-                                //}
-                                //m.Invoke(obj, ps);
                                 obj.Invoke(item.MethodName, ps);
                             }
                         }
@@ -1801,6 +1786,88 @@ namespace CPF
             if (handler != null)
             {
                 handler.Invoke(this, eventArgs);
+            }
+        }
+
+        public async Task AsyncRaiseEvent<TEventArgs>(TEventArgs eventArgs, string eventName)
+        {
+            OnRaiseEvent(eventArgs, eventName);
+
+            if (observers != null && eventArgs is EventArgs args)
+            {
+                EventObserver<EventArgs, CpfObject> eventObserver = new EventObserver<EventArgs, CpfObject>(eventName, args, this);
+                foreach (var observer in observers)
+                {
+                    observer.OnNext(eventObserver);
+                }
+            }
+
+            if (commands != null)
+            {
+                List<Command> list;
+                if (commands.commands.TryGetValue(eventName, out list))
+                {
+                    foreach (var item in list)
+                    {
+                        if (item.Action == null)
+                        {
+                            var objs = new List<object>();
+                            object v = null;
+                            if (item.Target != null)
+                            {
+                                v = item.Target.Target;
+                                objs.Add(v);
+                            }
+                            else
+                            {
+                                v = CommandContext;
+                                if (v != null)
+                                {
+                                    objs.Add(v);
+                                }
+                            }
+                            foreach (var obj in objs)
+                            {
+                                if (obj == null)
+                                {
+                                    continue;
+                                }
+                                object[] ps = new object[item.Params == null ? 0 : item.Params.Length];
+                                if (item.Params != null && item.Params.Length > 0)
+                                {
+                                    //ps = item.Params;
+                                    item.Params.CopyTo(ps, 0);
+                                    for (int i = 0; i < ps.Length; i++)
+                                    {
+                                        var p = ps[i];
+                                        if (p is CommandParameter)
+                                        {
+                                            if ((CommandParameter)p == CommandParameter.EventArgs)
+                                            {
+                                                ps[i] = eventArgs;
+                                            }
+                                            else if ((CommandParameter)p == CommandParameter.EventSender)
+                                            {
+                                                ps[i] = this;
+                                            }
+                                        }
+                                    }
+                                }
+                                obj.Invoke(item.MethodName, ps);
+                            }
+                        }
+                        else
+                        {
+                            item.Action(this, eventArgs);
+                        }
+                    }
+                }
+            }
+
+            var handler = Events[eventName];
+            if (handler != null)
+            {
+                await handler.AsyncInvoke(this, eventArgs);
             }
         }
 

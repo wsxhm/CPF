@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Linq.Expressions;
 using System.Collections.Concurrent;
 using System.Reflection.Emit;
+using System.Threading.Tasks;
 
 namespace CPF.Reflection
 {
@@ -69,6 +70,7 @@ namespace CPF.Reflection
             }
         }
         static ConcurrentDictionary<Type, ConcurrentDictionary<string, InvokeHandler>> methods = new ConcurrentDictionary<Type, ConcurrentDictionary<string, InvokeHandler>>();
+        static ConcurrentDictionary<Type, ConcurrentDictionary<string, AsyncInvokeHandler>> asyncMethods = new ConcurrentDictionary<Type, ConcurrentDictionary<string, AsyncInvokeHandler>>();
         static KeyValuePair<Type, ConcurrentDictionary<string, InvokeHandler>>[] saveMethods;
 
         static ConcurrentDictionary<Type, ConcurrentDictionary<string, SetHandler<object>>> setValues = new ConcurrentDictionary<Type, ConcurrentDictionary<string, SetHandler<object>>>();
@@ -106,6 +108,28 @@ namespace CPF.Reflection
             return fun(instance, parameters);
         }
 
+        public static async Task AsyncInvoke(this object instance, string methodName, params object[] parameters)
+        {
+            var type = instance.GetType();
+
+            if (!asyncMethods.TryGetValue(type, out var list))
+            {
+                list = new ConcurrentDictionary<string, AsyncInvokeHandler>();
+                asyncMethods.TryAdd(type, list);
+            }
+            if (!list.TryGetValue(methodName, out var fun))
+            {
+                var minfo = type.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if (minfo == null)
+                {
+                    throw new Exception(type + "未找到方法：" + methodName);
+                }
+                fun = AsyncMethodCache.CreateInvokeDelegate(minfo);
+                list.TryAdd(methodName, fun);
+            }
+            await fun(instance, parameters);
+        }
+
         /// <summary>
         /// 反射快速调用
         /// </summary>
@@ -115,10 +139,15 @@ namespace CPF.Reflection
         /// <returns></returns>
         public static object FastInvoke(this MethodInfo methodInfo, object instance, params object[] parameters)
         {
-            //return FastReflectionCaches.MethodInvokerCache.Get(methodInfo).Invoke(instance, parameters);
             return methodCache.Get(methodInfo).Invoke(instance, parameters);
         }
+        public static async Task FastAsyncInvoke(this MethodInfo methodInfo, object instance, params object[] parameters)
+        {
+            await asyncMethodCache.Get(methodInfo).Invoke(instance, parameters);
+        }
+
         static MethodCache methodCache = new MethodCache();
+        static AsyncMethodCache asyncMethodCache = new AsyncMethodCache();
 
         /// <summary>
         /// 快速动态设置对象的属性值
@@ -369,7 +398,57 @@ namespace CPF.Reflection
         }
     }
 
+    class AsyncMethodCache : FastReflectionCache<MethodInfo, AsyncInvokeHandler>
+    {
+        protected override AsyncInvokeHandler Create(MethodInfo key)
+        {
+            return CreateInvokeDelegate(key);
+        }
 
+        public static AsyncInvokeHandler CreateInvokeDelegate(MethodInfo methodInfo)
+        {
+            var instanceParameter = Expression.Parameter(typeof(object), "instance");
+            var parametersParameter = Expression.Parameter(typeof(object[]), "parameters");
+
+            var parameterExpressions = new List<Expression>();
+            var paramInfos = methodInfo.GetParameters();
+            for (int i = 0; i < paramInfos.Length; i++)
+            {
+                BinaryExpression valueObj = Expression.ArrayIndex(
+                    parametersParameter, Expression.Constant(i));
+                UnaryExpression valueCast = Expression.Convert(
+                    valueObj, paramInfos[i].ParameterType);
+
+                parameterExpressions.Add(valueCast);
+            }
+
+            var instanceCast = methodInfo.IsStatic ? null :
+                Expression.Convert(instanceParameter, methodInfo.ReflectedType);
+
+            var methodCall = Expression.Call(instanceCast, methodInfo, parameterExpressions);
+
+            if (methodCall.Type == typeof(void))
+            {
+                var lambda = Expression.Lambda<Action<object, object[]>>(
+                        methodCall, instanceParameter, parametersParameter);
+
+                Action<object, object[]> execute = lambda.Compile();
+                return (instance, parameters) =>
+                {
+                    execute(instance, parameters);
+                    return null;
+                };
+            }
+            else
+            {
+                var castMethodCall = Expression.Convert(methodCall, typeof(Task));
+                var lambda = Expression.Lambda<AsyncInvokeHandler>(
+                    castMethodCall, instanceParameter, parametersParameter);
+
+                return lambda.Compile();
+            }
+        }
+    }
     class MethodCache : FastReflectionCache<MethodInfo, InvokeHandler>
     {
         protected override InvokeHandler Create(MethodInfo key)
@@ -482,6 +561,8 @@ namespace CPF.Reflection
             //iLGenerator.Ret();
             //return (InvokeHandler)dynamicMethod.CreateDelegate(typeof(InvokeHandler));
         }
+
+
     }
 
     class PropertyGetCache : FastReflectionCache<PropertyInfo, GetHandler<object>>
@@ -578,5 +659,6 @@ namespace CPF.Reflection
     public delegate void SetHandler<T>(object target, T value);
     public delegate T GetHandler<T>(object target);
     public delegate object InvokeHandler(object target, object[] paramters);
+    public delegate Task AsyncInvokeHandler(object target, object[] paramters);
     public delegate void SetRefHandler<T, V>(ref T target, V value);
 }
