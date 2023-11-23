@@ -21,7 +21,7 @@ namespace CPF.Controls
         }
 
         bool isMouseLeftButtonPressed;
-        protected override async void OnMouseDown(MouseButtonEventArgs e)
+        protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
             if (!e.Handled)
@@ -73,7 +73,7 @@ namespace CPF.Controls
                             try
                             {
                                 OnClick();
-                                await OnAsyncClick();
+                                OnAsyncClick();
                                 exceptionThrown = false;
                             }
                             finally
@@ -102,7 +102,7 @@ namespace CPF.Controls
         //        e.Handled = true;
         //    }
         //}
-        protected override async void OnMouseUp(MouseButtonEventArgs e)
+        protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
             if (e.MouseButton == MouseButton.Left)
@@ -130,7 +130,7 @@ namespace CPF.Controls
                             if (l.X >= 0 && l.Y >= 0 && l.X <= r.Width && l.Y <= r.Height)
                             {
                                 OnClick();
-                                await OnAsyncClick();
+                                OnAsyncClick();
                             }
                         }
                     }
@@ -139,7 +139,7 @@ namespace CPF.Controls
         }
 
         bool IsSpaceKeyDown = false;
-        protected override async void OnKeyDown(KeyEventArgs e)
+        protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
             if (ClickMode == ClickMode.Hover || e.Handled)
@@ -162,7 +162,7 @@ namespace CPF.Controls
                         if (ClickMode == ClickMode.Press)
                         {
                             OnClick();
-                            await OnAsyncClick();
+                            OnAsyncClick();
                         }
 
                         e.Handled = true;
@@ -181,7 +181,7 @@ namespace CPF.Controls
                     }
 
                     OnClick();
-                    await OnAsyncClick();
+                    OnAsyncClick();
                     e.Handled = true;
                 }
             }
@@ -200,7 +200,7 @@ namespace CPF.Controls
             }
         }
 
-        protected override async void OnKeyUp(KeyEventArgs e)
+        protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
             if (ClickMode == ClickMode.Hover || e.Handled)
@@ -229,7 +229,7 @@ namespace CPF.Controls
                         if (shouldClick)
                         {
                             OnClick();
-                            await OnAsyncClick();
+                            OnAsyncClick();
                         }
                     }
                     else
