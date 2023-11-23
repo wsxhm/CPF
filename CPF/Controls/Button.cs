@@ -16,8 +16,56 @@ namespace CPF.Controls
     {
         protected override void InitializeComponent()
         {
-            this.Triggers.Add(nameof(IsMouseOver), Relation.Me, null, (nameof(Background), "190,230,253"));
-            this.Triggers.Add(nameof(IsPressed), Relation.Me, null, (nameof(Background), "186,209,226"));
+            //this.MinWidth = 80;
+            //this.MinHeight = 35;
+            //this.MarginRight = 1;
+            this.Triggers.Add(new Trigger
+            {
+                Property = nameof(IsMouseOver),
+                TargetRelation = Relation.Me,
+                PropertyConditions = x => Convert.ToBoolean(x),
+                Setters =
+                {
+                    { nameof(Background),"#E5F1FB" },
+                    { nameof(BorderFill),"#0078D7" },
+                    { nameof(Foreground),"black" },
+                }
+            });
+            this.Triggers.Add(new Trigger
+            {
+                Property = nameof(IsPressed),
+                TargetRelation = Relation.Me,
+                PropertyConditions = x => Convert.ToBoolean(x),
+                Setters =
+                {
+                    { nameof(Background),"204,228,247" },
+                    { nameof(BorderFill),"0,84,153" },
+                }
+            });
+            this.Triggers.Add(new Trigger
+            {
+                Property = nameof(IsFocused),
+                TargetRelation = Relation.Me,
+                PropertyConditions = x => Convert.ToBoolean(x),
+                Setters =
+                {
+                    { nameof(Background),"204,228,247" },
+                    { nameof(BorderFill),"0,120,215" },
+                    { nameof(BorderStroke),"2" },
+                }
+            });
+            this.triggers.Add(new Trigger
+            {
+                Property = nameof(IsEnabled),
+                TargetRelation = Relation.Me,
+                PropertyConditions = x => !Convert.ToBoolean(x),
+                Setters =
+                {
+                    { nameof(Background),"204,204,204" },
+                    { nameof(BorderFill),"191,191,191" },
+                    { nameof(Foreground),"131,131,131" },
+                }
+            });
             Children.Add(new Border
             {
                 Name = "contentPresenter",
@@ -33,12 +81,12 @@ namespace CPF.Controls
         {
             base.OnOverrideMetadata(overridePropertys);
             overridePropertys.Override(nameof(BorderStroke), new UIPropertyMetadataAttribute(typeof(Stroke), "1", UIPropertyOptions.AffectsRender));
-            overridePropertys.Override(nameof(BorderFill), new UIPropertyMetadataAttribute((ViewFill)"#101010", UIPropertyOptions.AffectsRender));
+            overridePropertys.Override(nameof(BorderFill), new UIPropertyMetadataAttribute((ViewFill)"#ADADAD", UIPropertyOptions.AffectsRender));
             overridePropertys.Override(nameof(IsAntiAlias), new UIPropertyMetadataAttribute(false, UIPropertyOptions.AffectsRender));
-            overridePropertys.Override(nameof(Background), new UIPropertyMetadataAttribute((ViewFill)"221,221,221", UIPropertyOptions.AffectsRender));
+            overridePropertys.Override(nameof(Background), new UIPropertyMetadataAttribute((ViewFill)"#E1E1E1", UIPropertyOptions.AffectsRender));
         }
 
-      
+
 
         //protected override void OnPropertyChanged(string propertyName, object oldValue, object newValue, PropertyMetadataAttribute propertyMetadata)
         //{

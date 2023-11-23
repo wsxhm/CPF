@@ -1809,7 +1809,7 @@ namespace CPF
                 {
                     foreach (var item in list)
                     {
-                        if (item.Action == null)
+                        if (item.AsyncAction == null)
                         {
                             var objs = new List<object>();
                             object v = null;
@@ -1853,12 +1853,13 @@ namespace CPF
                                         }
                                     }
                                 }
-                                obj.Invoke(item.MethodName, ps);
+                                await obj.AsyncInvoke(item.MethodName, ps);
                             }
                         }
                         else
                         {
-                            item.Action(this, eventArgs);
+                            //item.Action(this, eventArgs);
+                            await item.AsyncAction(this, eventArgs);
                         }
                     }
                 }

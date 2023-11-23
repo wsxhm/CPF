@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace CPF
 {
@@ -108,6 +109,17 @@ namespace CPF
             list.Add(new Command { Action = action });
         }
 
+        public void Add(string eventName, Func<CpfObject, object, Task> action)
+        {
+            List<Command> list;
+            if (!commands.TryGetValue(eventName, out list))
+            {
+                list = new List<Command>();
+                commands.Add(eventName, list);
+            }
+            list.Add(new Command { AsyncAction = action });
+        }
+
         /// <summary>
         /// KeyValuePair&lt;string, List&lt;Command&gt;&gt;
         /// </summary>
@@ -133,6 +145,6 @@ namespace CPF
         public object[] Params;
         //public Relation Relation;
         public Action<CpfObject, object> Action;
+        public Func<CpfObject, object, Task> AsyncAction;
     }
-
 }

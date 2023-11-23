@@ -28,6 +28,7 @@ namespace CPF.Toolkit.Demo
             Height = 400;
             Background = null;
             this.DataContext = this.CommandContext = vm;
+            this.CanResize = true;
 
             Children.Add(new WindowFrame(this, new WrapPanel
             {
@@ -73,11 +74,15 @@ namespace CPF.Toolkit.Demo
                     new Button
                     {
                         Content = "AsyncButton",
+                        Commands = 
+                        {
+                            { nameof(Button.AsyncClick),async (s,e) => await this.vm.AsyncClick() }
+                        }
                     }.Assign(out var asyncButton),
                 }
             }));
 
-            asyncButton.AsyncClick += AsyncButton_AsyncClick;
+            //asyncButton.AsyncClick += AsyncButton_AsyncClick;
         }
 
         private async Task AsyncButton_AsyncClick(object sender, RoutedEventArgs e)
