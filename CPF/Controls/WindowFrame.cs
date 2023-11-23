@@ -10,6 +10,7 @@ using CPF.Effects;
 using System.ComponentModel;
 using CPF.Controls;
 using System.Diagnostics;
+using System.Linq;
 
 namespace CPF.Controls
 {
@@ -94,10 +95,12 @@ namespace CPF.Controls
             set { SetValue(value); }
         }
 
+        [PropertyMetadata(typeof(ViewFill), "white")]
+        public ViewFill ControlBoxStroke { get => GetValue<ViewFill>(); set => SetValue(value); }
+
         protected override void InitializeComponent()
         {
-            
-            ViewFill color = "#fff";
+            //ViewFill color = "#fff";
             ViewFill hoverColor = "255,255,255,40";
             Width = "100%";
             Height = "100%";
@@ -258,7 +261,11 @@ namespace CPF.Controls
                                     EndPoint = new Point(14, 13),
                                     StrokeStyle = "2",
                                     IsAntiAlias=true,
-                                    StrokeFill=color
+                                    //StrokeFill=color
+                                    Bindings =
+                                    {
+                                        { nameof(Line.StrokeFill),nameof(this.ControlBoxStroke),this}
+                                    }
                                 },
                                 Bindings=
                                 {
@@ -317,15 +324,17 @@ namespace CPF.Controls
                                         Name="max",
                                         Width = 30,
                                         Height = "100%",
-                                        Content=
-                                            new Rectangle
+                                        Content= new Rectangle
+                                        {
+                                            Width=14,
+                                            Height=12,
+                                            MarginTop=10,
+                                            StrokeStyle="2",
+                                            Bindings =
                                             {
-                                                Width=14,
-                                                Height=12,
-                                                MarginTop=10,
-                                                StrokeStyle="2",
-                                                StrokeFill = color
-                                            },
+                                                { nameof(Line.StrokeFill),nameof(this.ControlBoxStroke),this}
+                                            }
+                                        },
                                         Commands =
                                         {
                                             {
@@ -378,7 +387,8 @@ namespace CPF.Controls
                                                     Width=11,
                                                     Height=8,
                                                     StrokeStyle="1.5",
-                                                    StrokeFill = color
+                                                    //StrokeFill = color
+                                                    Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } },
                                                 },
                                                 new Polyline
                                                 {
@@ -392,7 +402,8 @@ namespace CPF.Controls
                                                         new Point(9,7),
                                                         new Point(6,7)
                                                     },
-                                                    StrokeFill = color,
+                                                    //StrokeFill = color,
+                                                    Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } },
                                                     StrokeStyle="2"
                                                 }
                                             }
@@ -452,7 +463,8 @@ namespace CPF.Controls
                                             EndPoint = new Point(14, 13),
                                             StrokeStyle = "2",
                                             IsAntiAlias=true,
-                                            StrokeFill=color
+                                            //StrokeFill=color
+                                            Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } }
                                         },
                                         new Line
                                         {
@@ -462,7 +474,8 @@ namespace CPF.Controls
                                             EndPoint = new Point(1, 13),
                                             StrokeStyle = "2",
                                             IsAntiAlias=true,
-                                            StrokeFill=color
+                                            //StrokeFill=color
+                                            Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } }
                                         }
                                     }
                                 },

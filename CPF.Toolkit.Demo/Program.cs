@@ -17,7 +17,7 @@ namespace CPF.Toolkit.Demo
                   , (OperatingSystemType.Linux, new CPF.Linux.LinuxPlatform(), new SkiaDrawingFactory { UseGPU = false })
                   );
 
-            Application.Run(ViewManager.View<MainView>());
+            Application.Run(ViewManager.View<TestMdiView>());
         }
     }
 }
