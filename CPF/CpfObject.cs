@@ -24,17 +24,20 @@ namespace CPF
         static ConcurrentDictionary<Type, ObjInfo> typeCache = new ConcurrentDictionary<Type, ObjInfo>();
         static ConcurrentDictionary<Type, PropertyMetadataAttribute[]> typePropertyCache = new ConcurrentDictionary<Type, PropertyMetadataAttribute[]>();
         static ConcurrentDictionary<Type, HashSet<string>> inheritsProperties = new ConcurrentDictionary<Type, HashSet<string>>();
+        static ConcurrentDictionary<Type, HashSet<string>> breakInheritsProperties = new ConcurrentDictionary<Type, HashSet<string>>();
         static ConcurrentDictionary<Type, List<MethodInfo>> propertyChangedMethods = new ConcurrentDictionary<Type, List<MethodInfo>>();
 
         static KeyValuePair<Type, ObjInfo>[] saveTypeCache;
         static KeyValuePair<Type, PropertyMetadataAttribute[]>[] saveTypePropertyCache;
         static KeyValuePair<Type, HashSet<string>>[] saveInheritsProperties;
+        static KeyValuePair<Type, HashSet<string>>[] saveBreakInheritsProperties;
         static KeyValuePair<Type, List<MethodInfo>>[] savePropertyChangedMethods;
         public static void SetTypeCache()
         {
             saveTypeCache = typeCache.ToArray();
             saveTypePropertyCache = typePropertyCache.ToArray();
             saveInheritsProperties = inheritsProperties.ToArray();
+            saveBreakInheritsProperties = breakInheritsProperties.ToArray();
             FastReflectionExtensions.SetTypeCache();
             savePropertyChangedMethods = propertyChangedMethods.ToArray();
         }
@@ -67,6 +70,15 @@ namespace CPF
                 }
                 saveInheritsProperties = null;
             }
+            if (saveBreakInheritsProperties != null)
+            {
+                breakInheritsProperties.Clear();
+                foreach (var item in saveBreakInheritsProperties)
+                {
+                    breakInheritsProperties.TryAdd(item.Key, item.Value);
+                }
+                saveBreakInheritsProperties = null;
+            }
             if (savePropertyChangedMethods != null)
             {
                 propertyChangedMethods.Clear();
@@ -87,9 +99,13 @@ namespace CPF
 
         internal HybridDictionary<string, object> attachedValues;
         /// <summary>
-        /// 继承属性的特性
+        /// 继承属性，不同继承类型分支下来的属性名可能相同但是属性ID不同，只能保存属性名
         /// </summary>
         internal HashSet<string> inheritsPropertyName;
+        /// <summary>
+        /// 终止继承属性，不同继承类型分支下来的属性名可能相同但是属性ID不同，只能保存属性名
+        /// </summary>
+        internal HashSet<string> breakInheritsPropertyName;
 
         AttachedProperties attached;
         /// <summary>
@@ -326,18 +342,31 @@ namespace CPF
                 typePropertyCache.TryAdd(type, propertyList.ToArray());
 
                 var l = new HashSet<string>();
+                var b = new HashSet<string>();
                 foreach (var item in objInfo)
                 {
-                    if (item.Value is UIPropertyMetadataAttribute attribute && attribute.Inherits)
+                    if (item.Value is UIPropertyMetadataAttribute attribute)
                     {
-                        l.Add(attribute.PropertyName);
+                        if (attribute.Inherits)
+                        {
+                            l.Add(attribute.PropertyName);
+                        }
+                        else
+                        {
+                            b.Add(attribute.PropertyName);
+                        }
                     }
                 }
                 if (l.Count == 0)
                 {
                     l = null;
                 }
+                if (b.Count == 0)
+                {
+                    b = null;
+                }
                 inheritsProperties.TryAdd(type, l);
+                breakInheritsProperties.TryAdd(type, b);
 
                 //Type tt = typeof(PropertyChangedAttribute);
                 //var ms = type.FindMembers(MemberTypes.Method, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, (a, b) => a.CustomAttributes.Any(c => c.AttributeType == tt), null);
@@ -443,6 +472,8 @@ namespace CPF
             //valueIndexs = new ByteArray((byte)objInfo.Count);
             valueIndexs = new byte[objInfo.Count];
             inheritsPropertyName = inheritsProperties[type];
+            breakInheritsPropertyName = breakInheritsProperties[type];
+
             if (objInfo.Computed != null)
             {
                 foreach (var item in objInfo.Computed)

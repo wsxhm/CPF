@@ -99,7 +99,7 @@ namespace CPF
                     {
                         if (item.IsDisposed)
                         {
-                            break;
+                            continue;
                         }
                         var rect = GetRect(item.Parent, item.GetContentBounds(), item);
                         rect.Intersect(new Rect(new Point(), item.ActualSize));

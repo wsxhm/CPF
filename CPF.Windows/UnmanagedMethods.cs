@@ -657,6 +657,7 @@ namespace CPF.Windows
             WM_USER = 0x0400,
             WM_DISPATCH_WORK_ITEM = WM_USER,
             WM_TOUCH = 0x0240,
+            WM_GESTURE = 0x0119,
             //WM_PARENTNOTIFY = 0x0210,
             WM_NCPOINTERUPDATE = 0x0241,
             WM_NCPOINTERDOWN = 0x0242,

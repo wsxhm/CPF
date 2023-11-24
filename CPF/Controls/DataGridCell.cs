@@ -149,6 +149,25 @@ namespace CPF.Controls
         {
             base.OnOverrideMetadata(overridePropertys);
             overridePropertys.Override(nameof(Height), new UIPropertyMetadataAttribute((FloatField)"100%", UIPropertyOptions.AffectsMeasure));
+            //overridePropertys.Override(nameof(DataContext), new UIPropertyMetadataAttribute(null, false));
         }
+
+        //protected override void OnLayoutUpdated()
+        //{
+        //    base.OnLayoutUpdated();
+        //    if (Root.LayoutManager.IsVisible(this))
+        //    {
+        //        DataContext = Row.DataContext;
+        //    }
+        //}
+
+        //protected override void OnPropertyChanged(string propertyName, object oldValue, object newValue, PropertyMetadataAttribute propertyMetadata)
+        //{
+        //    if (propertyName == nameof(DataContext))
+        //    {
+
+        //    }
+        //    base.OnPropertyChanged(propertyName, oldValue, newValue, propertyMetadata);
+        //}
     }
 }

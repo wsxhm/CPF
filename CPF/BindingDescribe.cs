@@ -330,7 +330,14 @@ namespace CPF
             }
             return b;
         }
-
+        //public static BindingDescribe operator *(BindingDescribe property1, string property2)
+        //{
+        //    return null;
+        //}
+        //public static BindingDescribe operator *(BindingDescribe property1, BindingDescribe property2)
+        //{
+        //    return null;
+        //}
         public BindingMode BindingMode { get; set; } = BindingMode.OneWay;
         public object Source { get; set; }
 
