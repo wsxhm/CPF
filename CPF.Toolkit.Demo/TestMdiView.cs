@@ -23,7 +23,7 @@ namespace CPF.Toolkit.Demo
             this.Width = 1280;
             this.Height = 720;
             this.Background = null;
-            this.Children.Add(new WindowFrame(this, new Panel
+            var frame = this.Children.Add(new WindowFrame(this, new Panel
             {
                 Size = SizeField.Fill,
                 Background = "204,204,204",
@@ -32,13 +32,23 @@ namespace CPF.Toolkit.Demo
                     new MdiWindow
                     {
                         Title = "test",
-                        Content = new Button
-                        {
-                            Content = "test"
-                        },
+                        //Content = new WrapPanel
+                        //{
+                        //    Children = 
+                        //    {
+                        //        new Button{ Content = "test" ,Width = 100, Height = 35 },
+                        //        new Button{ Content = "test" ,Width = 100, Height = 35 },
+                        //        new Button{ Content = "test" ,Width = 100, Height = 35 },
+                        //        new Button{ Content = "test" ,Width = 100, Height = 35 },
+                        //    },
+                        //},
                     }
                 }
             }));
+            frame.CaptionBackgrund = "white";
+            frame.CaptionForeground = "black";
+            frame.ControlBoxStroke = "black";
+            frame.MaximizeBox = true;
         }
     }
 }

@@ -1,44 +1,21 @@
-﻿using CPF;
-using CPF.Animation;
-using CPF.Charts;
-using CPF.Controls;
+﻿using CPF.Controls;
 using CPF.Drawing;
-using CPF.Input;
-using CPF.Platform;
-using CPF.Shapes;
-using CPF.Styling;
-using CPF.Svg;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace CPF.Toolkit.Controls
 {
-    public class MdiWindow : Control
+    internal class MdiFrame : Control
     {
-        public WindowState WindowState { get => GetValue<WindowState>(); set => SetValue(value); }
-        public Image Icon { get => GetValue<Image>(); set => SetValue(value); }
-        public string Title { get => GetValue<string>(); set => SetValue(value); }
-        public UIElement Content { get => GetValue<UIElement>(); set => SetValue(value); }
-        [PropertyMetadata(true)]
-        public bool MaximizeBox { get { return GetValue<bool>(); } set { SetValue(value); } }
-        [PropertyMetadata(true)]
-        public bool MinimizeBox { get { return GetValue<bool>(); } set { SetValue(value); } }
+        public MdiFrame()
+        {
+            
+        }
 
-        SizeField normalSize = new SizeField(500, 500);
-        Point normalPos = new Point(0, 0);
         protected override void InitializeComponent()
         {
-            this.Size = normalSize;
-            this.Background = "white";
-            this.BorderFill = "179,179,179";
-            this.BorderStroke = "1";
-            this.MarginLeft = 0;
-            this.MarginTop = 0;
-            base.Children.Add(new Grid
+            this.Children.Add(new Grid
             {
                 Size = SizeField.Fill,
                 RowDefinitions =
@@ -240,86 +217,7 @@ namespace CPF.Toolkit.Controls
                     },
                 }
             });
-            thumb.DragDelta += Thumb_DragDelta;
-        }
 
-        private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
-        {
-            if (this.WindowState == WindowState.Maximized)
-            {
-                return;
-            }
-            this.MarginLeft += e.HorizontalChange;
-            this.MarginTop += e.VerticalChange;
-            this.normalPos = new Point(this.MarginLeft.Value, this.MarginTop.Value);
-        }
-
-        protected override void OnPropertyChanged(string propertyName, object oldValue, object newValue, PropertyMetadataAttribute propertyMetadata)
-        {
-            switch (propertyName)
-            {
-                case nameof(WindowState):
-                    {
-                        switch (this.WindowState)
-                        {
-                            case WindowState.Normal:
-                                this.Size = this.normalSize;
-                                this.MarginLeft = this.normalPos.X;
-                                this.MarginTop = this.normalPos.Y;
-                                break;
-                            case WindowState.Minimized:
-                                break;
-                            case WindowState.Maximized:
-                                this.Size = SizeField.Fill;
-                                this.MarginLeft = 0;
-                                this.MarginTop = 0;
-                                break;
-                            case WindowState.FullScreen:
-                                break;
-                        }
-                    }
-                    break;
-
-                case nameof(Size):
-                case nameof(Width):
-                case nameof(Height):
-                    if (this.WindowState == WindowState.Normal)
-                    {
-                        this.normalSize = this.Size;
-                    }
-                    break;
-
-                case nameof(MarginLeft):
-                    {
-                        if (this.MarginLeft.Value <= 0)
-                        {
-                            this.MarginLeft = 0;
-                        }
-                        else
-                        {
-                            var value = this.MarginLeft.Value + this.Width.Value;
-                            Debug.WriteLine(value);
-                        }
-                    }
-                    break;
-                case nameof(MarginTop):
-                    if (MarginTop.Value <= 0)
-                    {
-                        this.MarginTop = 0;
-                    }
-                    break;
-                    //case nameof(MarginRight):
-                    //    if (MarginRight.Value <= 0)
-                    //    {
-                    //        this.MarginRight = 0;
-                    //    }
-                    //    break;
-                    //case nameof(MarginBottom):
-
-                    //    break;
-            }
-
-            base.OnPropertyChanged(propertyName, oldValue, newValue, propertyMetadata);
         }
     }
 }

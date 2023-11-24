@@ -98,6 +98,16 @@ namespace CPF.Controls
         [PropertyMetadata(typeof(ViewFill), "white")]
         public ViewFill ControlBoxStroke { get => GetValue<ViewFill>(); set => SetValue(value); }
 
+        [PropertyMetadata(typeof(ViewFill), "#1E9FFF")]
+        public ViewFill CaptionBackgrund { get => GetValue<ViewFill>(); set => SetValue(value); }
+
+        [PropertyMetadata(typeof(ViewFill), "white")]
+        public ViewFill CaptionForeground { get => GetValue<ViewFill>(); set => SetValue(value); }
+
+        [PropertyMetadata(typeof(FloatField), "35")]
+        public FloatField CaptionHeight { get => GetValue<FloatField>(); set => SetValue(value); }
+
+
         protected override void InitializeComponent()
         {
             //ViewFill color = "#fff";
@@ -163,351 +173,354 @@ namespace CPF.Controls
             });
             //标题栏和按钮
             grid.Children.Add(
-            new Panel
-            {
-                Name = "caption",
-                Background = "#1E9FFF",
-                Width = "100%",
-                Height = "30",
-                Commands =
+                new Panel
                 {
+                    Name = "caption",
+                    Width = "100%",
+                    Bindings =
                     {
-                        nameof(MouseDown),
-                        nameof(IWindow.DragMove),
-                        Window
+                        { nameof(Panel.Background),nameof(this.CaptionBackgrund),this},
+                        { nameof(Panel.Height),nameof(this.CaptionHeight),this},
                     },
+                    Commands =
                     {
-                        nameof(DoubleClick),
-                        (s,e)=> DoubleClickTitle()
-                    }
-                },
-                Children =
-                {
-                    new StackPanel
-                    {
-                        Name="titleBox",
-                        MarginLeft=0,
-                        Orientation= Orientation.Horizontal,
-                        Children=
                         {
-                            new Picture
-                            {
-                                Name="icon",
-                                MarginLeft=5,
-                                Width=20,
-                                Height=20,
-                                Stretch= Stretch.Fill,
-                                Bindings=
-                                {
-                                    {
-                                        nameof(Picture.Source),
-                                        nameof(window.Icon),
-                                        window
-                                    },
-                                    {
-                                        nameof(Visibility),
-                                        nameof(window.Icon),
-                                        window,
-                                        BindingMode.OneWay,
-                                        a=>a==null||!ShowIcon?Visibility.Collapsed:Visibility.Visible
-                                    },
-                                    {
-                                        nameof(Visibility),
-                                        nameof(ShowIcon),
-                                        this,
-                                        BindingMode.OneWay,
-                                        (bool showIcon)=>!showIcon||window.Icon==null?Visibility.Collapsed:Visibility.Visible
-                                    }
-                                }
-                            },
-                            new TextBlock
-                            {
-                                Name="title",
-                                MarginLeft=8,
-                                MarginTop=2,
-                                Bindings=
-                                {
-                                    {
-                                        nameof(TextBlock.Text),
-                                        nameof(IWindow.Title),
-                                        Window
-                                    }
-                                },
-                                Foreground="#fff"
-                            },
+                            nameof(MouseDown),
+                            nameof(IWindow.DragMove),
+                            Window
+                        },
+                        {
+                            nameof(DoubleClick),
+                            (s,e)=> DoubleClickTitle()
                         }
                     },
-                    new StackPanel
+                    Children =
                     {
-                        Name="controlBox",
-                        MarginRight=0,
-                        Height = "100%",
-                        Orientation= Orientation.Horizontal,
-                        Children =
+                        new StackPanel
                         {
-                            systemButtons,
-                            new SystemButton
+                            Name="titleBox",
+                            MarginLeft=0,
+                            Orientation= Orientation.Horizontal,
+                            Children=
                             {
-                                ToolTip="最小化",
-                                Name="min",
-                                Width = 30,
-                                Height = "100%",
-                                Content=
-                                new Line
+                                new Picture
                                 {
-                                    MarginLeft="auto",
-                                    MarginTop=5,
-                                    StartPoint = new Point(1, 13),
-                                    EndPoint = new Point(14, 13),
-                                    StrokeStyle = "2",
-                                    IsAntiAlias=true,
-                                    //StrokeFill=color
-                                    Bindings =
+                                    Name="icon",
+                                    MarginLeft=5,
+                                    Width=20,
+                                    Height=20,
+                                    Stretch= Stretch.Fill,
+                                    Bindings=
                                     {
-                                        { nameof(Line.StrokeFill),nameof(this.ControlBoxStroke),this}
-                                    }
-                                },
-                                Bindings=
-                                {
-                                    {
-                                        nameof(Visibility),
-                                        nameof(MinimizeBox),
-                                        this,
-                                        BindingMode.OneWay,
-                                        a=>(bool)a?Visibility.Visible: Visibility.Collapsed
-                                    }
-                                },
-                                Commands =
-                                {
-                                    {
-                                        nameof(Button.Click),
-                                        (s,e)=>
                                         {
-                                            //(e as MouseButtonEventArgs).Handled = true;
-                                            Window.WindowState = WindowState.Minimized;
+                                            nameof(Picture.Source),
+                                            nameof(window.Icon),
+                                            window
+                                        },
+                                        {
+                                            nameof(Visibility),
+                                            nameof(window.Icon),
+                                            window,
+                                            BindingMode.OneWay,
+                                            a=>a==null||!ShowIcon?Visibility.Collapsed:Visibility.Visible
+                                        },
+                                        {
+                                            nameof(Visibility),
+                                            nameof(ShowIcon),
+                                            this,
+                                            BindingMode.OneWay,
+                                            (bool showIcon)=>!showIcon||window.Icon==null?Visibility.Collapsed:Visibility.Visible
                                         }
                                     }
                                 },
-                                Triggers=
+                                new TextBlock
                                 {
-                                    new Trigger(nameof(Panel.IsMouseOver), Relation.Me)
+                                    Name="title",
+                                    MarginLeft=8,
+                                    MarginTop=2,
+                                    Bindings=
                                     {
-                                        Setters =
                                         {
-                                            {
-                                                nameof(Panel.Background),
-                                                hoverColor
-                                            }
-                                        }
-                                    }
+                                            nameof(TextBlock.Text),
+                                            nameof(IWindow.Title),
+                                            Window
+                                        },
+                                        { nameof(TextBlock.Foreground),nameof(this.CaptionForeground),this }
+                                    },
                                 },
                             }
-                            ,
-                            new Panel
+                        },
+                        new StackPanel
+                        {
+                            Name="controlBox",
+                            MarginRight=0,
+                            Height = "100%",
+                            Orientation= Orientation.Horizontal,
+                            Children =
                             {
-                                Height = "100%",
-                                Bindings=
+                                systemButtons,
+                                new SystemButton
                                 {
+                                    ToolTip="最小化",
+                                    Name="min",
+                                    Width = 30,
+                                    Height = "100%",
+                                    Content=
+                                    new Line
                                     {
-                                        nameof(Visibility),
-                                        nameof(MaximizeBox),
-                                        this,
-                                        BindingMode.OneWay,
-                                        a=>(bool)a?Visibility.Visible: Visibility.Collapsed
-                                    }
-                                },
-                                Children=
-                                {
-                                    new SystemButton
-                                    {
-                                        ToolTip="最大化",
-                                        Name="max",
-                                        Width = 30,
-                                        Height = "100%",
-                                        Content= new Rectangle
+                                        MarginLeft="auto",
+                                        MarginTop=5,
+                                        StartPoint = new Point(1, 13),
+                                        EndPoint = new Point(14, 13),
+                                        StrokeStyle = "2",
+                                        IsAntiAlias=true,
+                                        //StrokeFill=color
+                                        Bindings =
                                         {
-                                            Width=14,
-                                            Height=12,
-                                            MarginTop=10,
-                                            StrokeStyle="2",
+                                            { nameof(Line.StrokeFill),nameof(this.ControlBoxStroke),this}
+                                        }
+                                    },
+                                    Bindings=
+                                    {
+                                        {
+                                            nameof(Visibility),
+                                            nameof(MinimizeBox),
+                                            this,
+                                            BindingMode.OneWay,
+                                            a=>(bool)a?Visibility.Visible: Visibility.Collapsed
+                                        }
+                                    },
+                                    Commands =
+                                    {
+                                        {
+                                            nameof(Button.Click),
+                                            (s,e)=>
+                                            {
+                                                //(e as MouseButtonEventArgs).Handled = true;
+                                                Window.WindowState = WindowState.Minimized;
+                                            }
+                                        }
+                                    },
+                                    Triggers=
+                                    {
+                                        new Trigger(nameof(Panel.IsMouseOver), Relation.Me)
+                                        {
+                                            Setters =
+                                            {
+                                                {
+                                                    nameof(Panel.Background),
+                                                    hoverColor
+                                                }
+                                            }
+                                        }
+                                    },
+                                }
+                                ,
+                                new Panel
+                                {
+                                    Height = "100%",
+                                    Bindings=
+                                    {
+                                        {
+                                            nameof(Visibility),
+                                            nameof(MaximizeBox),
+                                            this,
+                                            BindingMode.OneWay,
+                                            a=>(bool)a?Visibility.Visible: Visibility.Collapsed
+                                        }
+                                    },
+                                    Children=
+                                    {
+                                        new SystemButton
+                                        {
+                                            ToolTip="最大化",
+                                            Name="max",
+                                            Width = 30,
+                                            Height = "100%",
+                                            Content= new Rectangle
+                                            {
+                                                Width=14,
+                                                Height=12,
+                                                MarginTop=10,
+                                                StrokeStyle="2",
+                                                Bindings =
+                                                {
+                                                    { nameof(Line.StrokeFill),nameof(this.ControlBoxStroke),this}
+                                                }
+                                            },
+                                            Commands =
+                                            {
+                                                {
+                                                    nameof(Button.Click),
+                                                    (s,e)=>
+                                                    {
+                                                        //(e as MouseButtonEventArgs).Handled = true;
+                                                        Window.WindowState= WindowState.Maximized;
+                                                    }
+                                                }
+                                            },
                                             Bindings =
                                             {
-                                                { nameof(Line.StrokeFill),nameof(this.ControlBoxStroke),this}
-                                            }
-                                        },
-                                        Commands =
-                                        {
-                                            {
-                                                nameof(Button.Click),
-                                                (s,e)=>
                                                 {
-                                                    //(e as MouseButtonEventArgs).Handled = true;
-                                                    Window.WindowState= WindowState.Maximized;
+                                                    nameof(Border.Visibility),
+                                                    nameof(Window.WindowState),
+                                                    Window,
+                                                    BindingMode.OneWay,
+                                                    a => (WindowState)a == WindowState.Maximized||(WindowState)a == WindowState.FullScreen ? Visibility.Collapsed : Visibility.Visible
                                                 }
-                                            }
-                                        },
-                                        Bindings =
-                                        {
+                                            },
+                                            Triggers=
                                             {
-                                                nameof(Border.Visibility),
-                                                nameof(Window.WindowState),
-                                                Window,
-                                                BindingMode.OneWay,
-                                                a => (WindowState)a == WindowState.Maximized||(WindowState)a == WindowState.FullScreen ? Visibility.Collapsed : Visibility.Visible
-                                            }
-                                        },
-                                        Triggers=
-                                        {
-                                            new Trigger(nameof(Panel.IsMouseOver), Relation.Me)
-                                            {
-                                                Setters =
+                                                new Trigger(nameof(Panel.IsMouseOver), Relation.Me)
                                                 {
+                                                    Setters =
                                                     {
-                                                        nameof(Panel.Background),
-                                                        hoverColor
+                                                        {
+                                                            nameof(Panel.Background),
+                                                            hoverColor
+                                                        }
                                                     }
                                                 }
-                                            }
+                                            },
                                         },
-                                    },
-                                    new SystemButton
-                                    {
-                                        ToolTip="向下还原",
-                                        Name="nor",
-                                        Width = 30,
-                                        Height = "100%",
-                                        Content=new Panel{
-                                            Size=SizeField.Fill,
-                                            Children=
-                                            {
-                                                new Rectangle
+                                        new SystemButton
+                                        {
+                                            ToolTip="向下还原",
+                                            Name="nor",
+                                            Width = 30,
+                                            Height = "100%",
+                                            Content=new Panel{
+                                                Size=SizeField.Fill,
+                                                Children=
                                                 {
-                                                    MarginTop=15,
-                                                    MarginLeft=8,
-                                                    Width=11,
-                                                    Height=8,
-                                                    StrokeStyle="1.5",
-                                                    //StrokeFill = color
-                                                    Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } },
-                                                },
-                                                new Polyline
-                                                {
-                                                    MarginTop=11,
-                                                    MarginLeft=12,
-                                                    Points=
+                                                    new Rectangle
                                                     {
-                                                        new Point(0,3),
-                                                        new Point(0,0),
-                                                        new Point(9,0),
-                                                        new Point(9,7),
-                                                        new Point(6,7)
+                                                        MarginTop=15,
+                                                        MarginLeft=8,
+                                                        Width=11,
+                                                        Height=8,
+                                                        StrokeStyle="1.5",
+                                                        //StrokeFill = color
+                                                        Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } },
                                                     },
-                                                    //StrokeFill = color,
-                                                    Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } },
-                                                    StrokeStyle="2"
-                                                }
-                                            }
-                                        },
-                                        Commands =
-                                        {
-                                            {
-                                                nameof(Button.Click),
-                                                (s,e)=>
-                                                {
-                                                    //(e as MouseButtonEventArgs).Handled = true;
-                                                    Window.WindowState = WindowState.Normal;
-                                                }
-                                            }
-                                        },
-                                        Bindings =
-                                        {
-                                            {
-                                                nameof(Border.Visibility),
-                                                nameof(Window.WindowState),
-                                                Window,
-                                                BindingMode.OneWay,
-                                                a => (WindowState)a == WindowState.Normal ? Visibility.Collapsed : Visibility.Visible
-                                            }
-                                        },
-                                        Triggers=
-                                        {
-                                            new Trigger(nameof(Panel.IsMouseOver), Relation.Me)
-                                            {
-                                                Setters =
-                                                {
+                                                    new Polyline
                                                     {
-                                                        nameof(Panel.Background),
-                                                        hoverColor
+                                                        MarginTop=11,
+                                                        MarginLeft=12,
+                                                        Points=
+                                                        {
+                                                            new Point(0,3),
+                                                            new Point(0,0),
+                                                            new Point(9,0),
+                                                            new Point(9,7),
+                                                            new Point(6,7)
+                                                        },
+                                                        //StrokeFill = color,
+                                                        Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } },
+                                                        StrokeStyle="2"
                                                     }
                                                 }
-                                            }
-                                        },
-                                    }
-                                }
-                            },
-                            new SystemButton
-                            {
-                                Name="close",
-                                ToolTip="关闭",
-                                Width = 30,
-                                Height = "100%",
-                                Content=new Panel{
-                                    Size=SizeField.Fill,
-                                    Children =
-                                    {
-                                        new Line
-                                        {
-                                            MarginTop=8,
-                                            MarginLeft=8,
-                                            StartPoint = new Point(1, 1),
-                                            EndPoint = new Point(14, 13),
-                                            StrokeStyle = "2",
-                                            IsAntiAlias=true,
-                                            //StrokeFill=color
-                                            Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } }
-                                        },
-                                        new Line
-                                        {
-                                            MarginTop=8,
-                                            MarginLeft=8,
-                                            StartPoint = new Point(14, 1),
-                                            EndPoint = new Point(1, 13),
-                                            StrokeStyle = "2",
-                                            IsAntiAlias=true,
-                                            //StrokeFill=color
-                                            Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } }
-                                        }
-                                    }
-                                },
-                                Commands =
-                                {
-                                    {
-                                        nameof(Button.Click),
-                                        (s,e)=>
-                                        {
-                                            //(e as MouseButtonEventArgs).Handled=true;
-                                            Window.Close();
-                                        }
-                                    }
-                                },
-                                Triggers=
-                                {
-                                    new Trigger(nameof(Panel.IsMouseOver), Relation.Me)
-                                    {
-                                        Setters =
-                                        {
+                                            },
+                                            Commands =
                                             {
-                                                nameof(Panel.Background),
-                                                hoverColor
-                                            }
+                                                {
+                                                    nameof(Button.Click),
+                                                    (s,e)=>
+                                                    {
+                                                        //(e as MouseButtonEventArgs).Handled = true;
+                                                        Window.WindowState = WindowState.Normal;
+                                                    }
+                                                }
+                                            },
+                                            Bindings =
+                                            {
+                                                {
+                                                    nameof(Border.Visibility),
+                                                    nameof(Window.WindowState),
+                                                    Window,
+                                                    BindingMode.OneWay,
+                                                    a => (WindowState)a == WindowState.Normal ? Visibility.Collapsed : Visibility.Visible
+                                                }
+                                            },
+                                            Triggers=
+                                            {
+                                                new Trigger(nameof(Panel.IsMouseOver), Relation.Me)
+                                                {
+                                                    Setters =
+                                                    {
+                                                        {
+                                                            nameof(Panel.Background),
+                                                            hoverColor
+                                                        }
+                                                    }
+                                                }
+                                            },
                                         }
                                     }
                                 },
+                                new SystemButton
+                                {
+                                    Name="close",
+                                    ToolTip="关闭",
+                                    Width = 30,
+                                    Height = "100%",
+                                    Content=new Panel{
+                                        Size=SizeField.Fill,
+                                        Children =
+                                        {
+                                            new Line
+                                            {
+                                                MarginTop=8,
+                                                MarginLeft=8,
+                                                StartPoint = new Point(1, 1),
+                                                EndPoint = new Point(14, 13),
+                                                StrokeStyle = "2",
+                                                IsAntiAlias=true,
+                                                //StrokeFill=color
+                                                Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } }
+                                            },
+                                            new Line
+                                            {
+                                                MarginTop=8,
+                                                MarginLeft=8,
+                                                StartPoint = new Point(14, 1),
+                                                EndPoint = new Point(1, 13),
+                                                StrokeStyle = "2",
+                                                IsAntiAlias=true,
+                                                //StrokeFill=color
+                                                Bindings = { { nameof(Line.StrokeFill), nameof(this.ControlBoxStroke), this } }
+                                            }
+                                        }
+                                    },
+                                    Commands =
+                                    {
+                                        {
+                                            nameof(Button.Click),
+                                            (s,e)=>
+                                            {
+                                                //(e as MouseButtonEventArgs).Handled=true;
+                                                Window.Close();
+                                            }
+                                        }
+                                    },
+                                    Triggers=
+                                    {
+                                        new Trigger(nameof(Panel.IsMouseOver), Relation.Me)
+                                        {
+                                            Setters =
+                                            {
+                                                {
+                                                    nameof(Panel.Background),
+                                                    hoverColor
+                                                }
+                                            }
+                                        }
+                                    },
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
             if (Content != null)
             {
                 grid.Children.Add(Content, 0, 1);
