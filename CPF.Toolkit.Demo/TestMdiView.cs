@@ -23,25 +23,23 @@ namespace CPF.Toolkit.Demo
             this.Width = 1280;
             this.Height = 720;
             this.Background = null;
-            var frame = this.Children.Add(new WindowFrame(this, new Panel
+            var frame = this.Children.Add(new WindowFrame(this, new MdiHost
             {
-                Size = SizeField.Fill,
-                Background = "204,204,204",
                 Children =
                 {
                     new MdiWindow
                     {
                         Title = "test",
-                        //Content = new WrapPanel
-                        //{
-                        //    Children = 
-                        //    {
-                        //        new Button{ Content = "test" ,Width = 100, Height = 35 },
-                        //        new Button{ Content = "test" ,Width = 100, Height = 35 },
-                        //        new Button{ Content = "test" ,Width = 100, Height = 35 },
-                        //        new Button{ Content = "test" ,Width = 100, Height = 35 },
-                        //    },
-                        //},
+                        Content = new WrapPanel
+                        {
+                            Children =
+                            {
+                                new Button{ Content = "test" ,Width = 100, Height = 35 },
+                                new Button{ Content = "test" ,Width = 100, Height = 35 },
+                                new Button{ Content = "test" ,Width = 100, Height = 35 },
+                                new Button{ Content = "test" ,Width = 100, Height = 35 },
+                            },
+                        },
                     }
                 }
             }));
