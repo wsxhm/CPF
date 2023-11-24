@@ -19,14 +19,18 @@ namespace CPF.Toolkit.Controls
 {
     public class MdiWindow : Control
     {
+        [PropertyMetadata(typeof(WindowState), "Normal")]
         public WindowState WindowState { get => GetValue<WindowState>(); set => SetValue(value); }
-        public Image Icon { get => GetValue<Image>(); set => SetValue(value); }
         public string Title { get => GetValue<string>(); set => SetValue(value); }
         public UIElement Content { get => GetValue<UIElement>(); set => SetValue(value); }
         [PropertyMetadata(true)]
         public bool MaximizeBox { get { return GetValue<bool>(); } set { SetValue(value); } }
         [PropertyMetadata(true)]
         public bool MinimizeBox { get { return GetValue<bool>(); } set { SetValue(value); } }
+        [PropertyMetadata(true)]
+        public bool CloseBox { get { return GetValue<bool>(); } set { SetValue(value); } }
+        [UIPropertyMetadata((byte)5, UIPropertyOptions.AffectsMeasure)]
+        public byte ShadowBlur { get { return GetValue<byte>(); } set { SetValue(value); } }
 
         SizeField normalSize = new SizeField(500, 500);
         Point normalPos = new Point(0, 0);
@@ -34,301 +38,350 @@ namespace CPF.Toolkit.Controls
         {
             var bar = (ViewFill)"154,180,208";
             this.Size = normalSize;
-            this.Background = "white";
+            this.Background = null;
             this.MarginLeft = 0;
             this.MarginTop = 0;
-            this.MinWidth = 150;
-            this.MinHeight = 50;
+            this.MinWidth = 200;
+            this.MinHeight = 70;
             this.ClipToBounds = true;
-            base.Children.Add(new Grid
+            this.Children.Add(new Border
             {
                 Size = SizeField.Fill,
-                ColumnDefinitions =
+                Background = "#fff",
+                BorderType = BorderType.BorderStroke,
+                BorderStroke = new Stroke(0),
+                ShadowBlur = ShadowBlur,
+                ShadowColor = Color.FromRgba(0, 0, 0, 150),
+                Child = new Decorator
                 {
-                    new ColumnDefinition{ Width = "auto" },
-                    new ColumnDefinition{ },
-                    new ColumnDefinition{ Width = "auto" },
-                },
-                RowDefinitions =
-                {
-                    new RowDefinition{ Height = "auto" },
-                    new RowDefinition{ Height = 30 },
-                    new RowDefinition{  },
-                    new RowDefinition{ Height = "auto" },
-                },
-                Children =
-                {
-                    new Thumb
+                    Size = SizeField.Fill,
+                    ClipToBounds = true,
+                    Child = new Grid
                     {
-                        Name = "top",
-                        Size = "100%,5",
-                        Background = bar,
-                        Cursor = Cursors.SizeNorthSouth,
-                        Attacheds = { { Grid.ColumnSpan,3 } },
-                        Commands =
-                        {
-                            {
-                                nameof(Thumb.DragDelta),(s,e) =>
-                                {
-                                    var args = e as DragDeltaEventArgs;
-                                    if (this.Height.Value - args.VerticalChange > 0)
-                                    {
-                                        this.MarginTop += args.VerticalChange;
-                                        this.Height -= args.VerticalChange;
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    new Thumb
-                    {
-                        Name = "left",
-                        Size = "5,100%",
-                        Background = bar,
-                        Cursor = Cursors.SizeWestEast,
-                        Attacheds = { { Grid.ColumnIndex,0 } ,{ Grid.RowSpan,4 } },
-                        Commands =
-                        {
-                            {
-                                nameof(Thumb.DragDelta),(s,e) =>
-                                {
-                                    var args = e as DragDeltaEventArgs;
-                                    if (this.Width.Value - args.HorizontalChange > 0)
-                                    {
-                                        this.MarginLeft += args.HorizontalChange;
-                                        this.Width -= args.HorizontalChange;
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    new Thumb
-                    {
-                        Name = "right",
-                        Size = "5,100%",
-                        Background = bar,
-                        Cursor = Cursors.SizeWestEast,
-                        MarginRight = 0,
-                        Attacheds = { { Grid.ColumnIndex,2 },{ Grid.RowSpan,4 } },
-                        Commands = { { nameof(Thumb.DragDelta),(s,e) => this.Width += (e as DragDeltaEventArgs).HorizontalChange } }
-                    },
-                    new Thumb
-                    {
-                        Name = "bottom",
-                        Size = "100%,5",
-                        Background = bar,
-                        Cursor = Cursors.SizeNorthSouth,
-                        Attacheds = { { Grid.RowIndex,3 },{ Grid.ColumnSpan,3 } },
-                        Commands = { { nameof(Thumb.DragDelta),(s,e) => this.Height += (e as DragDeltaEventArgs).VerticalChange } }
-                    },
-                    new Thumb
-                    {
-                        Name = "caption",
-                        Attacheds = { { Grid.RowIndex,1 },{ Grid.ColumnIndex,1 } },
                         Size = SizeField.Fill,
-                        Background = bar,
-                        Child = new Panel
+                        ColumnDefinitions =
                         {
-                            Size = SizeField.Fill,
-                            Children =
+                            new ColumnDefinition{ Width = "auto" },
+                            new ColumnDefinition{ },
+                            new ColumnDefinition{ Width = "auto" },
+                        },
+                        RowDefinitions =
+                        {
+                            new RowDefinition{ Height = "auto" },
+                            new RowDefinition{ Height = 30 },
+                            new RowDefinition{  },
+                            new RowDefinition{ Height = "auto" },
+                        },
+                        Children =
+                        {
+                            new Thumb
                             {
-                                new StackPanel
+                                Name = "top",
+                                Size = "100%,5",
+                                Background = bar,
+                                Cursor = Cursors.SizeNorthSouth,
+                                Attacheds = { { Grid.ColumnSpan,3 } },
+                                Commands =
                                 {
-                                    Orientation = Orientation.Horizontal,
-                                    MarginLeft = 0,
-                                    Children =
                                     {
-                                        new TextBlock
+                                        nameof(Thumb.DragDelta),(s,e) =>
                                         {
-                                            [nameof(TextBlock.Text)] = new BindingDescribe(this,nameof(this.Title),BindingMode.OneWay),
-                                            FontSize = 14,
-                                            MarginLeft = 10,
-                                        },
-                                    }
-                                },
-                                new StackPanel
-                                {
-                                    Orientation = Orientation.Horizontal,
-                                    MarginRight = 0,
-                                    Height = "100%",
-                                    Children =
-                                    {
-                                        new SystemButton
-                                        {
-                                            Name = "min",
-                                            Size = new SizeField(30,"100%"),
-                                            Content = new Line
+                                            var args = e as DragDeltaEventArgs;
+                                            if (this.Height.Value - args.VerticalChange > 0)
                                             {
-                                                //MarginTop = 5,
-                                                MarginLeft = "auto",
-                                                StartPoint = new Point(1,13),
-                                                EndPoint = new Point(14,13),
-                                                StrokeStyle = "2",
-                                                IsAntiAlias = true,
-                                                StrokeFill = "black"
+                                                this.MarginTop += args.VerticalChange;
+                                                this.Height -= args.VerticalChange;
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            new Thumb
+                            {
+                                Name = "left",
+                                Size = "5,100%",
+                                Background = bar,
+                                Cursor = Cursors.SizeWestEast,
+                                IsEnabled = false,
+                                Attacheds = { { Grid.ColumnIndex,0 } ,{ Grid.RowSpan,4 } },
+                                Commands =
+                                {
+                                    {
+                                        nameof(Thumb.DragDelta),(s,e) =>
+                                        {
+                                            var args = e as DragDeltaEventArgs;
+                                            if (this.Width.Value - args.HorizontalChange > 0)
+                                            {
+                                                this.MarginLeft += args.HorizontalChange;
+                                                this.Width -= args.HorizontalChange;
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            new Thumb
+                            {
+                                Name = "right",
+                                Size = "5,100%",
+                                Background = bar,
+                                Cursor = Cursors.SizeWestEast,
+                                MarginRight = 0,
+                                Attacheds = { { Grid.ColumnIndex,2 },{ Grid.RowSpan,4 } },
+                                Commands = { { nameof(Thumb.DragDelta),(s,e) => this.Width += (e as DragDeltaEventArgs).HorizontalChange } }
+                            },
+                            new Thumb
+                            {
+                                Name = "bottom",
+                                Size = "100%,5",
+                                Background = bar,
+                                Cursor = Cursors.SizeNorthSouth,
+                                Attacheds = { { Grid.RowIndex,3 },{ Grid.ColumnSpan,3 } },
+                                Commands = { { nameof(Thumb.DragDelta),(s,e) => this.Height += (e as DragDeltaEventArgs).VerticalChange } }
+                            },
+                            new Thumb
+                            {
+                                Name = "caption",
+                                Attacheds = { { Grid.RowIndex,1 },{ Grid.ColumnIndex,1 } },
+                                Size = SizeField.Fill,
+                                Background = bar,
+                                Child = new Panel
+                                {
+                                    Size = SizeField.Fill,
+                                    Children =
+                                    {
+                                        new StackPanel
+                                        {
+                                            Orientation = Orientation.Horizontal,
+                                            MarginLeft = 0,
+                                            Children =
+                                            {
+                                                new TextBlock
+                                                {
+                                                    [nameof(TextBlock.Text)] = new BindingDescribe(this,nameof(this.Title),BindingMode.OneWay),
+                                                    FontSize = 14,
+                                                    MarginLeft = 10,
+                                                },
                                             }
                                         },
-                                        new Panel
+                                        new StackPanel
                                         {
+                                            Orientation = Orientation.Horizontal,
+                                            MarginRight = 0,
                                             Height = "100%",
-                                            Bindings =
-                                            {
-                                                {
-                                                    nameof(Visibility),
-                                                    nameof(MaximizeBox),
-                                                    this,
-                                                    BindingMode.OneWay,
-                                                    a => (bool)a ? Visibility.Visible : Visibility.Collapsed
-                                                }
-                                            },
                                             Children =
                                             {
                                                 new SystemButton
                                                 {
-                                                    Name = "max",
+                                                    Name = "min",
                                                     Size = new SizeField(30,"100%"),
-                                                    Content = new Rectangle
+                                                    Content = new Line
                                                     {
-                                                        Size = new SizeField(14,12),
-                                                        MarginTop = 5,
+                                                        MarginLeft = "auto",
+                                                        StartPoint = new Point(1,13),
+                                                        EndPoint = new Point(14,13),
                                                         StrokeStyle = "2",
+                                                        IsAntiAlias = true,
+                                                        StrokeFill = "black"
                                                     },
-                                                    Commands =
+                                                    Bindings=
                                                     {
-                                                        { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Maximized }
-                                                    },
-                                                    Bindings =
-                                                    {
-                                                         {
-                                                            nameof(Border.Visibility),
-                                                            nameof(this.WindowState),
+                                                        {
+                                                            nameof(Visibility),
+                                                            nameof(MinimizeBox),
                                                             this,
                                                             BindingMode.OneWay,
-                                                            a => (WindowState)a == WindowState.Maximized || (WindowState)a == WindowState.FullScreen ? Visibility.Collapsed : Visibility.Visible
-                                                         }
+                                                            a=>(bool)a?Visibility.Visible: Visibility.Collapsed
+                                                        }
+                                                    },
+                                                    Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Minimized } },
+                                                },
+                                                new Panel
+                                                {
+                                                    Height = "100%",
+                                                    Bindings =
+                                                    {
+                                                        {
+                                                            nameof(Visibility),
+                                                            nameof(MaximizeBox),
+                                                            this,
+                                                            BindingMode.OneWay,
+                                                            a => (bool)a ? Visibility.Visible : Visibility.Collapsed
+                                                        }
+                                                    },
+                                                    Children =
+                                                    {
+                                                        new SystemButton
+                                                        {
+                                                            Name = "max",
+                                                            Size = new SizeField(30,"100%"),
+                                                            Content = new Rectangle
+                                                            {
+                                                                Size = new SizeField(14,12),
+                                                                MarginTop = 5,
+                                                                StrokeStyle = "2",
+                                                            },
+                                                            Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Maximized } },
+                                                            Bindings =
+                                                            {
+                                                                 {
+                                                                    nameof(Border.Visibility),
+                                                                    nameof(this.WindowState),
+                                                                    this,
+                                                                    BindingMode.OneWay,
+                                                                    a => (WindowState)a == WindowState.Maximized || (WindowState)a == WindowState.FullScreen ? Visibility.Collapsed : Visibility.Visible
+                                                                 }
+                                                            }
+                                                        },
+                                                        new SystemButton
+                                                        {
+                                                            Name = "nor",
+                                                            Visibility = Visibility.Collapsed,
+                                                            Size = new SizeField(30,"100%"),
+                                                            Content = new Panel
+                                                            {
+                                                                Size = SizeField.Fill,
+                                                                Children =
+                                                                {
+                                                                    new Rectangle
+                                                                    {
+                                                                        MarginTop = 10,
+                                                                        MarginLeft =8,
+                                                                        Size = new SizeField(11,8),
+                                                                        StrokeStyle = "1.5",
+                                                                    },
+                                                                    new Polyline
+                                                                    {
+                                                                        MarginTop =5,
+                                                                        MarginLeft = 12,
+                                                                        Points =
+                                                                        {
+                                                                            new Point(0,3),
+                                                                            new Point(0,0),
+                                                                            new Point(9,0),
+                                                                            new Point(9,7),
+                                                                            new Point(6,7)
+                                                                        },
+                                                                        StrokeStyle = "2"
+                                                                    }
+                                                                }
+                                                            },
+                                                            Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Normal } },
+                                                            Bindings =
+                                                            {
+                                                                {
+                                                                    nameof(Border.Visibility),
+                                                                    nameof(Window.WindowState),
+                                                                    this,
+                                                                    BindingMode.OneWay,
+                                                                    a => ((WindowState)a).Or( WindowState.Normal, WindowState.Minimized) ? Visibility.Collapsed : Visibility.Visible
+                                                                }
+                                                            }
+                                                        }
                                                     }
                                                 },
                                                 new SystemButton
                                                 {
-                                                    Name = "nor",
-                                                    Visibility = Visibility.Collapsed,
+                                                    Name = "close",
                                                     Size = new SizeField(30,"100%"),
                                                     Content = new Panel
                                                     {
                                                         Size = SizeField.Fill,
                                                         Children =
                                                         {
-                                                            new Rectangle
+                                                            new Line
                                                             {
-                                                                MarginTop = 10,
-                                                                MarginLeft =8,
-                                                                Size = new SizeField(11,8),
-                                                                StrokeStyle = "1.5",
+                                                                MarginTop=4,
+                                                                MarginLeft=8,
+                                                                StartPoint = new Point(1, 1),
+                                                                EndPoint = new Point(14, 13),
+                                                                StrokeStyle = "2",
+                                                                IsAntiAlias=true,
                                                             },
-                                                            new Polyline
+                                                            new Line
                                                             {
-                                                                MarginTop =5,
-                                                                MarginLeft = 12,
-                                                                Points =
-                                                                {
-                                                                    new Point(0,3),
-                                                                    new Point(0,0),
-                                                                    new Point(9,0),
-                                                                    new Point(9,7),
-                                                                    new Point(6,7)
-                                                                },
-                                                                StrokeStyle = "2"
+                                                                MarginTop=4,
+                                                                MarginLeft=8,
+                                                                StartPoint = new Point(14, 1),
+                                                                EndPoint = new Point(1, 13),
+                                                                StrokeStyle = "2",
+                                                                IsAntiAlias=true,
                                                             }
                                                         }
                                                     },
-                                                    Commands =
-                                                    {
-                                                        { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Normal }
-                                                    },
-                                                    Bindings =
+                                                    Bindings=
                                                     {
                                                         {
-                                                            nameof(Border.Visibility),
-                                                            nameof(Window.WindowState),
+                                                            nameof(Visibility),
+                                                            nameof(this.CloseBox),
                                                             this,
                                                             BindingMode.OneWay,
-                                                            a => (WindowState)a == WindowState.Normal ? Visibility.Collapsed : Visibility.Visible
+                                                            a=>(bool)a?Visibility.Visible: Visibility.Collapsed
                                                         }
-                                                    }
+                                                    },
                                                 }
                                             }
                                         },
-                                        new SystemButton
+                                    },
+                                },
+                                Commands =
+                                {
+                                    {
+                                        nameof(Thumb.DragDelta),
+                                        (s,e) =>
                                         {
-                                            Name = "close",
-                                            Size = new SizeField(30,"100%"),
-                                            Content = new Panel
+                                            if (this.WindowState.Or(WindowState.Normal, WindowState.Minimized))
                                             {
-                                                Size = SizeField.Fill,
-                                                Children =
-                                                {
-                                                    new Line
-                                                    {
-                                                        MarginTop=4,
-                                                        MarginLeft=8,
-                                                        StartPoint = new Point(1, 1),
-                                                        EndPoint = new Point(14, 13),
-                                                        StrokeStyle = "2",
-                                                        IsAntiAlias=true,
-                                                    },
-                                                    new Line
-                                                    {
-                                                        MarginTop=4,
-                                                        MarginLeft=8,
-                                                        StartPoint = new Point(14, 1),
-                                                        EndPoint = new Point(1, 13),
-                                                        StrokeStyle = "2",
-                                                        IsAntiAlias=true,
-                                                    }
-                                                }
-                                            },
+                                                var arge = e as DragDeltaEventArgs;
+                                                this.MarginLeft += arge.HorizontalChange;
+                                                this.MarginTop += arge.VerticalChange;
+                                                this.normalPos = new Point(this.MarginLeft.Value, this.MarginTop.Value);
+                                            }
                                         }
+                                    },
+                                    {
+                                        nameof(DoubleClick),
+                                        (s,e) => this.Delay(TimeSpan.FromMilliseconds(150),() =>
+                                        {
+                                            if (this.WindowState.Or(WindowState.Maximized,WindowState.Minimized))
+                                            {
+                                                this.WindowState = WindowState.Normal;
+                                            }
+                                            else if (this.WindowState == WindowState.Normal)
+                                            {
+                                                this.WindowState = WindowState.Maximized;
+                                            }
+                                        })
                                     }
                                 },
                             },
-                        },
-                        Commands =
-                        {
+                            new Decorator
                             {
-                                nameof(Thumb.DragDelta),
-                                (s,e) =>
-                                {
-                                    if (this.WindowState == WindowState.Maximized) return;
-                                    var arge = e as DragDeltaEventArgs;
-                                    this.MarginLeft += arge.HorizontalChange;
-                                    this.MarginTop += arge.VerticalChange;
-                                    this.normalPos = new Point(this.MarginLeft.Value, this.MarginTop.Value);
-                                }
+                                Attacheds = { { Grid.RowIndex,2 } ,{ Grid.ColumnIndex,1 } },
+                                Size = SizeField.Fill,
+                                Child = this.Content,
                             },
-                            {
-                                nameof(DoubleClick),
-                                (s,e) => this.Delay(TimeSpan.FromMilliseconds(150),() =>
-                                {
-                                    if (this.WindowState.Or(WindowState.Maximized,WindowState.Minimized))
-                                    {
-                                        this.WindowState = WindowState.Normal;
-                                    }
-                                    else if (this.WindowState == WindowState.Normal)
-                                    {
-                                        this.WindowState = WindowState.Maximized;
-                                    }
-                                })
-                            }
-                        },
+                        }
                     },
-                    new Decorator
+                },
+                Bindings =
+                {
                     {
-                        Attacheds = { { Grid.RowIndex,2 } ,{ Grid.ColumnIndex,1 } },
-                        Size = SizeField.Fill,
-                        Child = this.Content,
+                        nameof(Border.ShadowBlur),
+                        nameof(IWindow.WindowState),
+                        this,
+                        BindingMode.OneWay,
+                        a => (WindowState)a == WindowState.Maximized||(WindowState)a == WindowState.FullScreen ? 0 : ShadowBlur
+                    },
+                    {
+                        nameof(Border.ShadowBlur),
+                        nameof(ShadowBlur),
+                        this,
+                        BindingMode.OneWay,
+                        a => this.WindowState == WindowState.Maximized||this. WindowState == WindowState.FullScreen ? 0 : (byte)a
                     },
                 }
             });
+
             this.Content.Margin = "0";
             this.Content.ClipToBounds = true;
         }
@@ -347,13 +400,14 @@ namespace CPF.Toolkit.Controls
                                 this.MarginTop = this.normalPos.Y;
                                 break;
                             case WindowState.Minimized:
+                                this.Width = this.MinWidth;
+                                this.Height = this.MinHeight;
                                 break;
                             case WindowState.Maximized:
+                            case WindowState.FullScreen:
                                 this.Size = SizeField.Fill;
                                 this.MarginLeft = 0;
                                 this.MarginTop = 0;
-                                break;
-                            case WindowState.FullScreen:
                                 break;
                         }
                     }
@@ -363,9 +417,19 @@ namespace CPF.Toolkit.Controls
                 case nameof(Width):
                 case nameof(Height):
                 case nameof(ActualSize):
-                    if (this.WindowState == WindowState.Normal)
+                    switch (this.WindowState)
                     {
-                        this.normalSize = this.Size;
+                        case WindowState.Normal:
+                            this.normalSize = this.Size;
+                            break;
+                        case WindowState.Minimized:
+                            this.Width = this.MinWidth;
+                            this.Height = this.MinHeight;
+                            break;
+                        case WindowState.Maximized:
+                            break;
+                        case WindowState.FullScreen:
+                            break;
                     }
                     break;
 
