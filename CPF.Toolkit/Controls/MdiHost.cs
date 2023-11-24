@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace CPF.Toolkit.Controls
@@ -38,7 +39,14 @@ namespace CPF.Toolkit.Controls
 
         protected override void OnUIElementAdded(UIElementAddedEventArgs e)
         {
+            e.Element.PreviewMouseDown += Element_PreviewMouseDown; ;
             base.OnUIElementAdded(e);
+        }
+
+        private void Element_PreviewMouseDown(object sender, Input.MouseButtonEventArgs e)
+        {
+            var view = sender as UIElement;
+            view.ZIndex = this.Children.Max(x => x.ZIndex) + 1;
         }
     }
 }

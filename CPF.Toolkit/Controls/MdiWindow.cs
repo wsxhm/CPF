@@ -37,6 +37,7 @@ namespace CPF.Toolkit.Controls
         protected override void InitializeComponent()
         {
             var bar = (ViewFill)"154,180,208";
+            var thubmEnabled = new BindingDescribe(this, nameof(WindowState), BindingMode.OneWay, b => ((WindowState)b) == WindowState.Normal);
             this.Size = normalSize;
             this.Background = null;
             this.MarginLeft = 0;
@@ -81,6 +82,7 @@ namespace CPF.Toolkit.Controls
                                 Background = bar,
                                 Cursor = Cursors.SizeNorthSouth,
                                 Attacheds = { { Grid.ColumnSpan,3 } },
+                                [nameof(IsEnabled)] = thubmEnabled,
                                 Commands =
                                 {
                                     {
@@ -94,7 +96,7 @@ namespace CPF.Toolkit.Controls
                                             }
                                         }
                                     }
-                                }
+                                },
                             },
                             new Thumb
                             {
@@ -104,6 +106,7 @@ namespace CPF.Toolkit.Controls
                                 Cursor = Cursors.SizeWestEast,
                                 IsEnabled = false,
                                 Attacheds = { { Grid.ColumnIndex,0 } ,{ Grid.RowSpan,4 } },
+                                [nameof(IsEnabled)] = thubmEnabled,
                                 Commands =
                                 {
                                     {
@@ -127,6 +130,7 @@ namespace CPF.Toolkit.Controls
                                 Cursor = Cursors.SizeWestEast,
                                 MarginRight = 0,
                                 Attacheds = { { Grid.ColumnIndex,2 },{ Grid.RowSpan,4 } },
+                                [nameof(IsEnabled)] = thubmEnabled,
                                 Commands = { { nameof(Thumb.DragDelta),(s,e) => this.Width += (e as DragDeltaEventArgs).HorizontalChange } }
                             },
                             new Thumb
@@ -136,6 +140,7 @@ namespace CPF.Toolkit.Controls
                                 Background = bar,
                                 Cursor = Cursors.SizeNorthSouth,
                                 Attacheds = { { Grid.RowIndex,3 },{ Grid.ColumnSpan,3 } },
+                                [nameof(IsEnabled)] = thubmEnabled,
                                 Commands = { { nameof(Thumb.DragDelta),(s,e) => this.Height += (e as DragDeltaEventArgs).VerticalChange } }
                             },
                             new Thumb
@@ -183,31 +188,13 @@ namespace CPF.Toolkit.Controls
                                                         IsAntiAlias = true,
                                                         StrokeFill = "black"
                                                     },
-                                                    Bindings=
-                                                    {
-                                                        {
-                                                            nameof(Visibility),
-                                                            nameof(MinimizeBox),
-                                                            this,
-                                                            BindingMode.OneWay,
-                                                            a=>(bool)a?Visibility.Visible: Visibility.Collapsed
-                                                        }
-                                                    },
+                                                    [nameof(Visibility)] = new BindingDescribe(this,nameof(MinimizeBox),BindingMode.OneWay,a=>(bool)a?Visibility.Visible: Visibility.Collapsed),
                                                     Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Minimized } },
                                                 },
                                                 new Panel
                                                 {
                                                     Height = "100%",
-                                                    Bindings =
-                                                    {
-                                                        {
-                                                            nameof(Visibility),
-                                                            nameof(MaximizeBox),
-                                                            this,
-                                                            BindingMode.OneWay,
-                                                            a => (bool)a ? Visibility.Visible : Visibility.Collapsed
-                                                        }
-                                                    },
+                                                    [nameof(Visibility)] = new BindingDescribe(this,nameof(MaximizeBox),BindingMode.OneWay,a => (bool)a ? Visibility.Visible : Visibility.Collapsed),
                                                     Children =
                                                     {
                                                         new SystemButton
@@ -221,16 +208,7 @@ namespace CPF.Toolkit.Controls
                                                                 StrokeStyle = "2",
                                                             },
                                                             Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Maximized } },
-                                                            Bindings =
-                                                            {
-                                                                 {
-                                                                    nameof(Border.Visibility),
-                                                                    nameof(this.WindowState),
-                                                                    this,
-                                                                    BindingMode.OneWay,
-                                                                    a => (WindowState)a == WindowState.Maximized || (WindowState)a == WindowState.FullScreen ? Visibility.Collapsed : Visibility.Visible
-                                                                 }
-                                                            }
+                                                            [nameof(Visibility)] = new BindingDescribe(this,nameof(WindowState),BindingMode.OneWay,a => ((WindowState)a).Or(WindowState.Maximized,WindowState.FullScreen) ? Visibility.Collapsed : Visibility.Visible),
                                                         },
                                                         new SystemButton
                                                         {
@@ -266,16 +244,7 @@ namespace CPF.Toolkit.Controls
                                                                 }
                                                             },
                                                             Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Normal } },
-                                                            Bindings =
-                                                            {
-                                                                {
-                                                                    nameof(Border.Visibility),
-                                                                    nameof(Window.WindowState),
-                                                                    this,
-                                                                    BindingMode.OneWay,
-                                                                    a => ((WindowState)a).Or( WindowState.Normal, WindowState.Minimized) ? Visibility.Collapsed : Visibility.Visible
-                                                                }
-                                                            }
+                                                            [nameof(Visibility)] = new BindingDescribe(this,nameof(WindowState),BindingMode.OneWay,a => ((WindowState)a).Or( WindowState.Normal, WindowState.Minimized) ? Visibility.Collapsed : Visibility.Visible)
                                                         }
                                                     }
                                                 },
@@ -308,16 +277,7 @@ namespace CPF.Toolkit.Controls
                                                             }
                                                         }
                                                     },
-                                                    Bindings=
-                                                    {
-                                                        {
-                                                            nameof(Visibility),
-                                                            nameof(this.CloseBox),
-                                                            this,
-                                                            BindingMode.OneWay,
-                                                            a=>(bool)a?Visibility.Visible: Visibility.Collapsed
-                                                        }
-                                                    },
+                                                    [nameof(Visibility)] = new BindingDescribe(this,nameof(this.CloseBox),BindingMode.OneWay,a=>(bool)a?Visibility.Visible: Visibility.Collapsed)
                                                 }
                                             }
                                         },
@@ -363,23 +323,8 @@ namespace CPF.Toolkit.Controls
                         }
                     },
                 },
-                Bindings =
-                {
-                    {
-                        nameof(Border.ShadowBlur),
-                        nameof(IWindow.WindowState),
-                        this,
-                        BindingMode.OneWay,
-                        a => (WindowState)a == WindowState.Maximized||(WindowState)a == WindowState.FullScreen ? 0 : ShadowBlur
-                    },
-                    {
-                        nameof(Border.ShadowBlur),
-                        nameof(ShadowBlur),
-                        this,
-                        BindingMode.OneWay,
-                        a => this.WindowState == WindowState.Maximized||this. WindowState == WindowState.FullScreen ? 0 : (byte)a
-                    },
-                }
+                [nameof(Border.ShadowBlur)] = new BindingDescribe(this, nameof(WindowState), BindingMode.OneWay, a => ((WindowState)a).Or(WindowState.Maximized, WindowState.FullScreen) ? 0 : ShadowBlur),
+                [nameof(Border.ShadowBlur)] = new BindingDescribe(this, nameof(ShadowBlur), BindingMode.OneWay, a => ((WindowState)a).Or(WindowState.Maximized, WindowState.FullScreen) ? 0 : (byte)a),
             });
 
             this.Content.Margin = "0";
