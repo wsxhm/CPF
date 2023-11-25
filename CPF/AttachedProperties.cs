@@ -212,4 +212,104 @@ namespace CPF
             return false;
         }
     }
+    /// <summary>
+    /// 绑定附加属性
+    /// </summary>
+    public class AttachedDescribe : BindingDescribe
+    {
+        /// <summary>
+        /// 设置和绑定附加属性
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="sourceProperty"></param>
+        public AttachedDescribe(object value, string sourceProperty) : base(sourceProperty)
+        {
+            Value = value;
+        }
+        /// <summary>
+        /// 设置和绑定附加属性
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="binding"></param>
+        public AttachedDescribe(object value, string sourceProperty, BindingMode binding) : base(sourceProperty, binding)
+        {
+            Value = value;
+        }
+        /// <summary>
+        /// 设置和绑定附加属性
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="source"></param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="binding"></param>
+        public AttachedDescribe(object value, object source, string sourceProperty, BindingMode binding) : base(source, sourceProperty, binding)
+        {
+            Value = value;
+        }
+        /// <summary>
+        /// 设置和绑定附加属性
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="source"></param>
+        /// <param name="sourceProperty"></param>
+        public AttachedDescribe(object value, object source, string sourceProperty) : base(source, sourceProperty)
+        {
+            Value = value;
+        }
+        /// <summary>
+        /// 设置和绑定附加属性
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="source"></param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="convert"></param>
+        public AttachedDescribe(object value, object source, string sourceProperty, Func<object, object> convert) : base(source, sourceProperty, convert)
+        {
+            Value = value;
+        }
+        /// <summary>
+        /// 设置和绑定附加属性
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="source"></param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="binding"></param>
+        /// <param name="convert"></param>
+        public AttachedDescribe(object value, object source, string sourceProperty, BindingMode binding, Func<object, object> convert) : base(source, sourceProperty, binding, convert)
+        {
+            Value = value;
+        }
+        /// <summary>
+        /// 设置和绑定附加属性
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="source"></param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="binding"></param>
+        /// <param name="convert"></param>
+        /// <param name="convertBack"></param>
+        public AttachedDescribe(object value, object source, string sourceProperty, BindingMode binding, Func<object, object> convert, Func<object, object> convertBack) : base(source, sourceProperty, binding, convert, convertBack)
+        {
+            Value = value;
+        }
+        /// <summary>
+        /// 设置和绑定附加属性
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="source"></param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="binding"></param>
+        /// <param name="convert"></param>
+        /// <param name="convertBack"></param>
+        /// <param name="SourceToTargetError"></param>
+        /// <param name="TargetToSourceError"></param>
+        public AttachedDescribe(object value, object source, string sourceProperty, BindingMode binding, Func<object, object> convert, Func<object, object> convertBack, Action<Binding, object, Exception> SourceToTargetError, Action<Binding, object, Exception> TargetToSourceError) : base(source, sourceProperty, binding, convert, convertBack, SourceToTargetError, TargetToSourceError)
+        {
+            Value = value;
+        }
+
+
+        public object Value { get; set; }
+    }
 }

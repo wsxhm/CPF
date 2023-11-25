@@ -193,7 +193,21 @@ namespace CPF
             {
                 if (value.Command != null)
                 {
-                    Commands.Add(propertyName, value.Command);
+                    if (value.Command.Action != null)
+                    {
+                        Commands.Add(propertyName, value.Command.Action);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(value.Command.MethodName))
+                    {
+                        if (value.Command.Find != null)
+                        {
+                            Commands.Add(propertyName, value.Command.MethodName, value.Command.Find, value.Command.Parameters);
+                        }
+                        else
+                        {
+                            Commands.Add(propertyName, value.Command.MethodName, value.Command.Target, value.Command.Parameters);
+                        }
+                    }
                 }
                 else
                 {
@@ -232,8 +246,20 @@ namespace CPF
                 var type = attached.GetType();
                 try
                 {
-                    var p = typeof(OptionalParameter<>).MakeGenericType(type.GetGenericArguments()[0]);
-                    attached.Method.FastInvoke(attached.Target, this, Activator.CreateInstance(p, value));
+                    if (value is AttachedDescribe describe)
+                    {
+                        var p = typeof(OptionalParameter<>).MakeGenericType(type.GetGenericArguments()[0]);
+                        attached.Method.FastInvoke(attached.Target, this, Activator.CreateInstance(p, describe.Value));
+                        var targetType = attached.Target.GetType();
+                        var field = targetType.GetField("propertyName");
+                        var name = field.FastGetValue(attached.Target).ToString();
+                        AttachedNotify.Bindings.Add(name, describe.PropertyName, describe.Source, describe.BindingMode, describe.Convert, describe.ConvertBack, describe.SourceToTargetError, describe.TargetToSourceError);
+                    }
+                    else
+                    {
+                        var p = typeof(OptionalParameter<>).MakeGenericType(type.GetGenericArguments()[0]);
+                        attached.Method.FastInvoke(attached.Target, this, Activator.CreateInstance(p, value));
+                    }
                 }
                 catch (Exception e)
                 {
