@@ -3,11 +3,51 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using CPF.Controls;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ConsoleApp1
 {
+    public class data : CpfObject
+    {
+        public data test {
+            get
+            {
+                return (data)GetValue();
+            }
+            set
+            {
+                SetValue(value);
+            }
+        }
+        public data()
+        {
+            test = this;
+        }
+        [PropertyMetadata("我是默认的")]
+        public string Name
+        {
+            get
+            {
+                return (string)GetValue();
+            }
+            set
+            {
+                SetValue(value);
+            }
+        }
+    }
     class MainModel : CpfObject
     {
+        public data Test1 {
+            get
+            {
+                return (data)GetValue();
+            }
+            set
+            {
+                SetValue(value);
+            }
+        }
         [PropertyMetadata("默认值")]
         public string Test
         {
@@ -28,6 +68,7 @@ namespace ConsoleApp1
 
         public MainModel()
         {
+            Test1 = new data();
             Items = new Collection<(string, string)>();
             TestItems = new Collection<(string, int)>();
 

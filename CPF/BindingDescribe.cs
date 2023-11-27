@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using System.Linq.Expressions;
 
 namespace CPF
 {
@@ -16,6 +17,7 @@ namespace CPF
         {
             PropertyName = sourceProperty;
         }
+        
         public BindingDescribe(string sourceProperty, BindingMode binding)
         {
             PropertyName = sourceProperty;

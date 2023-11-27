@@ -7,6 +7,7 @@ using System.Linq;
 using CPF.Controls;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace CPF
 {
@@ -102,6 +103,7 @@ namespace CPF
                 else
                 {
                     //((INotifyPropertyChanged)source).PropertyChanged += b.PropertyChanged;
+                    
                     b.RegisterPropertyChanged((INotifyPropertyChanged)source);
                     b.SourceToTarget();
                 }
@@ -114,6 +116,7 @@ namespace CPF
             {
                 b.SourceToTarget();
             }
+            //Debug.WriteLine($"sourcePropertyName:{sourcePropertyName},bindingMode:{bindingMode}");
             return b;
         }
         /// <summary>
