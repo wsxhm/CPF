@@ -2454,10 +2454,32 @@ new TabItemTemplate{
                                                 },
                                                 new Button
                                                 {
-                                                    Content="按钮",
+                                                    Content="创建对象",
                                                     [nameof(Button.Click)]=new CommandDescribe((s,e)=>
                                                     {
-                                                        (DataContext as MainModel).Test1.test.test.test.test.Name = "666666";
+                                                        data a = new data();
+                                                        a.test.test.test.Name = "666666";
+                                                        (DataContext as MainModel).Test1.test = a;
+                                                    })
+                                                },
+                                                new Button
+                                                {
+                                                    Content="删除对象",
+                                                    [nameof(Button.Click)]=new CommandDescribe((s,e)=>
+                                                    {
+                                                        data a = new data();
+                                                        a.test.test.Name = "666666";
+                                                        (DataContext as MainModel).Test1.test.test = null;
+                                                    })
+                                                },
+                                                new Button
+                                                {
+                                                    Content="添加对象",
+                                                    [nameof(Button.Click)]=new CommandDescribe((s,e)=>
+                                                    {
+                                                        data a = new data();
+                                                        a.test.test.Name = "666666";
+                                                        (DataContext as MainModel).Test1.test.test = a;
                                                     })
                                                 },
                                             }
