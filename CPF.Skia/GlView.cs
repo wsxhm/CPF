@@ -112,28 +112,34 @@ namespace CPF.Skia
             gl.BindTexture(GlConsts.GL_TEXTURE_2D, oldTexture);
             gl.BindFramebuffer(GlConsts.GL_FRAMEBUFFER, oldfb);
             //  using (var backendTexture = new GRBackendRenderTarget(size.Width, size.Height, samples, stencil, framebufferInfo))
-            using (var backendTexture = new GRBackendTexture((int)size.Width, (int)size.Height, false, new GRGlTextureInfo { Format = GlConsts.GL_RGBA8, Id = (uint)texture, Target = GlConsts.GL_TEXTURE_2D }))
-            {
-                // using (var surface = SKSurface.Create((GRContext)skia.GlContext.GRContext, backendTexture, GRSurfaceOrigin.TopLeft, SKColorType.Rgba8888))
-                using (var surface = SKSurface.Create((GRContext)skia.GlContext.GRContext, backendTexture, GRSurfaceOrigin.TopLeft, SKColorType.Rgba8888))
-                {
-                    //if (surface == null)
-                    //    return;
-                    //byte[] data = new byte[size.Width * size.Height * 4];
-                    //gl.GetTexImage(GlConsts.GL_TEXTURE_2D, 0, GlConsts.GL_RGBA, GlConsts.GL_UNSIGNED_BYTE, data);
+            //using (var backendTexture = new GRBackendTexture((int)size.Width, (int)size.Height, false, new GRGlTextureInfo { Format = GlConsts.GL_RGBA8, Id = (uint)texture, Target = GlConsts.GL_TEXTURE_2D }))
+            //{
+            //    // using (var surface = SKSurface.Create((GRContext)skia.GlContext.GRContext, backendTexture, GRSurfaceOrigin.TopLeft, SKColorType.Rgba8888))
+            //    using (var surface = SKSurface.Create((GRContext)skia.GlContext.GRContext, backendTexture, GRSurfaceOrigin.TopLeft, SKColorType.Rgba8888))
+            //    {
+            //        //if (surface == null)
+            //        //    return;
+            //        //byte[] data = new byte[size.Width * size.Height * 4];
+            //        //gl.GetTexImage(GlConsts.GL_TEXTURE_2D, 0, GlConsts.GL_RGBA, GlConsts.GL_UNSIGNED_BYTE, data);
 
-                    //System.Diagnostics.Debug.WriteLine($"{oldfb},{oldRenderbuffer},{oldTexture}");
+            //        //System.Diagnostics.Debug.WriteLine($"{oldfb},{oldRenderbuffer},{oldTexture}");
 
-                    //恢复状态
-                    gl.MatrixMode(GlConsts.GL_MODELVIEW);
-                    gl.PopMatrix();
-                    gl.MatrixMode(GlConsts.GL_PROJECTION);
-                    gl.PopMatrix();
-                    gl.PopAttrib();
+            //恢复状态
+            gl.MatrixMode(GlConsts.GL_MODELVIEW);
+            gl.PopMatrix();
+            gl.MatrixMode(GlConsts.GL_PROJECTION);
+            gl.PopMatrix();
+            gl.PopAttrib();
 
-                    skia.SKCanvas.DrawSurface(surface, 0, 0);
-                }
-            }
+            //        skia.SKCanvas.DrawSurface(surface, 0, 0);
+            //    }
+            //}
+
+
+            GRBackendTexture backendTexture = new GRBackendTexture((int)size.Width, (int)size.Height, false, new GRGlTextureInfo(0x0DE1, (uint)texture, SKColorType.Rgba8888.ToGlSizedFormat()));
+
+            var sKImage = SKImage.FromTexture((GRContext)skia.GlContext.GRContext, backendTexture, GRSurfaceOrigin.BottomLeft, SKColorType.Rgba8888);
+            skia.SKCanvas.DrawImage(sKImage, 0, 0);
             //unsafe
             //{
             //    fixed (byte* p = data)
