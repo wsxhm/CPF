@@ -591,15 +591,6 @@ namespace CPF
                     var Temp_Target = Target.GetPropretyValue(SourcePropertyNames[i]) as CpfObject;
                     if (Temp_Target == null)
                     {
-                        //如果链式绑定的子级为null，那么监听他的父级监听子级
-                        this.SourcePropertyIndex = i;
-                        if (SourceProperty!=null)
-                        {
-                            SourceProperty.PropertyChanged -= Target_PropertyChanged;
-                            CancellationPropertyChanged(SourceProperty);
-                        }
-                        (Target as CpfObject).PropertyChanged += Target_PropertyChanged;
-                        SourceProperty = (Target as CpfObject);
                         return null;
                     }
                     Target = Temp_Target;
@@ -608,19 +599,23 @@ namespace CPF
             }
             catch (Exception ex)
             {
-                throw new Exception("错误:{ex}");
+                throw new Exception($"错误:{ex}");
             }
         }
         CpfObject SourceProperty = null;
-        private void Target_PropertyChanged(object sender, CPFPropertyChangedEventArgs e)
+        private void Target_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.NewValue == null)
+            //重新绑定
+            if (BindingMode == BindingMode.TwoWay ||
+                BindingMode == BindingMode.OneWay ||
+                BindingMode == BindingMode.OneTime)
             {
-                CancellationPropertyChanged(sender as CpfObject);
-                return;
+                var SourcePropertyNames = SourcePropertyName.Split('.');
+                var Temp_Target = GetPropertySource(SourcePropertyName, Source.Target);
+                var data = (Temp_Target as CpfObject)?.GetValue(SourcePropertyNames.LastOrDefault());
+                Owner.SetPropretyValue(TargetPropertyName, data);
             }
-            
-            RegisterPropertyChanged(sender as CpfObject);
+            RegisterPropertyChanged(sender as INotifyPropertyChanged);
         }
 
         internal void RegisterPropertyChanged(INotifyPropertyChanged notify)
@@ -629,13 +624,25 @@ namespace CPF
             //{
             //    throw new Exception("错误");
             //}
-            var Temp_SourcePropertyName = string.Join(".", this.SourcePropertyName.Split('.').Skip(this.SourcePropertyIndex));
-            var notifySource = GetPropertySource(Temp_SourcePropertyName, notify);
-            if (notifySource ==  null)
+            var SourcePropertyNames = SourcePropertyName.Split('.');
+            if (SourcePropertyNames.Length == 1)
             {
+                RegisterPropertyChanged(notify, PropertyChanged);
                 return;
             }
-            RegisterPropertyChanged(notifySource as INotifyPropertyChanged, PropertyChanged);
+            var Target = Source.Target;
+            RegisterPropertyChanged(Target as CpfObject, Target_PropertyChanged);
+            for (int i = 0; i < SourcePropertyNames.Length - 1; i++)
+            {
+                var Temp_Target = Target.GetPropretyValue(SourcePropertyNames[i]) as CpfObject;
+                if (Temp_Target == null)
+                {
+                    return;
+                }
+                RegisterPropertyChanged(Temp_Target, Target_PropertyChanged);
+                Target = Temp_Target;
+            }
+            RegisterPropertyChanged(Target as INotifyPropertyChanged, PropertyChanged);
         }
         internal void CancellationPropertyChanged(INotifyPropertyChanged notify)
         {
