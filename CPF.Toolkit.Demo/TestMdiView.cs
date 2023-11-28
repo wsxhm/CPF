@@ -25,32 +25,13 @@ namespace CPF.Toolkit.Demo
             this.Background = null;
             var frame = this.Children.Add(new WindowFrame(this, new MdiHost
             {
-                //Children =
-                //{
-                //    new MdiWindow
-                //    {
-                //        Title = "test",
-                //        Content = new WrapPanel
-                //        {
-                //            Children =
-                //            {
-                //                new Button{ Content = "test" ,Width = 100, Height = 35 },
-                //                new Button{ Content = "test" ,Width = 100, Height = 35 },
-                //                new Button{ Content = "test" ,Width = 100, Height = 35 },
-                //                new Button{ Content = "test" ,Width = 100, Height = 35 },
-                //            },
-                //        },
-                //    }
-                //}
-            }
-            .LoopCreate(5,(i) => new MdiWindow 
-            {
-                Title = $"test{i}",
-                Content = new WrapPanel 
-                { 
-                }
-                .LoopCreate(5,k => new Button { Content = $"test{k}",Width = 100, Height = 35 }),
-            })));
+                Children =
+                {
+                    new MdiWindow{ Content = new Grid{ }, Title = "test1"},
+                    //new MdiWindow{ Content = new Grid{ }, Title = "test2"},
+                    //new MdiWindow{ Content = new Grid{ }, Title = "test3"},
+                },
+            }));
             frame.CaptionBackgrund = "white";
             frame.CaptionForeground = "black";
             frame.ControlBoxStroke = "black";

@@ -19,8 +19,9 @@ namespace CPF.Toolkit.Controls
 {
     public class MdiWindow : Control
     {
-        [PropertyMetadata(typeof(WindowState), "Normal")]
+        [PropertyMetadata(typeof(WindowState), "0")]
         public WindowState WindowState { get => GetValue<WindowState>(); set => SetValue(value); }
+        [PropertyMetadata("title")]
         public string Title { get => GetValue<string>(); set => SetValue(value); }
         public UIElement Content { get => GetValue<UIElement>(); set => SetValue(value); }
         [PropertyMetadata(true)]
@@ -32,6 +33,9 @@ namespace CPF.Toolkit.Controls
         [UIPropertyMetadata((byte)5, UIPropertyOptions.AffectsMeasure)]
         public byte ShadowBlur { get { return GetValue<byte>(); } set { SetValue(value); } }
 
+        public event EventHandler<ClosingEventArgs> Closing;
+
+        WindowState oldState;
         SizeField normalSize = new SizeField(500, 500);
         Point normalPos = new Point(0, 0);
         protected override void InitializeComponent()
@@ -208,7 +212,11 @@ namespace CPF.Toolkit.Controls
                                                                 StrokeStyle = "2",
                                                             },
                                                             Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Maximized } },
-                                                            [nameof(Visibility)] = new BindingDescribe(this,nameof(WindowState),BindingMode.OneWay,a => ((WindowState)a).Or(WindowState.Maximized,WindowState.FullScreen) ? Visibility.Collapsed : Visibility.Visible),
+                                                            [nameof(Visibility)] = new BindingDescribe(this,
+                                                                                                        nameof(WindowState),
+                                                                                                        BindingMode.OneWay,
+                                                                                                        a => ((WindowState)a).Or(WindowState.Maximized,WindowState.FullScreen)
+                                                                                                        ? Visibility.Collapsed : Visibility.Visible),
                                                         },
                                                         new SystemButton
                                                         {
@@ -244,7 +252,12 @@ namespace CPF.Toolkit.Controls
                                                                 }
                                                             },
                                                             Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Normal } },
-                                                            [nameof(Visibility)] = new BindingDescribe(this,nameof(WindowState),BindingMode.OneWay,a => ((WindowState)a).Or( WindowState.Normal, WindowState.Minimized) ? Visibility.Collapsed : Visibility.Visible)
+                                                            [nameof(Visibility)] = new BindingDescribe(this,
+                                                                                                        nameof(WindowState),
+                                                                                                        BindingMode.OneWay,
+                                                                                                        a => ((WindowState)a).Or( WindowState.Normal, WindowState.Minimized)
+                                                                                                        ? Visibility.Collapsed :
+                                                                                                        Visibility.Visible)
                                                         }
                                                     }
                                                 },
@@ -277,6 +290,21 @@ namespace CPF.Toolkit.Controls
                                                             }
                                                         }
                                                     },
+                                                    Commands =
+                                                    {
+                                                        {
+                                                            nameof(Button.Click),(ss,ee) =>
+                                                            {
+                                                                var e = new ClosingEventArgs();
+                                                                this.Closing?.Invoke(this,e);
+                                                                if (!e.Cancel)
+                                                                {
+                                                                    this.Visibility = Visibility.Collapsed;
+                                                                    this.Dispose();
+                                                                }
+                                                            }
+                                                        }
+                                                    },
                                                     [nameof(Visibility)] = new BindingDescribe(this,nameof(this.CloseBox),BindingMode.OneWay,a=>(bool)a?Visibility.Visible: Visibility.Collapsed)
                                                 }
                                             }
@@ -289,7 +317,7 @@ namespace CPF.Toolkit.Controls
                                         nameof(Thumb.DragDelta),
                                         (s,e) =>
                                         {
-                                            if (this.WindowState.Or(WindowState.Normal, WindowState.Minimized))
+                                            if (this.WindowState.Or(WindowState.Normal))
                                             {
                                                 var arge = e as DragDeltaEventArgs;
                                                 this.MarginLeft += arge.HorizontalChange;
@@ -323,8 +351,10 @@ namespace CPF.Toolkit.Controls
                         }
                     },
                 },
-                [nameof(Border.ShadowBlur)] = new BindingDescribe(this, nameof(WindowState), BindingMode.OneWay, a => ((WindowState)a).Or(WindowState.Maximized, WindowState.FullScreen) ? 0 : ShadowBlur),
-                [nameof(Border.ShadowBlur)] = new BindingDescribe(this, nameof(ShadowBlur), BindingMode.OneWay, a => ((WindowState)a).Or(WindowState.Maximized, WindowState.FullScreen) ? 0 : (byte)a),
+                [nameof(Border.ShadowBlur)] = new BindingDescribe(this,
+                                                                  nameof(WindowState),
+                                                                  BindingMode.OneWay,
+                                                                  a => ((WindowState)a).Or(WindowState.Maximized, WindowState.FullScreen,WindowState.Minimized) ? 0 : ShadowBlur),
             });
 
             this.Content.Margin = "0";
@@ -345,8 +375,8 @@ namespace CPF.Toolkit.Controls
                                 this.MarginTop = this.normalPos.Y;
                                 break;
                             case WindowState.Minimized:
-                                this.Width = this.MinWidth;
-                                this.Height = this.MinHeight;
+                                this.Visibility = Visibility.Collapsed;
+                                this.oldState = (WindowState)oldValue;
                                 break;
                             case WindowState.Maximized:
                             case WindowState.FullScreen:
@@ -368,11 +398,10 @@ namespace CPF.Toolkit.Controls
                             this.normalSize = this.Size;
                             break;
                         case WindowState.Minimized:
-                            this.Width = this.MinWidth;
-                            this.Height = this.MinHeight;
+                            //this.Width = this.MinWidth;
+                            //this.Height = this.MinHeight;
                             break;
                         case WindowState.Maximized:
-                            break;
                         case WindowState.FullScreen:
                             break;
                     }
@@ -395,6 +424,16 @@ namespace CPF.Toolkit.Controls
             }
 
             base.OnPropertyChanged(propertyName, oldValue, newValue, propertyMetadata);
+        }
+
+        public override string ToString()
+        {
+            return this.Title;
+        }
+
+        public void ReWindowState()
+        {
+            this.WindowState = this.oldState;
         }
     }
 }
