@@ -23,7 +23,37 @@ namespace ConsoleApp1
         {
             test = this;
         }
-        [PropertyMetadata("我是默认的")]
+        [PropertyMetadata(null)]
+        public string Name
+        {
+            get
+            {
+                return (string)GetValue();
+            }
+            set
+            {
+                SetValue(value);
+            }
+        }
+    }
+    public class dataa : CpfObject
+    {
+        public data test
+        {
+            get
+            {
+                return (data)GetValue();
+            }
+            set
+            {
+                SetValue(value);
+            }
+        }
+        public dataa()
+        {
+           // test = new data();
+        }
+        [PropertyMetadata(null)]
         public string Name
         {
             get
@@ -38,10 +68,10 @@ namespace ConsoleApp1
     }
     class MainModel : CpfObject
     {
-        public data Test1 {
+        public dataa Test1 {
             get
             {
-                return (data)GetValue();
+                return (dataa)GetValue();
             }
             set
             {
@@ -68,7 +98,7 @@ namespace ConsoleApp1
 
         public MainModel()
         {
-            Test1 = new data();
+            Test1 = new dataa();
             Items = new Collection<(string, string)>();
             TestItems = new Collection<(string, int)>();
 
