@@ -19,30 +19,31 @@ namespace CPF.Toolkit.Controls
 {
     public class MdiWindow : Control
     {
-        [PropertyMetadata(typeof(WindowState), "0")]
         public WindowState WindowState { get => GetValue<WindowState>(); set => SetValue(value); }
-        [PropertyMetadata("title")]
-        public string Title { get => GetValue<string>(); set => SetValue(value); }
         public UIElement Content { get => GetValue<UIElement>(); set => SetValue(value); }
+
+        [PropertyMetadata("Title")]
+        public string Title { get => GetValue<string>(); set => SetValue(value); }
+
         [PropertyMetadata(true)]
         public bool MaximizeBox { get { return GetValue<bool>(); } set { SetValue(value); } }
+
         [PropertyMetadata(true)]
         public bool MinimizeBox { get { return GetValue<bool>(); } set { SetValue(value); } }
+
         [PropertyMetadata(true)]
         public bool CloseBox { get { return GetValue<bool>(); } set { SetValue(value); } }
+
         [UIPropertyMetadata((byte)5, UIPropertyOptions.AffectsMeasure)]
         public byte ShadowBlur { get { return GetValue<byte>(); } set { SetValue(value); } }
 
         public event EventHandler<ClosingEventArgs> Closing;
 
-        WindowState oldState;
-        SizeField normalSize = new SizeField(500, 500);
-        Point normalPos = new Point(0, 0);
         protected override void InitializeComponent()
         {
             var bar = (ViewFill)"154,180,208";
             var thubmEnabled = new BindingDescribe(this, nameof(WindowState), BindingMode.OneWay, b => ((WindowState)b) == WindowState.Normal);
-            this.Size = normalSize;
+            this.Size = new SizeField(500, 500);
             this.Background = null;
             this.MarginLeft = 0;
             this.MarginTop = 0;
@@ -322,7 +323,6 @@ namespace CPF.Toolkit.Controls
                                                 var arge = e as DragDeltaEventArgs;
                                                 this.MarginLeft += arge.HorizontalChange;
                                                 this.MarginTop += arge.VerticalChange;
-                                                this.normalPos = new Point(this.MarginLeft.Value, this.MarginTop.Value);
                                             }
                                         }
                                     },
@@ -354,86 +354,16 @@ namespace CPF.Toolkit.Controls
                 [nameof(Border.ShadowBlur)] = new BindingDescribe(this,
                                                                   nameof(WindowState),
                                                                   BindingMode.OneWay,
-                                                                  a => ((WindowState)a).Or(WindowState.Maximized, WindowState.FullScreen,WindowState.Minimized) ? 0 : ShadowBlur),
+                                                                  a => ((WindowState)a).Or(WindowState.Maximized, WindowState.FullScreen) ? 0 : ShadowBlur),
             });
 
             this.Content.Margin = "0";
             this.Content.ClipToBounds = true;
         }
 
-        protected override void OnPropertyChanged(string propertyName, object oldValue, object newValue, PropertyMetadataAttribute propertyMetadata)
-        {
-            switch (propertyName)
-            {
-                case nameof(WindowState):
-                    {
-                        switch (this.WindowState)
-                        {
-                            case WindowState.Normal:
-                                this.Size = this.normalSize;
-                                this.MarginLeft = this.normalPos.X;
-                                this.MarginTop = this.normalPos.Y;
-                                break;
-                            case WindowState.Minimized:
-                                this.Visibility = Visibility.Collapsed;
-                                this.oldState = (WindowState)oldValue;
-                                break;
-                            case WindowState.Maximized:
-                            case WindowState.FullScreen:
-                                this.Size = SizeField.Fill;
-                                this.MarginLeft = 0;
-                                this.MarginTop = 0;
-                                break;
-                        }
-                    }
-                    break;
-
-                case nameof(Size):
-                case nameof(Width):
-                case nameof(Height):
-                case nameof(ActualSize):
-                    switch (this.WindowState)
-                    {
-                        case WindowState.Normal:
-                            this.normalSize = this.Size;
-                            break;
-                        case WindowState.Minimized:
-                            //this.Width = this.MinWidth;
-                            //this.Height = this.MinHeight;
-                            break;
-                        case WindowState.Maximized:
-                        case WindowState.FullScreen:
-                            break;
-                    }
-                    break;
-
-                case nameof(MarginLeft):
-                    {
-                        if (this.MarginLeft.Value <= 0)
-                        {
-                            this.MarginLeft = 0;
-                        }
-                    }
-                    break;
-                case nameof(MarginTop):
-                    if (MarginTop.Value <= 0)
-                    {
-                        this.MarginTop = 0;
-                    }
-                    break;
-            }
-
-            base.OnPropertyChanged(propertyName, oldValue, newValue, propertyMetadata);
-        }
-
         public override string ToString()
         {
             return this.Title;
-        }
-
-        public void ReWindowState()
-        {
-            this.WindowState = this.oldState;
         }
     }
 }
