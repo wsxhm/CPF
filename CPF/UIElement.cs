@@ -1372,29 +1372,41 @@ namespace CPF
                 }
             }
         }
-
+        /// <summary>
+        /// 继承属性需要一级级传递，直到没有元素或者取消继承为止
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="propertyName"></param>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
         void Inherits(UIElement element, string propertyName, object oldValue, object newValue)
         {
             if (!element.HasLocalOrStyleValue(propertyName, out var p))
             {
-                element.inheritsSet = true;
                 //var p = element.GetPropertyMetadata(propertyName);
-                if (p != null)
+
+                var ui = p as UIPropertyMetadataAttribute;
+                if (ui != null && ui.Inherits)
                 {
-                    if (p is UIPropertyMetadataAttribute ui && ui.Inherits)
-                    {
-                        element.inheritsValues.Remove(propertyName);
-                        element.inheritsValues.Add(propertyName, new InheritsValue { Value = newValue, ValueForm = ValueFrom.Property });
-                    }
+                    element.inheritsSet = true;
+                    element.inheritsValues.Remove(propertyName);
+                    element.inheritsValues.Add(propertyName, new InheritsValue { Value = newValue, ValueForm = ValueFrom.Property });
                     element.OnPropertyChanged(propertyName, oldValue, newValue, p);
+                    element.inheritsSet = false;
+                    for (int i = 0; i < element.Children.Count; i++)
+                    {
+                        Inherits(element.children[i], propertyName, oldValue, newValue);
+                    }
                 }
-                element.inheritsSet = false;
+                else if (ui == null)
+                {
+                    for (int i = 0; i < element.Children.Count; i++)
+                    {
+                        Inherits(element.children[i], propertyName, oldValue, newValue);
+                    }
+                }
                 //if (propertyName != nameof(DataContext) || !element.HasLocalOrStyleValue(propertyName, out p))
                 //{
-                for (int i = 0; i < element.Children.Count; i++)
-                {
-                    Inherits(element.children[i], propertyName, oldValue, newValue);
-                }
                 //}
             }
         }
@@ -2480,6 +2492,9 @@ namespace CPF
                 viewRenderRect = true;
             }
         }
+        /// <summary>
+        /// 是否需要更新渲染区域
+        /// </summary>
         [NotCpfProperty]
         internal bool viewRenderRect { get { return GetFlag(CoreFlags.viewRenderRect); } set { SetFlag(CoreFlags.viewRenderRect, value); } }
         //protected virtual void ArrangeCore(in Rect finalRect)
@@ -3441,7 +3456,7 @@ namespace CPF
                                         }
                                         break;
                                     }
-                                    else if (p.HasLocalOrStyleValue(item, out _))
+                                    else if (p.HasLocalOrStyleValue(item, out var pa))
                                     {
                                         var value = p.GetValue(item);
                                         var old = GetValue(item);
@@ -3456,6 +3471,10 @@ namespace CPF
                                         break;
                                     }
                                 }
+                            }
+                            if (p.breakInheritsPropertyName != null && p.breakInheritsPropertyName.Contains(item))
+                            {
+                                break;
                             }
                             p = p.Parent;
                         }

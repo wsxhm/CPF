@@ -860,6 +860,7 @@ namespace CPF.Controls
             base.OnPropertyChanged(propertyName, oldValue, newValue, propertyMetadata);
             if (propertyName == nameof(Visibility))
             {
+                InputManager.TouchDevice.ClearPoints();
                 viewImpl.SetVisible((Visibility)newValue == Visibility.Visible);
             }
             if (!onChecked && radioButtonGroupProperty != null && radiobuttons != null && radioButtonGroupProperty.TryGetValue(propertyName, out var group))

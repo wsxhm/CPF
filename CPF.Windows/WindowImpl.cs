@@ -74,6 +74,7 @@ namespace CPF.Windows
         }
 
         WNDCLASSEX wc = new WNDCLASSEX();
+        bool touchMsg;
         public WindowImpl()
         {
             if (Window == null)
@@ -88,6 +89,10 @@ namespace CPF.Windows
             else
             {
                 isLayered = true;
+            }
+            if ((v.Major == 6 && v.Minor < 2))
+            {
+               touchMsg =  RegisterTouchWindow(handle, RegisterTouchFlags.TWF_NONE);
             }
             _className = "CPFWindow-" + Guid.NewGuid();
             // 初始化窗口类结构  
@@ -707,60 +712,83 @@ namespace CPF.Windows
                 case WindowsMessage.WM_POINTERDOWN:
                 case WindowsMessage.WM_POINTERUP:
                 case WindowsMessage.WM_POINTERUPDATE:
-                    var id = GetPointerId(wParam);
-                    var position = GetPointerLocation(lParam);
-                    position = PointToClient(position);
-                    //Debug.WriteLine("id:" + id + "  " + position);
-                    POINTER_INFO pi = new POINTER_INFO();
-                    if (GetPointerInfo(id, ref pi))
+                    if (!touchMsg)
                     {
-                        switch ((WindowsMessage)msg)
+                        var id = GetPointerId(wParam);
+                        var position = GetPointerLocation(lParam);
+                        position = PointToClient(position);
+                        //Debug.WriteLine("id:" + id + "  " + position);
+                        POINTER_INFO pi = new POINTER_INFO();
+                        if (GetPointerInfo(id, ref pi))
                         {
-                            case WindowsMessage.WM_POINTERDOWN:
-                                //Debug.WriteLine("down");
-                                root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint { Id = id, Position = position }, root.InputManager.TouchDevice, Root), root.LayoutManager.VisibleUIElements, EventType.TouchDown);
-                                break;
-                            case WindowsMessage.WM_POINTERUP:
-                                //Debug.WriteLine("up");
-                                root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint { Id = id, Position = position }, root.InputManager.TouchDevice, Root), root.LayoutManager.VisibleUIElements, EventType.TouchUp);
-                                //root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint { Id = id, Position = position }, root.InputManager.TouchDevice, Root), root.LayoutManager.VisibleUIElements, EventType.TouchLeave);
-                                break;
-                            case WindowsMessage.WM_POINTERUPDATE:
-                                //Debug.WriteLine("update");
-                                root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint { Id = id, Position = position }, root.InputManager.TouchDevice, Root), root.LayoutManager.VisibleUIElements, EventType.TouchMove);
-                                break;
+                            switch ((WindowsMessage)msg)
+                            {
+                                case WindowsMessage.WM_POINTERDOWN:
+                                    //Debug.WriteLine("down");
+                                    root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint { Id = id, Position = position }, root.InputManager.TouchDevice, Root), root.LayoutManager.VisibleUIElements, EventType.TouchDown);
+                                    break;
+                                case WindowsMessage.WM_POINTERUP:
+                                    //Debug.WriteLine("up");
+                                    root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint { Id = id, Position = position }, root.InputManager.TouchDevice, Root), root.LayoutManager.VisibleUIElements, EventType.TouchUp);
+                                    //root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint { Id = id, Position = position }, root.InputManager.TouchDevice, Root), root.LayoutManager.VisibleUIElements, EventType.TouchLeave);
+                                    break;
+                                case WindowsMessage.WM_POINTERUPDATE:
+                                    //Debug.WriteLine("update");
+                                    root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint { Id = id, Position = position }, root.InputManager.TouchDevice, Root), root.LayoutManager.VisibleUIElements, EventType.TouchMove);
+                                    break;
+                            }
                         }
                     }
                     break;
                 case WindowsMessage.WM_POINTERWHEEL:
                     Debug.WriteLine("WM_POINTERWHEEL");
                     break;
-                //case WindowsMessage.WM_TOUCH:
-                //    {
-                //        var touchInputCount = wParam.ToInt32();
-                //        var pTouchInputs = stackalloc TOUCHINPUT[touchInputCount];
-                //        if (GetTouchInputInfo(lParam, (uint)touchInputCount, pTouchInputs, Marshal.SizeOf(typeof(TOUCHINPUT))))
-                //        {
-                //            for (int i = 0; i < touchInputCount; i++)
-                //            {
-                //                var touchInput = pTouchInputs[i];
+                case WindowsMessage.WM_GESTURE:
+                    Debug.WriteLine("WM_GESTURE");
+                    break;
+                case WindowsMessage.WM_TOUCH:
+                    if (touchMsg)
+                    {
+                        var touchInputCount = wParam.ToInt32();
+                        var pTouchInputs = stackalloc TOUCHINPUT[touchInputCount];
+                        if (GetTouchInputInfo(lParam, (uint)touchInputCount, pTouchInputs, Marshal.SizeOf(typeof(TOUCHINPUT))))
+                        {
+                            for (int i = 0; i < touchInputCount; i++)
+                            {
+                                var input = pTouchInputs[i];
 
-                //                //Input?.Invoke(new RawTouchEventArgs(_touchDevice, touchInput.Time,
-                //                //    _owner,
-                //                //    touchInput.Flags.HasAllFlags(TouchInputFlags.TOUCHEVENTF_UP) ?
-                //                //        RawPointerEventType.TouchEnd :
-                //                //        touchInput.Flags.HasAllFlags(TouchInputFlags.TOUCHEVENTF_DOWN) ?
-                //                //            RawPointerEventType.TouchBegin :
-                //                //            RawPointerEventType.TouchUpdate,
-                //                //    PointToClient(new PixelPoint(touchInput.X / 100, touchInput.Y / 100)),
-                //                //    WindowsKeyboardDevice.Instance.Modifiers,
-                //                //    touchInput.Id));
-                //            }
-                //            CloseTouchInputHandle(lParam);
-                //            return IntPtr.Zero;
-                //        }
-                //        break;
-                //    }
+                                if ((input.Flags & TouchInputFlags.TOUCHEVENTF_DOWN) > 0)
+                                {
+                                    Root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint
+                                    {
+                                        Id = (int)input.Id,
+                                        Position = new Point((float)(input.X * 0.01), (float)(input.Y * 0.01))
+                                    }, Root.InputManager.TouchDevice, Root), Root.LayoutManager.VisibleUIElements, EventType.TouchDown);
+
+                                }
+                                else if ((input.Flags & TouchInputFlags.TOUCHEVENTF_UP) > 0)
+                                {
+                                    Root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint
+                                    {
+                                        Id = (int)input.Id,
+                                        Position = new Point((float)(input.X * 0.01), (float)(input.Y * 0.01))
+                                    }, Root.InputManager.TouchDevice, Root), Root.LayoutManager.VisibleUIElements, EventType.TouchUp);
+
+                                }
+                                else if ((input.Flags & TouchInputFlags.TOUCHEVENTF_MOVE) > 0)
+                                {
+                                    Root.InputManager.TouchDevice.ProcessEvent(new TouchEventArgs(new TouchPoint
+                                    {
+                                        Id = (int)input.Id,
+                                        Position = new Point((float)(input.X * 0.01), (float)(input.Y * 0.01))
+                                    }, Root.InputManager.TouchDevice, Root), Root.LayoutManager.VisibleUIElements, EventType.TouchMove);
+                                }
+                            }
+                            CloseTouchInputHandle(lParam);
+                            return IntPtr.Zero;
+                        }
+                    }
+                    break;
                 case UnmanagedMethods.WindowsMessage.WM_CLOSE:
                     bool? preventClosing = Closing?.Invoke();
                     if (preventClosing == true)
@@ -1523,7 +1551,7 @@ namespace CPF.Windows
                 }
                 invalidateRect.Intersect(all);//最后失效区域为在控件区域里面的相交区域
             }
-            if (!paint && (timer == null ))//&& isLayered
+            if (!paint && (timer == null))//&& isLayered
             {
                 paint = true;
                 BeginInvoke(a =>
@@ -1692,7 +1720,6 @@ namespace CPF.Windows
         public void SetVisible(bool visible)
         {
             //var v = IsWindowVisible(handle);
-            root.InputManager.TouchDevice.ClearPoints();
             if (visible)
             {
                 if (windowState == WindowState.Normal)

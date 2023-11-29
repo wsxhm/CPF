@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using System.Linq.Expressions;
 
 namespace CPF
 {
@@ -16,6 +17,7 @@ namespace CPF
         {
             PropertyName = sourceProperty;
         }
+        
         public BindingDescribe(string sourceProperty, BindingMode binding)
         {
             PropertyName = sourceProperty;
@@ -64,7 +66,7 @@ namespace CPF
             this.TargetToSourceError = TargetToSourceError;
         }
 
-        public BindingDescribe(Action<CpfObject, object> command)
+        public BindingDescribe(CommandDescribe command)
         {
             Command = command;
         }
@@ -78,7 +80,7 @@ namespace CPF
         /// <summary>
         /// 简化绑定命令的命令，如果设置了该属性，则使用命令绑定
         /// </summary>
-        public Action<CpfObject, object> Command { get; set; }
+        public CommandDescribe Command { get; set; }
 
         //public CpfObject Owner { get; internal set; }
 
@@ -331,7 +333,14 @@ namespace CPF
             }
             return b;
         }
-
+        //public static BindingDescribe operator *(BindingDescribe property1, string property2)
+        //{
+        //    return null;
+        //}
+        //public static BindingDescribe operator *(BindingDescribe property1, BindingDescribe property2)
+        //{
+        //    return null;
+        //}
         public BindingMode BindingMode { get; set; } = BindingMode.OneWay;
         public object Source { get; set; }
 
@@ -343,7 +352,7 @@ namespace CPF
         {
             return new BindingDescribe { PropertyName = sourceProperty };
         }
-        public static explicit operator BindingDescribe(Action<CpfObject, object> command)
+        public static implicit operator BindingDescribe(CommandDescribe command)
         {
             return new BindingDescribe { Command = command };
         }
@@ -386,5 +395,50 @@ namespace CPF
             return base.GetHashCode();
         }
     }
+    /// <summary>
+    /// 命令绑定
+    /// </summary>
+    public class CommandDescribe
+    {
+        public Action<CpfObject, object> Action { get; set; }
 
+        public string MethodName { get; set; }
+        public object[] Parameters { get; set; }
+
+        public object Target { get; set; }
+
+        public Func<UIElement, UIElement> Find { get; set; }
+        /// <summary>
+        /// 用委托定义个命令绑定
+        /// </summary>
+        /// <param name="command"></param>
+        public CommandDescribe(Action<CpfObject, object> command)
+        {
+            Action = command;
+        }
+        /// <summary>
+        /// 定义个命令绑定
+        /// </summary>
+        /// <param name="methodName"></param>
+        /// <param name="obj"></param>
+        /// <param name="ps"></param>
+        public CommandDescribe(string methodName, object obj = null, params object[] ps)
+        {
+            MethodName = methodName;
+            Parameters = ps;
+            Target = obj;
+        }
+        /// <summary>
+        /// 查找元素并绑定命令
+        /// </summary>
+        /// <param name="methodName"></param>
+        /// <param name="find"></param>
+        /// <param name="ps"></param>
+        public CommandDescribe(string methodName, Func<UIElement, UIElement> find, params object[] ps)
+        {
+            MethodName = methodName;
+            Parameters = ps;
+            Find = find;
+        }
+    }
 }

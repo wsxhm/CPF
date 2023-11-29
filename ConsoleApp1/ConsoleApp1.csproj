@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net40;net5;net6</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net40;net5;net6;net8</TargetFrameworks>
     <ApplicationIcon />
     <StartupObject />
     <OutputType>WinExe</OutputType>
@@ -110,6 +110,7 @@
   <PropertyGroup>
     <DefineConstants Condition="'$(TargetFramework)'=='net40'">Net4</DefineConstants>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.0|AnyCPU'">
     <Optimize>false</Optimize>

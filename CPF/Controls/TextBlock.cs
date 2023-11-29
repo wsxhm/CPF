@@ -282,6 +282,7 @@ namespace CPF.Controls
             }
             else
             {
+                textSize = new Size();
                 return base.ArrangeOverride(finalSize);
             }
         }

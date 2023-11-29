@@ -12,6 +12,7 @@ using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Linq.Expressions;
 using System.Threading;
+using System.Diagnostics;
 
 namespace CPF
 {
@@ -236,6 +237,14 @@ namespace CPF
             internal set;
         }
         /// <summary>
+        /// 链式绑定下标
+        /// </summary>
+        public int SourcePropertyIndex
+        {
+            get;
+            internal set;
+        } = 0;
+        /// <summary>
         /// Owner被绑定的属性名
         /// </summary>
         public string TargetPropertyName
@@ -353,6 +362,7 @@ namespace CPF
             current.Push(this);
             try
             {
+                
                 if (Source == null || !Source.IsAlive)
                 {
                     if (Owner.HasProperty(TargetPropertyName))
@@ -366,29 +376,22 @@ namespace CPF
                     }
                     return;
                 }
-                //CpfObject s = Source.Target as CpfObject;
-                //if (s == null)
-                //{
-                //    var p = Source.Target.GetType().GetProperty(SourcePropertyName);
-                //    if (p == null)
-                //    {
-                //        throw new Exception("未找到" + Source.Target + "的属性：" + SourcePropertyName);
-                //    }
-                //    value = p.FastGetValue(Source.Target);
-                //}
-                //else
-                //{
-                //    if (s.HasProperty(SourcePropertyName))
-                //    {
-                //        value = s.GetValue(SourcePropertyName);
-                //    }
-                //    else
-                //    {
-                //        var p = s.Type.GetProperty(SourcePropertyName);
-                //        value = p.FastGetValue(Source.Target);
-                //    }
-                //}
-                value = Source.Target.GetPropretyValue(SourcePropertyName);
+                /*var SourcePropertyNames = SourcePropertyName.Split('.');
+                if (SourcePropertyNames.Length  > 1) {
+                    value = Source.Target;
+                    for (int i = 0; i < SourcePropertyNames.Length; i++)
+                    {
+                        value = value.GetPropretyValue(SourcePropertyNames[i]);
+                    }
+                }
+                else
+                {
+                    value = Source.Target.GetPropretyValue(SourcePropertyName);
+                }*/
+                value = GetPropertySource(SourcePropertyName, Source.Target);
+                if (value != null) {
+                    value = value.GetPropretyValue(SourcePropertyName.Split('.').LastOrDefault());
+                }
                 if (Convert != null)
                 {
                     value = Convert(value);
@@ -453,8 +456,23 @@ namespace CPF
                         {
                             if (!b.SetValue(nv, SourcePropertyName))
                             {
+                                /*var SourcePropertyNames = SourcePropertyName.Split('.');
+                                if (SourcePropertyNames.Length == 1)
+                                {
+                                    b.SetValue(SourcePropertyName, nv);
+                                }*/
+                                /*var Target = b;
+                                for (int i = 0; i < SourcePropertyNames.Length-1; i++)
+                                {
+                                    Target = Target.GetPropretyValue(SourcePropertyNames[i]) as CpfObject;
+                                }*/
+                                var SourcePropertyNames = SourcePropertyName.Split('.');
+                                var Target = GetPropertySource(SourcePropertyName, b);
+                                if (Target != null) {
+                                    Target.SetValue(SourcePropertyNames.LastOrDefault(), nv);
+                                }
+                                
                                 //b.Type.GetProperty(SourcePropertyName).FastSetValue(b, nv);
-                                b.SetValue(SourcePropertyName, nv);
                             }
                         }
                         else
@@ -533,7 +551,8 @@ namespace CPF
         }
         void PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (SourcePropertyName == e.PropertyName)
+            var Temp_SourcePropertyName = SourcePropertyName.Split('.').LastOrDefault();
+            if (Temp_SourcePropertyName == e.PropertyName)
             {
                 //CPFObject s = sender as CPFObject;
                 //object value;
@@ -557,6 +576,47 @@ namespace CPF
                 }
             }
         }
+        internal object GetPropertySource(string SourcePropertyName,object Source)
+        {
+            try
+            {
+                var SourcePropertyNames = SourcePropertyName.Split('.');
+                if (SourcePropertyNames.Length == 1)
+                {
+                    return Source;
+                }
+                var Target = Source;
+                for (int i = 0; i < SourcePropertyNames.Length - 1; i++)
+                {
+                    var Temp_Target = Target.GetPropretyValue(SourcePropertyNames[i]) as CpfObject;
+                    if (Temp_Target == null)
+                    {
+                        return null;
+                    }
+                    Target = Temp_Target;
+                }
+                return Target;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"错误:{ex}");
+            }
+        }
+        CpfObject SourceProperty = null;
+        private void Target_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //重新绑定
+            if (BindingMode == BindingMode.TwoWay ||
+                BindingMode == BindingMode.OneWay ||
+                BindingMode == BindingMode.OneTime)
+            {
+                var SourcePropertyNames = SourcePropertyName.Split('.');
+                var Temp_Target = GetPropertySource(SourcePropertyName, Source.Target);
+                var data = (Temp_Target as CpfObject)?.GetValue(SourcePropertyNames.LastOrDefault());
+                Owner.SetPropretyValue(TargetPropertyName, data);
+            }
+            RegisterPropertyChanged(sender as INotifyPropertyChanged);
+        }
 
         internal void RegisterPropertyChanged(INotifyPropertyChanged notify)
         {
@@ -564,7 +624,25 @@ namespace CPF
             //{
             //    throw new Exception("错误");
             //}
-            RegisterPropertyChanged(notify, PropertyChanged);
+            var SourcePropertyNames = SourcePropertyName.Split('.');
+            if (SourcePropertyNames.Length == 1)
+            {
+                RegisterPropertyChanged(notify, PropertyChanged);
+                return;
+            }
+            var Target = Source.Target;
+            RegisterPropertyChanged(Target as CpfObject, Target_PropertyChanged);
+            for (int i = 0; i < SourcePropertyNames.Length - 1; i++)
+            {
+                var Temp_Target = Target.GetPropretyValue(SourcePropertyNames[i]) as CpfObject;
+                if (Temp_Target == null)
+                {
+                    return;
+                }
+                RegisterPropertyChanged(Temp_Target, Target_PropertyChanged);
+                Target = Temp_Target;
+            }
+            RegisterPropertyChanged(Target as INotifyPropertyChanged, PropertyChanged);
         }
         internal void CancellationPropertyChanged(INotifyPropertyChanged notify)
         {

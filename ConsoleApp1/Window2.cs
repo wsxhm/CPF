@@ -188,6 +188,7 @@ namespace ConsoleApp1
                     {
                         MarginTop = 0,
                         Content = "点击生成pdf",
+                        [nameof(Button.Content)]= new Obx<MainModel>(a => a.Test1.test.test.test.test.Name),
                         Commands =
                         {
                             {
@@ -235,7 +236,7 @@ namespace ConsoleApp1
                                             Content="另外一个演示窗体😍",
                                             MarginTop=20,
                                             MarginLeft=20,
-                                            [nameof(Button.Click)]=(BindingDescribe)((s,e)=>
+                                            [nameof(Button.Click)]=new CommandDescribe((s,e)=>
                                             {
                                                 var w = new Window1();
                                                 w.DataContext = model;
@@ -1386,7 +1387,8 @@ namespace ConsoleApp1
                                             MarginTop = 76,
                                             Height = 23,
                                             Width = 219,
-                                            [nameof(Slider.Value)]=new BindingDescribe(null, nameof(MainModel.ColumnWidth),BindingMode.OneWayToSource,null,a=>new GridLength((float)(double)a))
+                                            //[nameof(Slider.Value)]= new Obx<MainModel>(a => a.Type.Name),
+                                            [nameof(Slider.Value)]= new BindingDescribe(null, nameof(MainModel.ColumnWidth),BindingMode.OneWayToSource,null,a=>new GridLength((float)(double)a))
                                         },
                                     }
                                 }
@@ -2419,10 +2421,10 @@ new TabItemTemplate{
                             },
                             new TabItemTemplate
                             {
-                                Header="布局",
+                                Header="多级绑定",
                                 Content=new Panel
                                 {
-                                    Name = "布局",
+                                    Name = "多级绑定",
                                     PresenterFor = this,
                                     Width="100%",
                                     Height="100%",
@@ -2435,306 +2437,54 @@ new TabItemTemplate{
                                             Orientation= Orientation.Vertical,
                                             Children=
                                             {
-                                                new Button
+                                                
+                                                new TextBlock
                                                 {
-                                                    Content="StackPanel的Vertical"
-                                                },
-                                                new Button
-                                                {
-                                                    Content="按钮"
-                                                },
-                                                new Button
-                                                {
-                                                    Content="按钮"
-                                                },
-                                                new Button
-                                                {
-                                                    Content="按钮"
-                                                },
-                                            }
-                                        },
-                                        new StackPanel
-                                        {
-                                            BorderStroke = "5,Solid",
-                                            BorderFill = "#B4B4B4",
-                                            MarginLeft=80,
-                                            MarginTop=50,
-                                            Orientation= Orientation.Horizontal,
-                                            Children=
-                                            {
-                                                new Button
-                                                {
-                                                    Content="StackPanel的Horizontal"
-                                                },
-                                                new Button
-                                                {
-                                                    Content="按钮"
-                                                },
-                                                new Button
-                                                {
-                                                    Content="Margin调间距",
-                                                    MarginLeft=5
-                                                },
-                                                new Button
-                                                {
-                                                    Content="按钮"
-                                                },
-                                            }
-                                        },
-                                        new WrapPanel
-                                        {
-                                            MarginRight=10,
-                                            MarginTop=10,
-                                            Width="50%",
-                                            Orientation= Orientation.Horizontal,
-                                            Children=
-                                            {
-                                                new Button
-                                                {
-                                                    Content="WrapPanel的Horizontal"
-                                                },
-                                                new Button
-                                                {
-                                                    Content="按钮"
-                                                },
-                                                new Button
-                                                {
-                                                    Content="Margin调间距",
-                                                    MarginLeft=5
-                                                },
-                                                new Button
-                                                {
-                                                    Content="按钮"
-                                                },
-                                                new Button
-                                                {
-                                                    Content="宽度不够"
-                                                },
-                                                new Button
-                                                {
-                                                    Content="可以自动换行"
-                                                },
-                                            }
-                                        },
-                                        new Grid
-                                        {
-                                            RenderTransform=new RotateTransform(10),
-                                            Name="testGrid",
-                                            Background="#999",
-                                            Width="80%",
-                                            Height="60%",
-                                            MarginTop=120,
-                                            MarginLeft=20,
-                                            ColumnDefinitions=
-                                            {
-                                                new ColumnDefinition
-                                                {
-                                                    Width="40*"
-                                                },
-                                                new ColumnDefinition
-                                                {
-                                                    Width = "30*"
-                                                },
-                                                new ColumnDefinition
-                                                {
-                                                    Width="200",
-                                                    [nameof(ColumnDefinition.Width)]=nameof(MainModel.ColumnWidth)
-                                                },
-                                            },
-                                            RowDefinitions=
-                                            {
-                                                new RowDefinition
-                                                {
-                                                    Height="30*"
-                                                },
-                                                new RowDefinition
-                                                {
-                                                    Height="30*"
-                                                },
-                                                new RowDefinition
-                                                {
-                                                    Height="30*"
-                                                }
-                                            },
-                                            Children=
-                                            {
-                                                new WrapPanel
-                                                {
-                                                    Name="test",
-                                                    Background="#a2f",
-                                                    Width="100%",
-                                                    Height="100%",
-                                                    Children=
-                                                    {
-                                                        new Button
-                                                        {
-                                                            Content="水平浮动布局231"
-                                                        },
-                                                        new Button
-                                                        {
-                                                            Content="按钮2"
-                                                        },
-                                                        new Button
-                                                        {
-                                                            Content="按钮3"
-                                                        },
-                                                        new Button
-                                                        {
-                                                            Content="按钮4"
-                                                        },
-                                                        new Button
-                                                        {
-                                                            Content="按钮5"
-                                                        },
-                                                    }
-                                                },
-                                                {
-                                                    new WrapPanel
-                                                    {
-                                                        Orientation= Orientation.Vertical,
-                                                        Background="#27a",
-                                                        Width="100%",
-                                                        Height="100%",
-                                                        Children=
-                                                        {
-                                                            new Button
-                                                            {
-                                                                Content="垂直浮动布局"
-                                                            },
-                                                            new Button
-                                                            {
-                                                                Content="按钮2"
-                                                            },
-                                                            new Button
-                                                            {
-                                                                Content="按钮3"
-                                                            },
-                                                            new Button
-                                                            {
-                                                                Content="按钮4"
-                                                            },
-                                                            new Button
-                                                            {
-                                                                Content="按钮5"
-                                                            },
-                                                        }
-                                                    },
-                                                    1,
-                                                    1
-                                                },
-                                                {
-                                                    new TextBlock
-                                                    {
-                                                        Background="#ac2",
-                                                        Width="100%",
-                                                        Height="100%",
-                                                        Text="Grid布局。。。"
-                                                    },
-                                                    2,
-                                                    1
-                                                },
-                                                {
-                                                    new Panel
-                                                    {
-                                                        Background="#b1a",
-                                                        MarginLeft=0,
-                                                        MarginRight=0,
-                                                        Children=
-                                                        {
-                                                            new Button
-                                                            {
-                                                                Content="跨列",
-                                                                Width="50%"
-                                                            }
-                                                        }
-                                                    },
-                                                    0,
-                                                    2,
-                                                    2
-                                                },
-                                                {
-                                                    new TextBlock
-                                                    {
-                                                        Background="#186",
-                                                        Height="100%",
-                                                        Text="跨行"
-                                                    },
-                                                    2,
-                                                    1,
-                                                    1,
-                                                    2
+                                                    [nameof(TextBlock.Text)]= new Obx<MainModel>(a => a.Test1.test.test.test.test.Name,
+                                                    BindingMode.OneWay),
+                                                    Name = "hmbb"
                                                 },
                                                 new TextBox
                                                 {
-                                                    MarginLeft=10,
-                                                    Size=SizeField.Fill,
-                                                    Text="元素变换，可以旋转，倾斜，缩放等操作",
-                                                    Attacheds=
-                                                    {
-                                                        {
-                                                            Grid.ColumnIndex,
-                                                            1
-                                                        }
-                                                    }
+                                                    Width = 130,
+                                                    Height= 60,
+                                                    Background =Color.Gray,
+                                                    [nameof(TextBox.Text)]= new Obx<MainModel>(a => a.Test1.test.test.test.test.Name,
+                                                    BindingMode.OneWayToSource),
                                                 },
                                                 new Button
                                                 {
-                                                    Content=new SVG("res://ConsoleApp1/test.svg")
+                                                    Content="创建对象",
+                                                    [nameof(Button.Click)]=new CommandDescribe((s,e)=>
                                                     {
-                                                        MarginLeft = 0,
-                                                        MarginTop = 0,
-                                                        Height = 85,
-                                                        Width=170,
-                                                        Stretch= Stretch.Uniform,
-                                                    },
-                                                    Width=104,
-                                                    Height=55,
-                                                    MarginLeft=60,
-                                                    MarginTop=120,
-                                                    Commands=
-                                                    {
-                                                        {
-                                                            nameof(Button.Click),
-                                                            (s,e)=> Animation((Button)s)
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                        },
-                                        new DockPanel
-                                        {
-                                            LastChildFill = false,
-                                            Width=200,
-                                            Height=200,
-                                            MarginRight=0,
-                                            MarginTop=50,
-                                            Background="#f00",
-                                            Children =
-                                            {
+                                                        data a = new data();
+                                                        a.test.test.test.Name = "666666";
+                                                        (DataContext as MainModel).Test1.test = a;
+                                                    })
+                                                },
                                                 new Button
                                                 {
-                                                    Content="Right",
-                                                    Height="100%",
-                                                    Attacheds =
+                                                    Content="删除对象",
+                                                    [nameof(Button.Click)]=new CommandDescribe((s,e)=>
                                                     {
-                                                        {
-                                                            DockPanel.Dock,
-                                                            Dock.Right
-                                                        }
-                                                    }
+                                                        data a = new data();
+                                                        a.test.test.Name = "666666";
+                                                        (DataContext as MainModel).Test1.test.test = null;
+                                                    })
+                                                },
+                                                new Button
+                                                {
+                                                    Content="添加对象",
+                                                    [nameof(Button.Click)]=new CommandDescribe((s,e)=>
+                                                    {
+                                                        data a = new data();
+                                                        a.test.test.Name = "666666";
+                                                        (DataContext as MainModel).Test1.test.test = a;
+                                                    })
                                                 },
                                             }
                                         },
-                                        new Slider
-                                        {
-                                            Maximum = 300,
-                                            Value = 200,
-                                            MarginLeft = 252,
-                                            MarginTop = 76,
-                                            Height = 23,
-                                            Width = 219,
-                                            [nameof(Slider.Value)]=new BindingDescribe(null, nameof(MainModel.ColumnWidth),BindingMode.OneWayToSource,null,a=>new GridLength((float)(double)a))
-                                        },
+                                        
                                     }
                                 }
                             },

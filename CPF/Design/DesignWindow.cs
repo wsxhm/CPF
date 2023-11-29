@@ -213,7 +213,6 @@ namespace CPF.Design
 
         public void SetVisible(bool visible)
         {
-            root.InputManager.TouchDevice.ClearPoints();
             root.LayoutManager.ExecuteLayoutPass();
             root.Invalidate();
         }
