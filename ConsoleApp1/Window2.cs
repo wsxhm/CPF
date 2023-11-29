@@ -472,6 +472,7 @@ namespace ConsoleApp1
                                         },
                                         new ScrollViewer
                                         {
+                                            Background = "url(res://ConsoleApp1/icon.png) Tile None 0,0,0,0",
                                             MarginLeft = 421,//HorizontalScrollBarVisibility= ScrollBarVisibility.Disabled,
                                             //VerticalScrollBarVisibility= ScrollBarVisibility.Visible,
                                             Commands =
@@ -505,8 +506,9 @@ namespace ConsoleApp1
                                             {
                                                 Height = 336,
                                                 Width = 421,
+                                                IsAntiAlias=true,
                                             },
-#else
+                                            #else
                                             new WrapPanel
                                             {
                                                 Width="100%",
@@ -570,7 +572,7 @@ namespace ConsoleApp1
                                                     },
                                                 }
                                             },
-#endif
+                                            #endif
                                             Height=300,
                                             MarginTop=19,
                                             MarginRight=29
@@ -625,7 +627,7 @@ namespace ConsoleApp1
                                             Value=0.001,
                                             Bindings =
                                             {
-                                                
+
                                             }
                                         },
                                         new Button
@@ -1967,7 +1969,7 @@ namespace ConsoleApp1
                                                             },
                                                             new Separator
                                                             {
-                                                                
+
                                                             },
                                                             new MenuItem
                                                             {
@@ -2465,8 +2467,6 @@ new TabItemTemplate{
                                                     Content="删除对象",
                                                     [nameof(Button.Click)]=new CommandDescribe((s,e)=>
                                                     {
-                                                        data a = new data();
-                                                        a.test.test.Name = "666666";
                                                         (DataContext as MainModel).Test1.test.test = null;
                                                     })
                                                 },
@@ -2476,7 +2476,7 @@ new TabItemTemplate{
                                                     [nameof(Button.Click)]=new CommandDescribe((s,e)=>
                                                     {
                                                         data a = new data();
-                                                        a.test.test.Name = "666666";
+                                                        a.test.test.Name = "8888";
                                                         (DataContext as MainModel).Test1.test.test = a;
                                                     })
                                                 },
@@ -3456,10 +3456,19 @@ new TabItemTemplate{
             {
                 MaximizeBox = true,
                 ShadowBlur = 10,
-                #if !DesignMode
+#if !DesignMode
                 //Effect = effect
 #endif
             });
+
+//#if !Net4 && !NETCOREAPP3_0
+//            Children.Add(new GLView
+//            {
+//                Height = "30%",
+//                Width = "30%",
+//                IsAntiAlias = true,
+//            });
+//#endif
             LoadStyleFile("res://ConsoleApp1/Stylesheet3.css");
             //加载样式文件，文件需要设置为内嵌资源
             Console.WriteLine(testBtn[DockPanel.Dock]);

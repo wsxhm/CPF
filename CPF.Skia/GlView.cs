@@ -18,19 +18,27 @@ namespace CPF.Skia
         int DepthRenderBuffer;
         Size oldSize;
         SKImage image;
+        SKPaint paint;
+        GRBackendTexture backendTexture;
 
         //IGlContext context;
         protected unsafe override void OnRender(DrawingContext dc)
         {
-            var size1 = ActualSize;
-            if (size1.Width <= 0 || size1.Height <= 0 || DesignMode)
+            var cSize = ActualSize;
+            if (cSize.Width <= 0 || cSize.Height <= 0 || DesignMode)
             {
                 return;
             }
 
-            var size = new PixelSize((int)Math.Round(size1.Width * Root.RenderScaling), (int)Math.Round(size1.Height * Root.RenderScaling));
+            var size = new PixelSize((int)Math.Round(cSize.Width * Root.RenderScaling), (int)Math.Round(cSize.Height * Root.RenderScaling));
             var skia = dc as SkiaDrawingContext;
             var _gl = skia.GlContext;
+            if (paint == null)
+            {
+                paint = new SKPaint();
+            }
+            paint.IsAntialias = IsAntiAlias;
+            paint.FilterQuality = IsAntiAlias ? SKFilterQuality.Medium : SKFilterQuality.None;
 
             if (Id == 0)
             {
@@ -48,9 +56,9 @@ namespace CPF.Skia
 
                 OnGLLoaded(_gl);
             }
-            if (size1 != oldSize)
+            if (cSize != oldSize)
             {
-                oldSize = size1;
+                oldSize = cSize;
 
                 _gl.BindTexture(GlConsts.GL_TEXTURE_2D, ColorBuffer);
                 _gl.TexImage2D(GlConsts.GL_TEXTURE_2D, 0, GlConsts.GL_RGBA, (int)size.Width, (int)size.Height, 0, GlConsts.GL_RGB, GlConsts.GL_UNSIGNED_BYTE, IntPtr.Zero);
@@ -73,7 +81,11 @@ namespace CPF.Skia
                 {
                     image.Dispose();
                 }
-                GRBackendTexture backendTexture = new GRBackendTexture((int)(size.Width / Root.RenderScaling), (int)(size.Height / Root.RenderScaling), false, new GRGlTextureInfo(0x0DE1, (uint)ColorBuffer, SKColorType.Rgba8888.ToGlSizedFormat()));
+                if (backendTexture != null)
+                {
+                    backendTexture.Dispose();
+                }
+                backendTexture = new GRBackendTexture((int)(size.Width), (int)(size.Height), false, new GRGlTextureInfo(0x0DE1, (uint)ColorBuffer, SKColorType.Rgba8888.ToGlSizedFormat()));
 
                 image = SKImage.FromTexture((GRContext)skia.GlContext.GRContext, backendTexture, GRSurfaceOrigin.BottomLeft, SKColorType.Rgba8888);
             }
@@ -84,7 +96,9 @@ namespace CPF.Skia
             _gl.Viewport(0, 0, (int)size.Width, (int)size.Height);
             OnGLRender(_gl);
             _gl.Viewport((int)vp[0], (int)vp[1], (int)vp[2], (int)vp[3]);
-            skia.SKCanvas.DrawImage(image, 0, 0);
+            _gl.BindFramebuffer(GlConsts.GL_FRAMEBUFFER, 0);
+            //_gl.Flush();
+            skia.SKCanvas.DrawImage(image, new SKRect(0, 0, size.Width, size.Height), new SKRect(0, 0, cSize.Width, cSize.Height), paint);
         }
 
 
@@ -117,11 +131,22 @@ namespace CPF.Skia
                 OpenglEx.DeleteFramebuffers(null, 1, new int[] { Id });
                 OpenglEx.DeleteTextures(null, 1, new int[] { ColorBuffer });
                 OpenglEx.DeleteRenderbuffers(null, 1, new int[] { DepthRenderBuffer });
+                Id = 0;
             }
             if (image != null)
             {
                 image.Dispose();
                 image = null;
+            }
+            if (paint != null)
+            {
+                paint.Dispose();
+                paint = null;
+            }
+            if (backendTexture != null)
+            {
+                backendTexture.Dispose();
+                backendTexture = null;
             }
             base.Dispose(disposing);
         }
@@ -133,6 +158,6 @@ namespace CPF.Skia
         {
             Context = gl;
         }
-        public IGlContext Context { get;private set; }
+        public IGlContext Context { get; private set; }
     }
 }

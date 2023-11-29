@@ -72,7 +72,7 @@ namespace ConsoleApp1
 
             _gl.DeleteShader(vertexShader);
             _gl.DeleteShader(fragmentShader);
-            base.OnGLLoaded(gl);
+            //base.OnGLLoaded(gl);
         }
 
 
@@ -82,14 +82,13 @@ namespace ConsoleApp1
             _gl.Clear(Silk.NET.OpenGLES.ClearBufferMask.ColorBufferBit | Silk.NET.OpenGLES.ClearBufferMask.DepthBufferBit | Silk.NET.OpenGLES.ClearBufferMask.StencilBufferBit);
 
             _gl.UseProgram(shaderProgram);
-
             _gl.BindVertexArray(vao);
 
             _gl.DrawArrays(Silk.NET.OpenGLES.GLEnum.Triangles, 0, 3);
 
             _gl.BindVertexArray(0);
             _gl.UseProgram(0);
-            base.OnGLRender(gl);
+            //base.OnGLRender(gl);
         }
 
 #endif
