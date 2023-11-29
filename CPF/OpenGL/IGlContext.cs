@@ -124,13 +124,13 @@ namespace CPF.OpenGL
             flush();
         }
 
-        [GlImport("glFinish")]
-        static Action finish;
-        public static void Finish(this IGlContext context)
-        {
-            Load(context);
-            finish();
-        }
+        //[GlImport("glFinish")]
+        //static Action finish;
+        //public static void Finish(this IGlContext context)
+        //{
+        //    Load(context);
+        //    finish();
+        //}
 
         public delegate IntPtr GlGetString(int v);
         [GlImport("glGetString")]
@@ -161,6 +161,13 @@ namespace CPF.OpenGL
         {
             Load(context);
             genFramebuffers(count, res);
+        }
+
+        public static int GenFramebuffer(this IGlContext context)
+        {
+            int[] fbs = new int[1];
+            context.GenFramebuffers(1, fbs);
+            return fbs[0];
         }
 
         public delegate void GlDeleteFramebuffers(int count, int[] framebuffers);
@@ -211,6 +218,12 @@ namespace CPF.OpenGL
             Load(context);
             genRenderbuffers(count, res);
         }
+        public static int GenRenderbuffer(this IGlContext context)
+        {
+            var res = new int[1];
+            context.GenRenderbuffers(1, res);
+            return res[0];
+        }
 
         public delegate void GlDeleteRenderbuffers(int count, int[] renderbuffers);
         [GlImport("glDeleteRenderbuffers")]
@@ -258,6 +271,13 @@ namespace CPF.OpenGL
             Load(context);
             genTextures(count, res);
         }
+        public static int GenTexture(this IGlContext context)
+        {
+            var res = new int[1];
+            context.GenTextures(1, res);
+            return res[0];
+        }
+
 
         public delegate void GlBindTexture(int target, int fb);
         [GlImport("glBindTexture")]
@@ -378,41 +398,41 @@ namespace CPF.OpenGL
             deleteShader(shader);
         }
 
-        public delegate void GlColor4f(float red, float green, float blue, float alpha);
-        [GlImport("glColor4f")]
-        static GlColor4f color4f;
-        public static void Color4f(this IGlContext context, float red, float green, float blue, float alpha)
-        {
-            Load(context);
-            color4f(red, green, blue, alpha);
-        }
+        //public delegate void GlColor4f(float red, float green, float blue, float alpha);
+        //[GlImport("glColor4f")]
+        //static GlColor4f color4f;
+        //public static void Color4f(this IGlContext context, float red, float green, float blue, float alpha)
+        //{
+        //    Load(context);
+        //    color4f(red, green, blue, alpha);
+        //}
 
-        public delegate void GlBegin(uint mode);
-        [GlImport("glBegin")]
-        static GlBegin begin;
-        public static void Begin(this IGlContext context, uint mode)
-        {
-            Load(context);
-            begin(mode);
-        }
+        //public delegate void GlBegin(uint mode);
+        //[GlImport("glBegin")]
+        //static GlBegin begin;
+        //public static void Begin(this IGlContext context, uint mode)
+        //{
+        //    Load(context);
+        //    begin(mode);
+        //}
 
-        public delegate void GlVertex3f(float x, float y, float z);
-        [GlImport("glVertex3f")]
-        static GlVertex3f vertex3f;
-        public static void Vertex3f(this IGlContext context, float x, float y, float z)
-        {
-            Load(context);
-            vertex3f(x, y, z);
-        }
+        //public delegate void GlVertex3f(float x, float y, float z);
+        //[GlImport("glVertex3f")]
+        //static GlVertex3f vertex3f;
+        //public static void Vertex3f(this IGlContext context, float x, float y, float z)
+        //{
+        //    Load(context);
+        //    vertex3f(x, y, z);
+        //}
 
-        public delegate void GlEnd();
-        [GlImport("glEnd")]
-        static GlEnd end;
-        public static void End(this IGlContext context)
-        {
-            Load(context);
-            end();
-        }
+        //public delegate void GlEnd();
+        //[GlImport("glEnd")]
+        //static GlEnd end;
+        //public static void End(this IGlContext context)
+        //{
+        //    Load(context);
+        //    end();
+        //}
 
         public delegate void GlLoadIdentity();
         [GlImport("glLoadIdentity")]
@@ -477,14 +497,14 @@ namespace CPF.OpenGL
             popAttrib();
         }
 
-        public delegate void GlOrtho(double left, double right, double bottom, double top, double zNear, double zFar);
-        [GlImport("glOrtho")]
-        static GlOrtho ortho;
-        public static void Ortho(this IGlContext context, double left, double right, double bottom, double top, double zNear, double zFar)
-        {
-            Load(context);
-            ortho(left, right, bottom, top, zNear, zFar);
-        }
+        //public delegate void GlOrtho(double left, double right, double bottom, double top, double zNear, double zFar);
+        //[GlImport("glOrtho")]
+        //static GlOrtho ortho;
+        //public static void Ortho(this IGlContext context, double left, double right, double bottom, double top, double zNear, double zFar)
+        //{
+        //    Load(context);
+        //    ortho(left, right, bottom, top, zNear, zFar);
+        //}
 
         public delegate void GlGetFloatv(uint pname, float[] params_notkeyword);
         [GlImport("glGetFloatv")]

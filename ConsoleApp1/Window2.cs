@@ -472,9 +472,8 @@ namespace ConsoleApp1
                                         },
                                         new ScrollViewer
                                         {
-                                            MarginLeft = 421,
-                                            HorizontalScrollBarVisibility= ScrollBarVisibility.Disabled,
-                                            VerticalScrollBarVisibility= ScrollBarVisibility.Visible,
+                                            MarginLeft = 421,//HorizontalScrollBarVisibility= ScrollBarVisibility.Disabled,
+                                            //VerticalScrollBarVisibility= ScrollBarVisibility.Visible,
                                             Commands =
                                             {
                                                 {
@@ -499,6 +498,15 @@ namespace ConsoleApp1
                                             //    Name = nameof(pic),
                                             //    Source="http://219.239.12.91:5001/bookimage//bookimage3/cate1826979600058c0bd3/file253320e4000582XXXX/253320e4000582XXXX.jpg"
                                             //}
+                                            
+                                            
+                                        #if !Net4&&!NETCOREAPP3_0
+                                        new GLView
+                                            {
+                                                Height = 336,
+                                                Width = 421,
+                                            },
+#else
                                             new WrapPanel
                                             {
                                                 Width="100%",
@@ -562,6 +570,7 @@ namespace ConsoleApp1
                                                     },
                                                 }
                                             },
+#endif
                                             Height=300,
                                             MarginTop=19,
                                             MarginRight=29
@@ -739,17 +748,7 @@ namespace ConsoleApp1
                                             Height = 58,
                                             Width = 121,
                                         },
-                                        #if !Net4&&!NETCOREAPP3_0
-                                        new GLView
-                                        {
-                                            MarginRight = 56,
-                                            MarginTop = 44,
-                                            Height = 132,
-                                            Width = 151,
-                                            [nameof(GLView.DoubleClick)]=new CommandDescribe((s,e)=>{ s.Dispose(); }),
-                                        },
-                                        #endif
-                                    new Button
+                                        new Button
                                         {
                                             Commands =
                                             {
@@ -1388,8 +1387,7 @@ namespace ConsoleApp1
                                             MarginLeft = 252,
                                             MarginTop = 76,
                                             Height = 23,
-                                            Width = 219,
-                                            //[nameof(Slider.Value)]= new Obx<MainModel>(a => a.Type.Name),
+                                            Width = 219,//[nameof(Slider.Value)]= new Obx<MainModel>(a => a.Type.Name),
                                             [nameof(Slider.Value)]= new BindingDescribe(null, nameof(MainModel.ColumnWidth),BindingMode.OneWayToSource,null,a=>new GridLength((float)(double)a))
                                         },
                                     }
@@ -2439,14 +2437,12 @@ new TabItemTemplate{
                                             Orientation= Orientation.Vertical,
                                             Children=
                                             {
-                                                
                                                 new TextBlock
                                                 {
                                                     [nameof(TextBlock.Text)]= new Obx<MainModel>(a => a.Test1.test.test.test.test.Name,
                                                     BindingMode.OneWay),
                                                     Name = "hmbb"
-                                                },
-                                                //new TextBox
+                                                },//new TextBox
                                                 //{
                                                 //    Width = 130,
                                                 //    Height= 60,
@@ -2486,7 +2482,6 @@ new TabItemTemplate{
                                                 },
                                             }
                                         },
-                                        
                                     }
                                 }
                             },

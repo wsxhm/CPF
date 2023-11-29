@@ -38,7 +38,12 @@ namespace ConsoleApp1
 #if Net4
                (OperatingSystemType.Windows, new WindowsPlatform(), new CPF.GDIPlus.GDIPlusDrawingFactory { ClearType = true })
 #else
-            (OperatingSystemType.Windows, new WindowsPlatform(false), new SkiaDrawingFactory { UseGPU=true })
+            (OperatingSystemType.Windows, new WindowsPlatform(false), new SkiaDrawingFactory 
+            {
+#if NETCOREAPP3_1_OR_GREATER
+                UseGPU=true
+#endif
+            })
             , (OperatingSystemType.OSX, new CPF.Mac.MacPlatform(), new SkiaDrawingFactory { UseGPU = false })
             , (OperatingSystemType.Linux, new CPF.Linux.LinuxPlatform(), new SkiaDrawingFactory { UseGPU = false })
 #endif
