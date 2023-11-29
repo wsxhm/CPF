@@ -9,10 +9,10 @@ namespace CPF.Toolkit
 {
     public class ViewModelBase : ObservableObject, IClosable, IDialog, ILoading
     {
-        event EventHandler<object> _close;
+        event EventHandler<ClosingEventArgs> _close;
         event Func<string, Task, Task<object>> _showLoadingFunc;
         event Func<string, Task, Task> _showLading;
-        event EventHandler<object> IClosable.Closable { add => this._close += value; remove => this._close -= value; }
+        event EventHandler<ClosingEventArgs> IClosable.Closable { add => this._close += value; remove => this._close -= value; }
         event Func<string, Task, Task<object>> ILoading.ShowLoadingFunc { add => this._showLoadingFunc += value; remove => this._showLoadingFunc -= value; }
         event Func<string, Task, Task> ILoading.ShowLoading { add => this._showLading += value; remove => this._showLading -= value; }
 
@@ -20,10 +20,10 @@ namespace CPF.Toolkit
 
         public IDialogService Dialog { get; set; }
 
-        protected void Close(object dialogResult = null)
+        protected void Close()
         {
             if (this._close == null) throw new ArgumentNullException();
-            this._close.Invoke(this, dialogResult);
+            this._close.Invoke(this, new ClosingEventArgs());
         }
 
         protected virtual void OnClose(ClosingEventArgs e) { }

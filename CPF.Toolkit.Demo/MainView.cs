@@ -9,6 +9,7 @@ using CPF.Svg;
 using CPF.Toolkit.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -16,10 +17,6 @@ namespace CPF.Toolkit.Demo
 {
     public class MainView : Window
     {
-        public MainView()
-        {
-
-        }
         MainViewModel vm = new MainViewModel();
         protected override void InitializeComponent()
         {
@@ -74,20 +71,63 @@ namespace CPF.Toolkit.Demo
                     new Button
                     {
                         Content = "AsyncButton",
-                        Commands = 
+                        Commands =
                         {
                             { nameof(Button.AsyncClick),async (s,e) => await this.vm.AsyncClick() }
                         }
-                    }.Assign(out var asyncButton),
+                    },
+                    new Button
+                    {
+                        Content = "Mdi",
+                        Commands =
+                        {
+                            { nameof(Button.Click), (s,e) => new TestMdiView().Show() }
+                        }
+                    },
                 }
             }));
 
-            //asyncButton.AsyncClick += AsyncButton_AsyncClick;
+        }
+    }
+
+    internal class MainViewModel : ViewModelBase
+    {
+        public void Test()
+        {
+            this.Close();
         }
 
-        private async Task AsyncButton_AsyncClick(object sender, RoutedEventArgs e)
+        protected override void OnClose(ClosingEventArgs e)
         {
-            await this.vm.AsyncClick();
+            e.Cancel = this.Dialog.Ask("确定要关闭吗") != "确定";
+            base.OnClose(e);
+        }
+
+        public async void LoadingTest()
+        {
+            await this.ShowLoading(async () =>
+            {
+                await Task.Delay(1000);
+                Debug.WriteLine(1);
+                await Task.Delay(1000);
+                Debug.WriteLine(2);
+                await Task.Delay(1000);
+                Debug.WriteLine(3);
+            });
+            //await this.ShowLoading(Task.Delay(3000));
+
+            //var result = await this.ShowLoading(async () =>
+            //{
+            //    await Task.Delay(5000);
+            //    return "test";
+            //});
+            this.Dialog.Sucess("test");
+        }
+
+        public async Task AsyncClick()
+        {
+            await Task.Delay(3000);
+            this.Dialog.Alert("test");
         }
     }
 }

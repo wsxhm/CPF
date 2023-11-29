@@ -194,6 +194,10 @@ namespace CPF
             {
                 if (value.Command != null)
                 {
+                    if (value.Command.AsyncAction != null)
+                    {
+                        Commands.Add(propertyName, value.Command.AsyncAction);
+                    }
                     if (value.Command.Action != null)
                     {
                         Commands.Add(propertyName, value.Command.Action);

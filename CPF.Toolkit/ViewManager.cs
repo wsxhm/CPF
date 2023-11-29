@@ -24,12 +24,8 @@ namespace CPF.Toolkit
             {
                 if (view.DataContext is IClosable closable)
                 {
-                    closable.Closable += (ss, dialogResult) =>
+                    closable.Closable += (ss, ee) =>
                     {
-                        if (view.IsDialogMode == true)
-                        {
-                            view.DialogResult = dialogResult;
-                        }
                         view.Close();
                     };
                 }
@@ -39,40 +35,9 @@ namespace CPF.Toolkit
                 }
                 if (view.DataContext is ILoading loading)
                 {
-                    loading.ShowLoadingFunc += async (message, task) =>
-                    {
-                        var loadingBox = new LoadingBox { Message = message };
-                        var layer = new LayerDialog
-                        {
-                            Name = "loadingDialog",
-                            Content = loadingBox,
-                            ShowCloseButton = false,
-                            Background = null,
-                        };
-                        layer.ShowDialog(view);
-                        dynamic t = task;
-                        var result = await t;
-                        loadingBox.Invoke(layer.CloseDialog);
-                        return (object)result;
-                    };
-                    loading.ShowLoading += async (message, task) =>
-                    {
-                        var loadingBox = new LoadingBox { Message = message };
-                        var layer = new LayerDialog
-                        {
-                            Name = "loadingDialog",
-                            Content = loadingBox,
-                            ShowCloseButton = false,
-                            Background = null,
-                        };
-                        layer.ShowDialog(view);
-                        await task;
-                        loadingBox.Invoke(layer.CloseDialog);
-                    };
+                    loading.CreateLoading(view);
                 }
             }
-
-            
         }
 
         private static void View_Closing(object sender, ClosingEventArgs e)

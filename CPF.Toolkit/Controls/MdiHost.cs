@@ -2,6 +2,7 @@
 using CPF.Drawing;
 using CPF.Platform;
 using CPF.Shapes;
+using CPF.Toolkit.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,10 +19,9 @@ namespace CPF.Toolkit.Controls
             this.Size = SizeField.Fill;
             this.Background = "204,204,204";
             base.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-            base.RowDefinitions.Add(new RowDefinition { Height = "35", MaxHeight = 35 });
-
+            base.RowDefinitions.Add(new RowDefinition { Height = 35 });
             base.Children.Add(this.host);
-            var taskBar = base.Children.Add(new ListBox
+            taskBar = base.Children.Add(new ListBox
             {
                 Size = SizeField.Fill,
                 Background = "white",
@@ -47,11 +47,15 @@ namespace CPF.Toolkit.Controls
             this.host.UIElementAdded += Host_UIElementAdded;
             this.host.UIElementRemoved += Host_UIElementRemoved;
         }
-        Dictionary<UIElement, MdiWindowRect> normalRect = new Dictionary<UIElement, MdiWindowRect>();
-        readonly Panel host = new Panel { Size = SizeField.Fill };
+        readonly Dictionary<UIElement, MdiWindowRect> normalRect = [];
+        readonly Panel host = new() { Size = SizeField.Fill };
+        readonly ListBox taskBar;
         Collection<UIElement> TaskBarList { get => GetValue<Collection<UIElement>>(); set => SetValue(value); }
         public new UIElementCollection Children => host.Children;
         public MdiWindow SelectWindow { get => GetValue<MdiWindow>(); set => SetValue(value); }
+
+        [PropertyMetadata(TaskBarPlacement.Bottom)]
+        public TaskBarPlacement TaskBarPlacement { get => GetValue<TaskBarPlacement>(); set => SetValue(value); }
 
         protected override void OnPropertyChanged(string propertyName, object oldValue, object newValue, PropertyMetadataAttribute propertyMetadata)
         {
@@ -59,6 +63,26 @@ namespace CPF.Toolkit.Controls
             {
                 this.Topping(this.SelectWindow);
                 this.SelectWindow.WindowState = this.normalRect[this.SelectWindow].OldState;
+            }
+            else if (propertyName == nameof(this.TaskBarPlacement) && this.taskBar != null)
+            {
+                this.RowDefinitions.Clear();
+                this.ColumnDefinitions.Clear();
+                switch ((TaskBarPlacement)newValue)
+                {
+                    case TaskBarPlacement.Top:
+                        this.RowDefinitions.Add(new RowDefinition { Height = 35 });
+                        this.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+                        RowIndex(this.taskBar,0);
+                        RowIndex(this.host, 1);
+                        break;
+                    case TaskBarPlacement.Bottom:
+                        this.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+                        this.RowDefinitions.Add(new RowDefinition { Height = 35 });
+                        RowIndex(this.host,0);
+                        RowIndex(this.taskBar, 1);
+                        break;
+                }
             }
             base.OnPropertyChanged(propertyName, oldValue, newValue, propertyMetadata);
         }
@@ -86,8 +110,10 @@ namespace CPF.Toolkit.Controls
 
         private void Host_UIElementRemoved(object sender, UIElementRemovedEventArgs e)
         {
-            e.Element.PropertyChanged -= Element_PropertyChanged;
-            e.Element.PreviewMouseDown -= Element_PreviewMouseDown;
+            var view = e.Element as MdiWindow;
+            view.PropertyChanged -= Element_PropertyChanged;
+            view.PreviewMouseDown -= Element_PreviewMouseDown;
+            view.Closing -= View_Closing;
             this.TaskBarList.Remove(e.Element);
             this.normalRect.Remove(e.Element);
         }
@@ -98,9 +124,41 @@ namespace CPF.Toolkit.Controls
             this.normalRect.Add(e.Element, new MdiWindowRect { Left = 0, Top = 0, Height = 500, Width = 500 });
             view.PropertyChanged += Element_PropertyChanged;
             view.PreviewMouseDown += Element_PreviewMouseDown;
+            view.Closing += View_Closing;
             this.TaskBarList.Add(view);
             e.Element.ZIndex = this.host.Children.Max(x => x.ZIndex) + 1;
             this.Topping(view);
+        }
+
+        private void View_Closing(object sender, ClosingEventArgs e)
+        {
+            if (e.Cancel) return;
+            UIElement mdiWindow = null;
+            if (sender is IClosable closable)
+            {
+                mdiWindow = this.host.Children.FirstOrDefault(x => x.DataContext == closable);
+            }
+            else if (sender is MdiWindow mdi)
+            {
+                mdiWindow = mdi;
+            }
+            if (mdiWindow != null)
+            {
+                if (mdiWindow == this.SelectWindow)
+                {
+                    this.BeginInvoke(() =>
+                    {
+                        if (this.host.Children.Count == 0) return;
+                        var index = this.host.Children.Where(x => x.Visibility == Visibility.Visible).Max(x => x.ZIndex);
+                        if (index != -1)
+                        {
+                            this.SelectWindow = this.host.Children.Find(x => x.ZIndex == index) as MdiWindow;
+                        }
+                    });
+                }
+                this.host.Children.Remove(mdiWindow);
+                mdiWindow.Dispose();
+            }
         }
 
         private void Element_PreviewMouseDown(object sender, Input.MouseButtonEventArgs e)
@@ -181,6 +239,7 @@ namespace CPF.Toolkit.Controls
         public void Topping(MdiWindow ele)
         {
             if (ele == null) return;
+            ele.Focus();
             var index = this.host.Children.Max(x => x.ZIndex);
             if (ele.ZIndex == index)
             {

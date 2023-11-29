@@ -8,10 +8,12 @@ using CPF.Platform;
 using CPF.Shapes;
 using CPF.Styling;
 using CPF.Svg;
+using CPF.Toolkit.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -19,6 +21,10 @@ namespace CPF.Toolkit.Controls
 {
     public class MdiWindow : Control
     {
+        public MdiWindow()
+        {
+            this.Init();
+        }
         public WindowState WindowState { get => GetValue<WindowState>(); set => SetValue(value); }
         public UIElement Content { get => GetValue<UIElement>(); set => SetValue(value); }
 
@@ -37,25 +43,43 @@ namespace CPF.Toolkit.Controls
         [UIPropertyMetadata((byte)5, UIPropertyOptions.AffectsMeasure)]
         public byte ShadowBlur { get { return GetValue<byte>(); } set { SetValue(value); } }
 
+        [PropertyMetadata(true)]
+        public bool CanResize
+        {
+            get => GetValue<bool>();
+            set
+            {
+                SetValue(value);
+                if (!value) this.MaximizeBox = false;
+            }
+        }
+
         public event EventHandler<ClosingEventArgs> Closing;
 
-        protected override void InitializeComponent()
+
+        void Init()
         {
-            var bar = (ViewFill)"154,180,208";
-            var thubmEnabled = new BindingDescribe(this, nameof(WindowState), BindingMode.OneWay, b => ((WindowState)b) == WindowState.Normal);
+            this.Focusable = true;
+            var borderColor = (ViewFill)"152,180,208";
+            var lostFocusBorderColor = (ViewFill)"214,227,241";
+            var dragEnabled = new BindingDescribe(this, nameof(WindowState), BindingMode.OneWay, x =>
+            {
+                if (this.CanResize)
+                {
+                    return ((WindowState)x) == WindowState.Normal;
+                }
+                return false;
+            });
             this.Size = new SizeField(500, 500);
             this.Background = null;
             this.MarginLeft = 0;
             this.MarginTop = 0;
-            this.MinWidth = 200;
-            this.MinHeight = 70;
             this.ClipToBounds = true;
             this.Children.Add(new Border
             {
                 Size = SizeField.Fill,
-                Background = "#fff",
+                Background = "white",
                 BorderType = BorderType.BorderStroke,
-                BorderStroke = new Stroke(0),
                 ShadowBlur = ShadowBlur,
                 ShadowColor = Color.FromRgba(0, 0, 0, 150),
                 Child = new Decorator
@@ -84,76 +108,140 @@ namespace CPF.Toolkit.Controls
                             {
                                 Name = "top",
                                 Size = "100%,5",
-                                Background = bar,
                                 Cursor = Cursors.SizeNorthSouth,
-                                Attacheds = { { Grid.ColumnSpan,3 } },
-                                [nameof(IsEnabled)] = thubmEnabled,
-                                Commands =
+                                Attacheds = { { Grid.ColumnIndex,1 } },
+                                [nameof(IsEnabled)] = dragEnabled,
+                                [nameof(Background)] = new BindingDescribe(this,nameof(IsFocused),BindingMode.OneWay ,x => ((bool)x) ? borderColor : lostFocusBorderColor),
+                                [nameof(Thumb.DragDelta)] = new CommandDescribe((s,e) =>
                                 {
+                                    var args = e as DragDeltaEventArgs;
+                                    if (this.Height.Value - args.VerticalChange > 0)
                                     {
-                                        nameof(Thumb.DragDelta),(s,e) =>
-                                        {
-                                            var args = e as DragDeltaEventArgs;
-                                            if (this.Height.Value - args.VerticalChange > 0)
-                                            {
-                                                this.MarginTop += args.VerticalChange;
-                                                this.Height -= args.VerticalChange;
-                                            }
-                                        }
+                                        this.MarginTop += args.VerticalChange;
+                                        this.Height -= args.VerticalChange;
                                     }
-                                },
+                                }),
                             },
                             new Thumb
                             {
                                 Name = "left",
                                 Size = "5,100%",
-                                Background = bar,
                                 Cursor = Cursors.SizeWestEast,
-                                IsEnabled = false,
-                                Attacheds = { { Grid.ColumnIndex,0 } ,{ Grid.RowSpan,4 } },
-                                [nameof(IsEnabled)] = thubmEnabled,
-                                Commands =
+                                Attacheds = { { Grid.RowIndex,1 },{ Grid.RowSpan,2 } },
+                                [nameof(IsEnabled)] = dragEnabled,
+                                [nameof(Background)] = new BindingDescribe(this,nameof(IsFocused),BindingMode.OneWay ,x => ((bool)x) ? borderColor : lostFocusBorderColor),
+                                [nameof(Thumb.DragDelta)] = new CommandDescribe((s,e) =>
                                 {
+                                    var args = e as DragDeltaEventArgs;
+                                    if (this.Width.Value - args.HorizontalChange > 0)
                                     {
-                                        nameof(Thumb.DragDelta),(s,e) =>
-                                        {
-                                            var args = e as DragDeltaEventArgs;
-                                            if (this.Width.Value - args.HorizontalChange > 0)
-                                            {
-                                                this.MarginLeft += args.HorizontalChange;
-                                                this.Width -= args.HorizontalChange;
-                                            }
-                                        }
+                                        this.MarginLeft += args.HorizontalChange;
+                                        this.Width -= args.HorizontalChange;
                                     }
-                                }
+                                }),
+                            },
+                            new Thumb
+                            {
+                                Name = "left_top",
+                                Size = SizeField.Fill,
+                                Cursor = Cursors.TopLeftCorner,
+                                [nameof(IsEnabled)] = dragEnabled,
+                                [nameof(Background)] = new BindingDescribe(this,nameof(IsFocused),BindingMode.OneWay ,x => ((bool)x) ? borderColor : lostFocusBorderColor),
+                                [nameof(Thumb.DragDelta)] = new CommandDescribe((s,e) =>
+                                {
+                                    var args = e as DragDeltaEventArgs;
+                                    if (this.Width.Value - args.HorizontalChange > 0 && this.Height.Value - args.VerticalChange > 0)
+                                    {
+                                        this.MarginLeft += args.HorizontalChange;
+                                        this.MarginTop += args.VerticalChange;
+                                        this.Width -= args.HorizontalChange;
+                                        this.Height -= args.VerticalChange;
+                                    }
+                                }),
                             },
                             new Thumb
                             {
                                 Name = "right",
                                 Size = "5,100%",
-                                Background = bar,
                                 Cursor = Cursors.SizeWestEast,
                                 MarginRight = 0,
-                                Attacheds = { { Grid.ColumnIndex,2 },{ Grid.RowSpan,4 } },
-                                [nameof(IsEnabled)] = thubmEnabled,
-                                Commands = { { nameof(Thumb.DragDelta),(s,e) => this.Width += (e as DragDeltaEventArgs).HorizontalChange } }
+                                Attacheds = { { Grid.ColumnIndex,2 },{ Grid.RowIndex,1 },{ Grid.RowSpan,2 } },
+                                [nameof(IsEnabled)] = dragEnabled,
+                                [nameof(Thumb.DragDelta)] = new CommandDescribe((s,e) => this.Width += (e as DragDeltaEventArgs).HorizontalChange),
+                                [nameof(Background)] = new BindingDescribe(this,nameof(IsFocused),BindingMode.OneWay ,x => ((bool)x) ? borderColor : lostFocusBorderColor),
+                            },
+                            new Thumb
+                            {
+                                Name = "right_top",
+                                Size = SizeField.Fill,
+                                Cursor = Cursors.TopRightCorner,
+                                MarginRight = 0,
+                                Attacheds = { { Grid.ColumnIndex,2 } },
+                                [nameof(IsEnabled)] = dragEnabled,
+                                [nameof(Background)] = new BindingDescribe(this,nameof(IsFocused),BindingMode.OneWay ,x => ((bool)x) ? borderColor : lostFocusBorderColor),
+                                [nameof(Thumb.DragDelta)] = new CommandDescribe((s,e) =>
+                                {
+                                    var args = e as DragDeltaEventArgs;
+                                    if (this.Width.Value - args.HorizontalChange > 0 && this.Height.Value - args.VerticalChange > 0)
+                                    {
+                                        this.MarginTop += args.VerticalChange;
+                                        this.Width += args.HorizontalChange;
+                                        this.Height -= args.VerticalChange;
+                                    }
+                                }),
                             },
                             new Thumb
                             {
                                 Name = "bottom",
                                 Size = "100%,5",
-                                Background = bar,
                                 Cursor = Cursors.SizeNorthSouth,
-                                Attacheds = { { Grid.RowIndex,3 },{ Grid.ColumnSpan,3 } },
-                                [nameof(IsEnabled)] = thubmEnabled,
-                                Commands = { { nameof(Thumb.DragDelta),(s,e) => this.Height += (e as DragDeltaEventArgs).VerticalChange } }
+                                Attacheds = { { Grid.RowIndex,3 },{ Grid.ColumnIndex,1 } },
+                                [nameof(IsEnabled)] = dragEnabled,
+                                [nameof(Thumb.DragDelta)] = new CommandDescribe((s,e) => this.Height += (e as DragDeltaEventArgs).VerticalChange),
+                                [nameof(Background)] = new BindingDescribe(this,nameof(IsFocused),BindingMode.OneWay ,x => ((bool)x) ? borderColor : lostFocusBorderColor),
+                            },
+                            new Thumb
+                            {
+                                Name = "left_bottom",
+                                Size = SizeField.Fill,
+                                Cursor = Cursors.BottomLeftCorner,
+                                Attacheds = { { Grid.RowIndex,3 } },
+                                [nameof(Background)] = new BindingDescribe(this,nameof(IsFocused),BindingMode.OneWay ,x => ((bool)x) ? borderColor : lostFocusBorderColor),
+                                [nameof(IsEnabled)] = dragEnabled,
+                                [nameof(Thumb.DragDelta)] = new CommandDescribe((s,e) =>
+                                {
+                                    var args = e as DragDeltaEventArgs;
+                                    if (this.Width.Value - args.HorizontalChange > 0 && this.Height.Value + args.VerticalChange > 0)
+                                    {
+                                        this.MarginLeft += args.HorizontalChange;
+                                        this.Width -= args.HorizontalChange;
+                                        this.Height += args.VerticalChange;
+                                    }
+                                }),
+                            },
+                            new Thumb
+                            {
+                                Name = "right_bottom",
+                                Size = SizeField.Fill,
+                                Cursor = Cursors.BottomRightCorner,
+                                Attacheds = { { Grid.RowIndex,3 },{ Grid.ColumnIndex,2 } },
+                                [nameof(Background)] = new BindingDescribe(this,nameof(IsFocused),BindingMode.OneWay ,x => ((bool)x) ? borderColor : lostFocusBorderColor),
+                                [nameof(IsEnabled)] = dragEnabled,
+                                [nameof(Thumb.DragDelta)] = new CommandDescribe((s,e) =>
+                                {
+                                    var args = e as DragDeltaEventArgs;
+                                    if (this.Height.Value + args.VerticalChange > 0 && this.Width.Value + args.HorizontalChange > 0)
+                                    {
+                                        this.Width += args.HorizontalChange;
+                                        this.Height += args.VerticalChange;
+                                    }
+                                }),
                             },
                             new Thumb
                             {
                                 Name = "caption",
                                 Attacheds = { { Grid.RowIndex,1 },{ Grid.ColumnIndex,1 } },
                                 Size = SizeField.Fill,
-                                Background = bar,
                                 Child = new Panel
                                 {
                                     Size = SizeField.Fill,
@@ -193,8 +281,8 @@ namespace CPF.Toolkit.Controls
                                                         IsAntiAlias = true,
                                                         StrokeFill = "black"
                                                     },
-                                                    [nameof(Visibility)] = new BindingDescribe(this,nameof(MinimizeBox),BindingMode.OneWay,a=>(bool)a?Visibility.Visible: Visibility.Collapsed),
-                                                    Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Minimized } },
+                                                    [nameof(Visibility)] = new BindingDescribe(this,nameof(MinimizeBox),BindingMode.OneWay,x=>(bool)x?Visibility.Visible: Visibility.Collapsed),
+                                                    [nameof(Button.Click)] = new CommandDescribe((s,e) => this.WindowState = WindowState.Minimized)
                                                 },
                                                 new Panel
                                                 {
@@ -212,12 +300,13 @@ namespace CPF.Toolkit.Controls
                                                                 MarginTop = 5,
                                                                 StrokeStyle = "2",
                                                             },
-                                                            Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Maximized } },
-                                                            [nameof(Visibility)] = new BindingDescribe(this,
-                                                                                                        nameof(WindowState),
-                                                                                                        BindingMode.OneWay,
-                                                                                                        a => ((WindowState)a).Or(WindowState.Maximized,WindowState.FullScreen)
-                                                                                                        ? Visibility.Collapsed : Visibility.Visible),
+                                                            [nameof(Button.Click)] = new CommandDescribe((s, e) => this.WindowState = WindowState.Maximized),
+                                                            [nameof(Visibility)] =
+                                                                new BindingDescribe(
+                                                                    this,
+                                                                    nameof(WindowState),
+                                                                    BindingMode.OneWay,
+                                                                    x => ((WindowState)x).Or(WindowState.Maximized,WindowState.FullScreen) ? Visibility.Collapsed : Visibility.Visible),
                                                         },
                                                         new SystemButton
                                                         {
@@ -252,13 +341,13 @@ namespace CPF.Toolkit.Controls
                                                                     }
                                                                 }
                                                             },
-                                                            Commands = { { nameof(Button.Click),(s,e) => this.WindowState = WindowState.Normal } },
-                                                            [nameof(Visibility)] = new BindingDescribe(this,
-                                                                                                        nameof(WindowState),
-                                                                                                        BindingMode.OneWay,
-                                                                                                        a => ((WindowState)a).Or( WindowState.Normal, WindowState.Minimized)
-                                                                                                        ? Visibility.Collapsed :
-                                                                                                        Visibility.Visible)
+                                                            [nameof(Button.Click)] = new CommandDescribe((s, e) => this.WindowState = WindowState.Normal),
+                                                            [nameof(Visibility)] =
+                                                                new BindingDescribe(
+                                                                    this,
+                                                                    nameof(WindowState),
+                                                                    BindingMode.OneWay,
+                                                                    x => ((WindowState)x).Or(WindowState.Normal,WindowState.Minimized)? Visibility.Collapsed : Visibility.Visible)
                                                         }
                                                     }
                                                 },
@@ -291,79 +380,98 @@ namespace CPF.Toolkit.Controls
                                                             }
                                                         }
                                                     },
-                                                    Commands =
-                                                    {
-                                                        {
-                                                            nameof(Button.Click),(ss,ee) =>
-                                                            {
-                                                                var e = new ClosingEventArgs();
-                                                                this.Closing?.Invoke(this,e);
-                                                                if (!e.Cancel)
-                                                                {
-                                                                    this.Visibility = Visibility.Collapsed;
-                                                                    this.Dispose();
-                                                                }
-                                                            }
-                                                        }
-                                                    },
-                                                    [nameof(Visibility)] = new BindingDescribe(this,nameof(this.CloseBox),BindingMode.OneWay,a=>(bool)a?Visibility.Visible: Visibility.Collapsed)
+                                                    [nameof(Button.Click)] = new CommandDescribe((ss,ee) => this.Close()),
+                                                    [nameof(Visibility)] = new BindingDescribe(this,nameof(this.CloseBox),BindingMode.OneWay,x=>(bool)x?Visibility.Visible: Visibility.Collapsed)
                                                 }
                                             }
                                         },
                                     },
                                 },
-                                Commands =
+                                [nameof(Thumb.DragDelta)] = new CommandDescribe((ss,ee)=>
                                 {
+                                    if (this.WindowState.Or(WindowState.Normal))
                                     {
-                                        nameof(Thumb.DragDelta),
-                                        (s,e) =>
-                                        {
-                                            if (this.WindowState.Or(WindowState.Normal))
-                                            {
-                                                var arge = e as DragDeltaEventArgs;
-                                                this.MarginLeft += arge.HorizontalChange;
-                                                this.MarginTop += arge.VerticalChange;
-                                            }
-                                        }
-                                    },
-                                    {
-                                        nameof(DoubleClick),
-                                        (s,e) => this.Delay(TimeSpan.FromMilliseconds(150),() =>
-                                        {
-                                            if (this.WindowState.Or(WindowState.Maximized,WindowState.Minimized))
-                                            {
-                                                this.WindowState = WindowState.Normal;
-                                            }
-                                            else if (this.WindowState == WindowState.Normal)
-                                            {
-                                                this.WindowState = WindowState.Maximized;
-                                            }
-                                        })
+                                        var arge = ee as DragDeltaEventArgs;
+                                        this.MarginLeft += arge.HorizontalChange;
+                                        this.MarginTop += arge.VerticalChange;
                                     }
-                                },
+                                }),
+                                [nameof(DoubleClick)] = new CommandDescribe((ss,ee) => this.Delay(TimeSpan.FromMilliseconds(150),()=>
+                                {
+                                    if(!this.MaximizeBox) return;
+                                    if (this.WindowState.Or(WindowState.Maximized,WindowState.Minimized))
+                                    {
+                                        this.WindowState = WindowState.Normal;
+                                    }
+                                    else if (this.WindowState == WindowState.Normal)
+                                    {
+                                        this.WindowState = WindowState.Maximized;
+                                    }
+                                })),
+                                [nameof(Background)] = new BindingDescribe(this,nameof(IsFocused),BindingMode.OneWay ,x => ((bool)x) ? borderColor : lostFocusBorderColor)
                             },
                             new Decorator
                             {
                                 Attacheds = { { Grid.RowIndex,2 } ,{ Grid.ColumnIndex,1 } },
                                 Size = SizeField.Fill,
-                                Child = this.Content,
+                                [nameof(Decorator.Child)] = new BindingDescribe(this,nameof(Content))
                             },
                         }
                     },
                 },
-                [nameof(Border.ShadowBlur)] = new BindingDescribe(this,
-                                                                  nameof(WindowState),
-                                                                  BindingMode.OneWay,
-                                                                  a => ((WindowState)a).Or(WindowState.Maximized, WindowState.FullScreen) ? 0 : ShadowBlur),
+                [nameof(ShadowBlur)] = new BindingDescribe(this, nameof(WindowState), BindingMode.OneWay, x => ((WindowState)x).Or(WindowState.Maximized, WindowState.FullScreen) ? 0 : ShadowBlur),
+                [nameof(ShadowBlur)] = new BindingDescribe(this, nameof(IsFocused), BindingMode.OneWay, x => ((bool)x) ? ShadowBlur : 0),
+                [nameof(BorderStroke)] = new BindingDescribe(this, nameof(IsFocused), BindingMode.OneWay, x => ((bool)x) ? "0" : "1"),
+                [nameof(BorderFill)] = new BindingDescribe(this, nameof(IsFocused), BindingMode.OneWay, x => ((bool)x) ? null : "0,0,0,100"),
             });
-
-            this.Content.Margin = "0";
-            this.Content.ClipToBounds = true;
         }
 
-        public override string ToString()
+        protected override void OnPropertyChanged(string propertyName, object oldValue, object newValue, PropertyMetadataAttribute propertyMetadata)
         {
-            return this.Title;
+            if (propertyName == nameof(DataContext) && newValue != null)
+            {
+                if (newValue is IClosable closable)
+                {
+                    closable.Closable -= Closable_Closable;
+                    closable.Closable += Closable_Closable;
+                }
+                if (newValue is ILoading loading)
+                {
+                    loading.CreateLoading(this);
+                }
+            }
+            else if (propertyName == nameof(Content) && newValue != null)
+            {
+                this.Content.Margin = "0";
+                this.Content.ClipToBounds = true;
+            }
+            base.OnPropertyChanged(propertyName, oldValue, newValue, propertyMetadata);
+        }
+
+        private void Closable_Closable(object sender, ClosingEventArgs e)
+        {
+            this.DoClose(sender, e);
+        }
+
+        public void Close()
+        {
+            if (this.Closing != null)
+            {
+                this.DoClose(this, new ClosingEventArgs());
+            }
+            else
+            {
+                this.Dispose();
+            }
+        }
+
+        void DoClose(object sender, ClosingEventArgs e)
+        {
+            if (this.DataContext is IClosable closable)
+            {
+                closable.OnClosable(sender, e);
+            }
+            this.Closing.Invoke(sender, e);
         }
     }
 }

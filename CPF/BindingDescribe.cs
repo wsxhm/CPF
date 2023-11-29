@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace CPF
 {
@@ -17,7 +18,7 @@ namespace CPF
         {
             PropertyName = sourceProperty;
         }
-        
+
         public BindingDescribe(string sourceProperty, BindingMode binding)
         {
             PropertyName = sourceProperty;
@@ -401,6 +402,7 @@ namespace CPF
     public class CommandDescribe
     {
         public Action<CpfObject, object> Action { get; set; }
+        public Func<CpfObject, object, Task> AsyncAction { get; set; }
 
         public string MethodName { get; set; }
         public object[] Parameters { get; set; }
@@ -415,6 +417,11 @@ namespace CPF
         public CommandDescribe(Action<CpfObject, object> command)
         {
             Action = command;
+        }
+
+        public CommandDescribe(Func<CpfObject, object, Task> command)
+        {
+            this.AsyncAction = command;
         }
         /// <summary>
         /// 定义个命令绑定
