@@ -38,7 +38,7 @@ namespace ConsoleApp1
 #if Net4
                (OperatingSystemType.Windows, new WindowsPlatform(), new CPF.GDIPlus.GDIPlusDrawingFactory { ClearType = true })
 #else
-            (OperatingSystemType.Windows, new WindowsPlatform(false), new SkiaDrawingFactory { })
+            (OperatingSystemType.Windows, new WindowsPlatform(false), new SkiaDrawingFactory { UseGPU=true })
             , (OperatingSystemType.OSX, new CPF.Mac.MacPlatform(), new SkiaDrawingFactory { UseGPU = false })
             , (OperatingSystemType.Linux, new CPF.Linux.LinuxPlatform(), new SkiaDrawingFactory { UseGPU = false })
 #endif
@@ -87,9 +87,21 @@ namespace ConsoleApp1
             ////Thread.Sleep(10000);
             ////Application.AllowDeveloperTool = false;
             ////Application.DisablePopupClose = true;
+            
 
-            //Console.SetOut(new tr());
-            //Console.WriteLine("123");
+            //data aa = new data();
+            //aa.test.test.test.Name = "11111";
+            //model.Test1.test = aa;
+
+            //var test1 = new TextBlock
+            //{
+            //    [nameof(TextBlock.Text)] = new CPF.Obx<MainModel>(a => a.Test1.test.test.test.test.Name),
+            //};
+            //test1.DataContext=model;
+
+            //aa = new data();
+            //aa.test.test.test.Name = "666666";
+            //model.Test1.test = aa;
             Application.Run(new Window2 { DataContext = model, CommandContext = model });
 
             //Application.Run(new Window
@@ -139,7 +151,7 @@ namespace ConsoleApp1
 }
 class tr : TextWriter
 {
-    public override Encoding Encoding =>  Encoding.Unicode;
+    public override Encoding Encoding => Encoding.Unicode;
 
     public override void Write(string value)
     {

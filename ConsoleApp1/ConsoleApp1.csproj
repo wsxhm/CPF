@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net40;net5;net6;net8</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net40;net5;net6</TargetFrameworks>
     <ApplicationIcon />
     <StartupObject />
     <OutputType>WinExe</OutputType>
@@ -102,11 +102,12 @@
     <ProjectReference Include="..\CPF.Linux\CPF.Linux.csproj" />
     <ProjectReference Include="..\CPF.Mac\CPF.Mac.csproj" />
   </ItemGroup>
-  <!--<ItemGroup Condition="'$(TargetFramework)'!='net40'">
-    <PackageReference Include="System.Reactive">
+  <ItemGroup Condition="'$(TargetFramework)'!='net40'">
+    <!--<PackageReference Include="System.Reactive">
       <Version>5.0.0</Version>
-    </PackageReference>
-  </ItemGroup>-->
+    </PackageReference>-->
+    <PackageReference Condition="'$(TargetFramework)'!='netcoreapp3.0'" Include="Silk.NET.OpenGLES" Version="2.19.0" />
+  </ItemGroup>
   <PropertyGroup>
     <DefineConstants Condition="'$(TargetFramework)'=='net40'">Net4</DefineConstants>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>

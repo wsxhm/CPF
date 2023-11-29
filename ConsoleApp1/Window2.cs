@@ -738,15 +738,17 @@ namespace ConsoleApp1
                                             MarginTop = 450,
                                             Height = 58,
                                             Width = 121,
-                                        },//#if !Net4
-                                        //new CPF.Skia.GlView
-                                        //{
-                                        //    MarginRight = 56,
-                                        //    MarginTop = 44,
-                                        //    Height = 132,
-                                        //    Width = 151,
-                                        //},
-                                        //#endif
+                                        },
+                                        #if !Net4&&!NETCOREAPP3_0
+                                        new GLView
+                                        {
+                                            MarginRight = 56,
+                                            MarginTop = 44,
+                                            Height = 132,
+                                            Width = 151,
+                                            [nameof(GLView.DoubleClick)]=new CommandDescribe((s,e)=>{ s.Dispose(); }),
+                                        },
+                                        #endif
                                     new Button
                                         {
                                             Commands =
@@ -2444,14 +2446,14 @@ new TabItemTemplate{
                                                     BindingMode.OneWay),
                                                     Name = "hmbb"
                                                 },
-                                                new TextBox
-                                                {
-                                                    Width = 130,
-                                                    Height= 60,
-                                                    Background =Color.Gray,
-                                                    [nameof(TextBox.Text)]= new Obx<MainModel>(a => a.Test1.test.test.test.test.Name,
-                                                    BindingMode.OneWayToSource),
-                                                },
+                                                //new TextBox
+                                                //{
+                                                //    Width = 130,
+                                                //    Height= 60,
+                                                //    Background =Color.Gray,
+                                                //    [nameof(TextBox.Text)]= new Obx<MainModel>(a => a.Test1.test.test.test.test.Name,
+                                                //    BindingMode.OneWayToSource),
+                                                //},
                                                 new Button
                                                 {
                                                     Content="创建对象",

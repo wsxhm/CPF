@@ -12,7 +12,7 @@ namespace CPF.OpenGL
         /// 用来获取和保存Skia创建的GRContext
         /// </summary>
         IDisposable GRContext { get; set; }
-        //void MakeCurrent();
+        void MakeCurrent();
         //void SwapBuffers();
         //void Dispose();
         //public abstract GRGlTextureInfo CreateTexture(SKSizeI textureSize);
@@ -35,7 +35,7 @@ namespace CPF.OpenGL
     public static class OpenglEx
     {
         static bool loaded;
-        private static void Load(IGlContext context)
+        public static void Load(IGlContext context)
         {
             if (!loaded)
             {

@@ -807,6 +807,7 @@ namespace CPF.Windows
                     }
                     break;
                 case WindowsMessage.WM_DESTROY:
+                    Closed?.Invoke();
                     if (handle != IntPtr.Zero)
                     {
                         try
@@ -857,7 +858,6 @@ namespace CPF.Windows
                         RenderBitmap = null;
                     }
                     handle = IntPtr.Zero;
-                    Closed?.Invoke();
                     foreach (var item in invokeQueue)
                     {
                         item.SendOrPostCallback(item.Data);

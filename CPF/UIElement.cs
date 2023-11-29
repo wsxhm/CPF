@@ -3046,7 +3046,7 @@ namespace CPF
         /// 子级，一般自定义组件的时候使用
         /// </summary>
         [NotCpfProperty]
-        internal protected virtual UIElementCollection Children
+        internal protected UIElementCollection Children
         {
             get
             {
