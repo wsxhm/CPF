@@ -40,7 +40,7 @@ namespace CPF.Toolkit.Dialogs
             this.Width = "auto";
             this.Height = "auto";
             this.Background = null;
-            this.Children.Add(new DialogFrame(this, new Grid
+            var frame = this.Children.Add(new WindowFrame(this, new Grid
             {
                 Size = SizeField.Fill,
                 RowDefinitions =
@@ -116,6 +116,10 @@ namespace CPF.Toolkit.Dialogs
                     }),
                 }
             }));
+            frame.ControlBoxStroke = "black";
+            frame.CaptionBackgrund = "white";
+            frame.CaptionForeground = "black";
+
             textBox.TextChanged += TextBox_TextChanged;
         }
 
