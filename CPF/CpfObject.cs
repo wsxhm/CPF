@@ -214,12 +214,33 @@ namespace CPF
                         }
                     }
                 }
+                else if (value.Trigger != null)
+                {
+                    OnAddTriggerDescribe(propertyName, value.Trigger);
+                }
                 else
                 {
-                    Bindings.Add(propertyName, value.PropertyName, value.Source, value.BindingMode, value.Convert, value.ConvertBack, value.SourceToTargetError, value.TargetToSourceError);
+                    if (value.Source is int layer)
+                    {
+                        Bindings.Add(propertyName, value.PropertyName, (byte)layer, value.BindingMode, value.Convert, value.ConvertBack, value.SourceToTargetError, value.TargetToSourceError);
+                    }
+                    if (value.Source is byte layer1)
+                    {
+                        Bindings.Add(propertyName, value.PropertyName, layer1, value.BindingMode, value.Convert, value.ConvertBack, value.SourceToTargetError, value.TargetToSourceError);
+                    }
+                    else
+                    {
+                        Bindings.Add(propertyName, value.PropertyName, value.Source, value.BindingMode, value.Convert, value.ConvertBack, value.SourceToTargetError, value.TargetToSourceError);
+                    }
                 }
             }
         }
+
+        internal protected virtual void OnAddTriggerDescribe(string property, TriggerDescribe trigger)
+        {
+
+        }
+
         /// <summary>
         /// 读取或者设置附加属性，参数必须是附加属性
         /// </summary>

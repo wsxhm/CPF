@@ -10,7 +10,7 @@ namespace CPF.Controls
     /// 内容模板
     /// </summary>
     [Description("内容模板"), Browsable(false)]
-    public class ContentTemplate : Decorator
+    public class ContentTemplate : Control
     {
         [PropertyMetadata(null)]
         public object Content
@@ -85,9 +85,56 @@ namespace CPF.Controls
             overridePropertys.Override(nameof(Width), new UIPropertyMetadataAttribute(typeof(FloatField), "100%", UIPropertyOptions.AffectsMeasure));
             overridePropertys.Override(nameof(Height), new UIPropertyMetadataAttribute(typeof(FloatField), "100%", UIPropertyOptions.AffectsMeasure));
         }
-        //protected override Size MeasureOverride(in Size availableSize)
+
+        /// <summary>
+        /// 获取或设置 单一子元素。
+        /// </summary>
+        [Browsable(false)]
+        protected UIElement Child
+        {
+            get { return GetValue<UIElement>(); }
+            set { SetValue(value); }
+        }
+
+        [PropertyChanged(nameof(Child))]
+        void OnChild(object newValue, object oldValue, PropertyMetadataAttribute attribute)
+        {
+            var o = oldValue as UIElement;
+            if (o != null)
+            {
+                Children.Remove(o);
+            }
+            var c = newValue as UIElement;
+            if (c != null)
+            {
+                Children.Add(c);
+            }
+        }
+        //protected override void OnPropertyChanged(string propertyName, object oldValue, object newValue, PropertyMetadataAttribute propertyMetadata)
         //{
-        //    return base.MeasureOverride(availableSize);
+        //    base.OnPropertyChanged(propertyName, oldValue, newValue, propertyMetadata);
+        //    if (propertyName == nameof(Child))
+        //    {
+        //        var o = oldValue as UIElement;
+        //        if (o != null)
+        //        {
+        //            Children.Remove(o);
+        //        }
+        //        var c = newValue as UIElement;
+        //        if (c != null)
+        //        {
+        //            Children.Add(c);
+        //        }
+        //    }
         //}
+
+        protected override void OnUIElementRemoved(UIElementRemovedEventArgs e)
+        {
+            base.OnUIElementRemoved(e);
+            if (e.Element == Child)
+            {
+                Child = null;
+            }
+        }
     }
 }

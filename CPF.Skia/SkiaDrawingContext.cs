@@ -156,6 +156,11 @@ namespace CPF.Skia
                 surface.Dispose();
                 surface = null;
             }
+            if (gRContext != null)
+            {
+                //gRContext.Flush();
+                gRContext.ResetContext();
+            }
             //if (grContext != null)
             //{
             //    //grContext.Flush();
@@ -729,7 +734,7 @@ namespace CPF.Skia
                     }
                     lines = newText.Split('\n');
                     var ws = paint.Paint.MeasureAllChar(lines[0]);
-                    
+
                     var wsEnd = new List<(string, float)>();
                     for (int i = ws.Count - 1; i >= 0; i--)
                     {
@@ -742,7 +747,7 @@ namespace CPF.Skia
                     {
                         //lenEnd = (lenEnd.Item1, lenEnd.Item2, newText.Substring(newText.Length - lenEnd.Item1, lenEnd.Item1));
                         lenEnd.Item3 = newText.Substring(newText.Length - lenEnd.Item1, lenEnd.Item1);
-                        if (lenEnd.Item3.Length>2)
+                        if (lenEnd.Item3.Length > 2)
                         {
                             lenEnd.Item3 = lenEnd.Item3.Substring(1, lenEnd.Item3.Length - 1);
                         }

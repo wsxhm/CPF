@@ -105,7 +105,7 @@ namespace ConsoleApp1
                     },
                     new RowDefinition
                     {
-
+                        
                     }
                 },
             });
@@ -419,7 +419,7 @@ namespace ConsoleApp1
                     },
                     new Separator
                     {
-
+                        
                     },
                     new MenuItem
                     {
@@ -429,10 +429,13 @@ namespace ConsoleApp1
                             new MenuItem
                             {
                                 Header = "21",
-                                        Commands =
-                                        {
-                                            {nameof(MenuItem.Click),MenuItemClick }
-                                        }
+                                Commands =
+                                {
+                                    {
+                                        nameof(MenuItem.Click),
+                                        MenuItemClick
+                                    }
+                                }
                             },
                             new MenuItem
                             {
@@ -444,7 +447,10 @@ namespace ConsoleApp1
                                         Header = "221",
                                         Commands =
                                         {
-                                            {nameof(MenuItem.Click),MenuItemClick }
+                                            {
+                                                nameof(MenuItem.Click),
+                                                MenuItemClick
+                                            }
                                         }
                                     },
                                     new MenuItem
@@ -452,7 +458,10 @@ namespace ConsoleApp1
                                         Header = "222",
                                         Commands =
                                         {
-                                            {nameof(MenuItem.Click),MenuItemClick }
+                                            {
+                                                nameof(MenuItem.Click),
+                                                MenuItemClick
+                                            }
                                         }
                                     }
                                 }
@@ -468,10 +477,13 @@ namespace ConsoleApp1
                             new MenuItem
                             {
                                 Header = "31",
-                                        Commands =
-                                        {
-                                            {nameof(MenuItem.Click),MenuItemClick }
-                                        }
+                                Commands =
+                                {
+                                    {
+                                        nameof(MenuItem.Click),
+                                        MenuItemClick
+                                    }
+                                }
                             },
                             new MenuItem
                             {
@@ -1362,7 +1374,8 @@ namespace ConsoleApp1
                                 },
                                 new ListBox
                                 {
-                                    //Background="#aaa",
+                                    MarginLeft = 57,
+                                    MarginTop = 63,//Background="#aaa",
                                 Name="listbox",
                                     IsVirtualizing=true,//VirtualizationMode= VirtualizationMode.Recycling,
                                 SelectionMode= SelectionMode.Extended,
@@ -1372,7 +1385,18 @@ namespace ConsoleApp1
                                     {
                                         Width="100%",
                                         FontSize=22,
-                                        Tag=this,
+                                        Tag=this,                                        
+                                        Template=(e,c)=>{
+                                             c.Add(new Border
+                                             {
+                                                 Background="#f00",
+                                                 Height = "100%",
+                                                 Width = "100%",
+                                                 BorderFill = null,
+                                                 Name = "contentPresenter",
+                                                 PresenterFor = this
+                                             });
+                                        }
                                     },
                                     Bindings=
                                     {
@@ -1398,6 +1422,65 @@ namespace ConsoleApp1
                                         }
                                     }
                                 },//new Button{ Content="排序" },
+                            new ListBox
+                                {
+                                    MarginLeft = 463,
+                                    MarginTop = 44,
+                                    Height = 431,
+                                    Width = 283,
+                                    Background = "white",
+                                    BorderFill = new SolidColorFill
+                                    {
+                                        Color = Color.Silver
+                                    },
+                                    BorderThickness = new Thickness(0, 1, 0, 0),
+                                    BorderType = BorderType.BorderThickness,
+                                    ItemsPanel = new StackPanel
+                                    {
+                                        Orientation = Orientation.Horizontal
+                                    },
+                                    ItemTemplate = new ListBoxItem
+                                    {
+                                        Width = 100,
+                                        MarginRight = 1,
+                                        FontSize = 16f,
+                                        BorderFill = "Silver",
+                                        BorderThickness = new Thickness(1),
+                                        Margin = new ThicknessField(1),
+                                        CornerRadius = new CornerRadius(2),
+                                        IsAntiAlias = true,
+                                        UseLayoutRounding = true,
+                                        BorderType = BorderType.BorderThickness,
+                                        Template=(e,c)=>{
+                                             Children.Add(new Border
+                                             {
+                                                 Background="#f00",
+                                                 Height = "100%",
+                                                 Width = "100%",
+                                                 BorderFill = null,
+                                                 Name = "contentPresenter",
+                                                 PresenterFor = this
+                                             });
+                                        }
+                                        //ContentTemplate = new ContentTemplate
+                                        //{
+                                        //    Size = SizeField.Fill,
+                                        //    Content = new StackPanel
+                                        //    {
+                                        //        Orientation = Orientation.Horizontal,
+                                        //        Size = SizeField.Fill,
+                                        //        Children =
+                                        //        {
+                                        //            new TextBlock
+                                        //            {
+                                        //                //[nameof(TextBlock.Text)] = new BindingDescribe("Title",BindingMode.OneWay)
+                                        //                Text = "test"
+                                        //            }
+                                        //        }
+                                        //    },
+                                        //},
+                                    },
+                                }
                             }
                         }
                     },
@@ -1719,7 +1802,7 @@ namespace ConsoleApp1
                                             nameof(DragEnter),
                                             (s,e)=>
                                             {
-                                                 //(e as DragEventArgs).DragEffects= DragDropEffects.Link;
+                                                //(e as DragEventArgs).DragEffects= DragDropEffects.Link;
                                             }
                                         },
                                     }
@@ -1762,7 +1845,7 @@ namespace ConsoleApp1
                                     Content="模糊，你撸多了",
                                     Effect=new BlurEffect
                                     {
-
+                                        
                                     }
                                 },
                                 new Button
@@ -1789,7 +1872,7 @@ namespace ConsoleApp1
                                     Content="灰色",
                                     Effect=new GrayScaleEffect
                                     {
-
+                                        
                                     }
                                 },
                                 new Picture
@@ -1998,7 +2081,7 @@ namespace ConsoleApp1
                             {
                                 new RowDefinition
                                 {
-
+                                    
                                 },
                             },
                             Children =

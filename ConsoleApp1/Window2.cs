@@ -472,9 +472,9 @@ namespace ConsoleApp1
                                         },
                                         new ScrollViewer
                                         {
-                                            MarginLeft = 421,
-                                            HorizontalScrollBarVisibility= ScrollBarVisibility.Disabled,
-                                            VerticalScrollBarVisibility= ScrollBarVisibility.Visible,
+                                            Background = "url(res://ConsoleApp1/icon.png) Tile None 0,0,0,0",
+                                            MarginLeft = 421,//HorizontalScrollBarVisibility= ScrollBarVisibility.Disabled,
+                                            //VerticalScrollBarVisibility= ScrollBarVisibility.Visible,
                                             Commands =
                                             {
                                                 {
@@ -499,6 +499,16 @@ namespace ConsoleApp1
                                             //    Name = nameof(pic),
                                             //    Source="http://219.239.12.91:5001/bookimage//bookimage3/cate1826979600058c0bd3/file253320e4000582XXXX/253320e4000582XXXX.jpg"
                                             //}
+                                            
+                                            
+                                        #if !Net4&&!NETCOREAPP3_0
+                                        new GLView
+                                            {
+                                                Height = 336,
+                                                Width = 421,
+                                                IsAntiAlias=true,
+                                            },
+                                            #else
                                             new WrapPanel
                                             {
                                                 Width="100%",
@@ -562,6 +572,7 @@ namespace ConsoleApp1
                                                     },
                                                 }
                                             },
+                                            #endif
                                             Height=300,
                                             MarginTop=19,
                                             MarginRight=29
@@ -616,7 +627,7 @@ namespace ConsoleApp1
                                             Value=0.001,
                                             Bindings =
                                             {
-                                                
+
                                             }
                                         },
                                         new Button
@@ -738,16 +749,8 @@ namespace ConsoleApp1
                                             MarginTop = 450,
                                             Height = 58,
                                             Width = 121,
-                                        },//#if !Net4
-                                        //new CPF.Skia.GlView
-                                        //{
-                                        //    MarginRight = 56,
-                                        //    MarginTop = 44,
-                                        //    Height = 132,
-                                        //    Width = 151,
-                                        //},
-                                        //#endif
-                                    new Button
+                                        },
+                                        new Button
                                         {
                                             Commands =
                                             {
@@ -1386,8 +1389,7 @@ namespace ConsoleApp1
                                             MarginLeft = 252,
                                             MarginTop = 76,
                                             Height = 23,
-                                            Width = 219,
-                                            //[nameof(Slider.Value)]= new Obx<MainModel>(a => a.Type.Name),
+                                            Width = 219,//[nameof(Slider.Value)]= new Obx<MainModel>(a => a.Type.Name),
                                             [nameof(Slider.Value)]= new BindingDescribe(null, nameof(MainModel.ColumnWidth),BindingMode.OneWayToSource,null,a=>new GridLength((float)(double)a))
                                         },
                                     }
@@ -1967,7 +1969,7 @@ namespace ConsoleApp1
                                                             },
                                                             new Separator
                                                             {
-                                                                
+
                                                             },
                                                             new MenuItem
                                                             {
@@ -2437,21 +2439,19 @@ new TabItemTemplate{
                                             Orientation= Orientation.Vertical,
                                             Children=
                                             {
-                                                
                                                 new TextBlock
                                                 {
                                                     [nameof(TextBlock.Text)]= new Obx<MainModel>(a => a.Test1.test.test.test.test.Name,
                                                     BindingMode.OneWay),
                                                     Name = "hmbb"
-                                                },
-                                                new TextBox
-                                                {
-                                                    Width = 130,
-                                                    Height= 60,
-                                                    Background =Color.Gray,
-                                                    [nameof(TextBox.Text)]= new Obx<MainModel>(a => a.Test1.test.test.test.test.Name,
-                                                    BindingMode.OneWayToSource),
-                                                },
+                                                },//new TextBox
+                                                //{
+                                                //    Width = 130,
+                                                //    Height= 60,
+                                                //    Background =Color.Gray,
+                                                //    [nameof(TextBox.Text)]= new Obx<MainModel>(a => a.Test1.test.test.test.test.Name,
+                                                //    BindingMode.OneWayToSource),
+                                                //},
                                                 new Button
                                                 {
                                                     Content="创建对象",
@@ -2467,8 +2467,6 @@ new TabItemTemplate{
                                                     Content="删除对象",
                                                     [nameof(Button.Click)]=new CommandDescribe((s,e)=>
                                                     {
-                                                        data a = new data();
-                                                        a.test.test.Name = "666666";
                                                         (DataContext as MainModel).Test1.test.test = null;
                                                     })
                                                 },
@@ -2478,13 +2476,12 @@ new TabItemTemplate{
                                                     [nameof(Button.Click)]=new CommandDescribe((s,e)=>
                                                     {
                                                         data a = new data();
-                                                        a.test.test.Name = "666666";
+                                                        a.test.test.Name = "8888";
                                                         (DataContext as MainModel).Test1.test.test = a;
                                                     })
                                                 },
                                             }
                                         },
-                                        
                                     }
                                 }
                             },
@@ -3459,10 +3456,19 @@ new TabItemTemplate{
             {
                 MaximizeBox = true,
                 ShadowBlur = 10,
-                #if !DesignMode
+#if !DesignMode
                 //Effect = effect
 #endif
             });
+
+//#if !Net4 && !NETCOREAPP3_0
+//            Children.Add(new GLView
+//            {
+//                Height = "30%",
+//                Width = "30%",
+//                IsAntiAlias = true,
+//            });
+//#endif
             LoadStyleFile("res://ConsoleApp1/Stylesheet3.css");
             //加载样式文件，文件需要设置为内嵌资源
             Console.WriteLine(testBtn[DockPanel.Dock]);
