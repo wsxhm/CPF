@@ -17,29 +17,54 @@ namespace CPF
         {
             PropertyName = sourceProperty;
         }
-        
+
         public BindingDescribe(string sourceProperty, BindingMode binding)
         {
             PropertyName = sourceProperty;
             BindingMode = binding;
         }
+        /// <summary>
+        /// 设置绑定
+        /// </summary>
+        /// <param name="source">如果是int或者byte，0是自己，1是Parent，2是Parent.Parent....</param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="binding"></param>
         public BindingDescribe(object source, string sourceProperty, BindingMode binding)
         {
             PropertyName = sourceProperty;
             BindingMode = binding;
             Source = source;
         }
+        /// <summary>
+        /// 设置绑定
+        /// </summary>
+        /// <param name="source">如果是int或者byte，0是自己，1是Parent，2是Parent.Parent....</param>
+        /// <param name="source"></param>
+        /// <param name="sourceProperty"></param>
         public BindingDescribe(object source, string sourceProperty)
         {
             PropertyName = sourceProperty;
             Source = source;
         }
+        /// <summary>
+        /// 设置绑定
+        /// </summary>
+        /// <param name="source">如果是int或者byte，0是自己，1是Parent，2是Parent.Parent....</param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="convert"></param>
         public BindingDescribe(object source, string sourceProperty, Func<object, object> convert)
         {
             PropertyName = sourceProperty;
             Source = source;
             Convert = convert;
         }
+        /// <summary>
+        /// 设置绑定
+        /// </summary>
+        /// <param name="source">如果是int或者byte，0是自己，1是Parent，2是Parent.Parent....</param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="binding"></param>
+        /// <param name="convert"></param>
         public BindingDescribe(object source, string sourceProperty, BindingMode binding, Func<object, object> convert)
         {
             BindingMode = binding;
@@ -47,6 +72,14 @@ namespace CPF
             Source = source;
             Convert = convert;
         }
+        /// <summary>
+        /// 设置绑定
+        /// </summary>
+        /// <param name="source">如果是int或者byte，0是自己，1是Parent，2是Parent.Parent....</param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="binding"></param>
+        /// <param name="convert"></param>
+        /// <param name="convertBack"></param>
         public BindingDescribe(object source, string sourceProperty, BindingMode binding, Func<object, object> convert, Func<object, object> convertBack)
         {
             BindingMode = binding;
@@ -55,6 +88,16 @@ namespace CPF
             Convert = convert;
             ConvertBack = convertBack;
         }
+        /// <summary>
+        /// 设置绑定
+        /// </summary>
+        /// <param name="source">如果是int或者byte，0是自己，1是Parent，2是Parent.Parent....</param>
+        /// <param name="sourceProperty"></param>
+        /// <param name="binding"></param>
+        /// <param name="convert"></param>
+        /// <param name="convertBack"></param>
+        /// <param name="SourceToTargetError"></param>
+        /// <param name="TargetToSourceError"></param>
         public BindingDescribe(object source, string sourceProperty, BindingMode binding, Func<object, object> convert, Func<object, object> convertBack, Action<Binding, object, Exception> SourceToTargetError, Action<Binding, object, Exception> TargetToSourceError)
         {
             BindingMode = binding;
@@ -81,6 +124,10 @@ namespace CPF
         /// 简化绑定命令的命令，如果设置了该属性，则使用命令绑定
         /// </summary>
         public CommandDescribe Command { get; set; }
+        /// <summary>
+        /// 简化触发器设置
+        /// </summary>
+        public CPF.Styling.TriggerDescribe Trigger { get; set; }
 
         //public CpfObject Owner { get; internal set; }
 
@@ -354,6 +401,10 @@ namespace CPF
         public static implicit operator BindingDescribe(CommandDescribe command)
         {
             return new BindingDescribe { Command = command };
+        }
+        public static implicit operator BindingDescribe(CPF.Styling.TriggerDescribe trigger)
+        {
+            return new BindingDescribe { Trigger = trigger };
         }
         public static implicit operator BindingDescribe((string sourceProperty, BindingMode binding) item)
         {

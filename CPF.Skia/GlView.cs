@@ -20,6 +20,10 @@ namespace CPF.Skia
         SKImage image;
         SKPaint paint;
         GRBackendTexture backendTexture;
+        /// <summary>
+        /// 支持OpenGL绘制的控件，在GLRender事件里绘制，开启GPU硬件加速才能使用 new SkiaDrawingFactory { UseGPU = true }
+        /// </summary>
+        public GLView() { }
 
         //IGlContext context;
         protected unsafe override void OnRender(DrawingContext dc)

@@ -3280,6 +3280,23 @@ namespace CPF
             }
         }
 
+        protected internal override void OnAddTriggerDescribe(string property, TriggerDescribe trigger)
+        {
+            var t = new Trigger { Animation = trigger.Animation, AnimationDuration = trigger.AnimationDuration, AnimationEndBehavior = trigger.AnimationEndBehavior, AnimationIterationCount = trigger.AnimationIterationCount, PropertyConditions = trigger.PropertyConditions, TargetRelation = trigger.TargetRelation, Property = property };
+            if (trigger.Setters != null && trigger.Setters.Length > 0)
+            {
+                foreach (var item in trigger.Setters)
+                {
+                    t.Setters.Add(item.Item1, item.Item2);
+                }
+            }
+            if (t.PropertyConditions == null)
+            {
+                t.PropertyConditions = t.DefaultPropertyConditions;
+            }
+            Triggers.Add(t);
+        }
+
         //Styles styles;
 
         protected override void Dispose(bool disposing)

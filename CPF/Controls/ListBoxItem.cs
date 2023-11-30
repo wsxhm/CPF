@@ -90,8 +90,11 @@ namespace CPF.Controls
                 Name = "contentPresenter",
                 PresenterFor = this
             });
-            Triggers.Add(new Styling.Trigger { Property = nameof(IsMouseOver), PropertyConditions = a => (bool)a && !IsSelected, Setters = { { nameof(Background), "229,243,251" } } });
-            Triggers.Add(new Styling.Trigger { Property = nameof(IsSelected), Setters = { { nameof(Background), "203,233,246" } } });
+            //Triggers.Add(new Styling.Trigger { Property = nameof(IsMouseOver), PropertyConditions = a => (bool)a && !IsSelected, Setters = { { nameof(Background), "229,243,251" } } });
+            //Triggers.Add(new Styling.Trigger { Property = nameof(IsSelected), Setters = { { nameof(Background), "203,233,246" } } });
+
+            this[nameof(IsMouseOver)] = new Styling.TriggerDescribe(a => (bool)a && !IsSelected, (nameof(Background), "229,243,251"));
+            this[nameof(IsSelected)] = new Styling.TriggerDescribe((nameof(Background), "203,233,246"));
         }
 
         /// <summary>
