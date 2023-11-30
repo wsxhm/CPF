@@ -10,6 +10,7 @@ using CPF.Svg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace CPF.Toolkit.Dialogs
@@ -119,6 +120,8 @@ namespace CPF.Toolkit.Dialogs
             frame.ControlBoxStroke = "black";
             frame.CaptionBackgrund = "white";
             frame.CaptionForeground = "black";
+            frame.MinimizeBox = false;
+            frame.MaximizeBox = false;
 
             textBox.TextChanged += TextBox_TextChanged;
         }

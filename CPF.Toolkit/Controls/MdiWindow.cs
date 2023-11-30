@@ -80,7 +80,8 @@ namespace CPF.Toolkit.Controls
                 Size = SizeField.Fill,
                 Background = "white",
                 BorderType = BorderType.BorderStroke,
-                ShadowBlur = ShadowBlur,
+                BorderStroke = "0",
+                //ShadowBlur = ShadowBlur,
                 ShadowColor = Color.FromRgba(0, 0, 0, 150),
                 Child = new Decorator
                 {
@@ -420,9 +421,19 @@ namespace CPF.Toolkit.Controls
                     },
                 },
                 [nameof(ShadowBlur)] = new BindingDescribe(this, nameof(WindowState), BindingMode.OneWay, x => ((WindowState)x).Or(WindowState.Maximized, WindowState.FullScreen) ? 0 : ShadowBlur),
-                [nameof(ShadowBlur)] = new BindingDescribe(this, nameof(IsFocused), BindingMode.OneWay, x => ((bool)x) ? ShadowBlur : 0),
-                [nameof(BorderStroke)] = new BindingDescribe(this, nameof(IsFocused), BindingMode.OneWay, x => ((bool)x) ? "0" : "1"),
-                [nameof(BorderFill)] = new BindingDescribe(this, nameof(IsFocused), BindingMode.OneWay, x => ((bool)x) ? null : "0,0,0,100"),
+                Triggers = 
+                {
+                    new Trigger
+                    {
+                        Property = nameof(IsFocused),
+                        Setters = 
+                        {
+                            { nameof(ShadowBlur),ShadowBlur },
+                            { nameof(BorderStroke),"1" },
+                            { nameof(BorderFill),"0,0,0,100" },
+                        },
+                    }
+                }
             });
         }
 

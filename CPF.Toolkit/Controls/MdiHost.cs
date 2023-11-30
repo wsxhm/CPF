@@ -31,14 +31,47 @@ namespace CPF.Toolkit.Controls
                 ItemsPanel = new StackPanel { Orientation = Orientation.Horizontal },
                 ItemTemplate = new ListBoxItem
                 {
-                    Height = "100%",
                     Width = 100,
                     MarginRight = 1,
                     FontSize = 16f,
                     BorderFill = "Silver",
-                    BorderThickness = new Thickness(0, 0, 1, 0),
+                    BorderThickness = new Thickness(1),
+                    Margin = new ThicknessField(1),
+                    CornerRadius = new CornerRadius(2),
+                    IsAntiAlias = true,
+                    UseLayoutRounding = true,
                     BorderType = BorderType.BorderThickness,
-                    [nameof(ListBoxItem.Content)] = new BindingDescribe("Title")
+                    ContentTemplate = new ContentTemplate
+                    {
+                        Size = SizeField.Fill,
+                        Content = "test"
+                        //Content = new StackPanel
+                        //{
+                        //    Orientation = Orientation.Horizontal,
+                        //    Size = SizeField.Fill,
+                        //    Children =
+                        //    {
+                        //        new TextBlock
+                        //        {
+                        //            //[nameof(TextBlock.Text)] = new BindingDescribe("Title",BindingMode.OneWay)
+                        //            Text = "test"
+                        //        }
+                        //    }
+                        //},
+                    },
+                    //Content = new StackPanel
+                    //{
+                    //    Size = SizeField.Fill,
+                    //    Orientation = Orientation.Horizontal,
+                    //    Children =
+                    //    {
+                    //        new TextBlock
+                    //        {
+                    //            [nameof(TextBlock.Text)] = new BindingDescribe("Title",BindingMode.OneWay)
+                    //        }
+                    //    }
+                    //},
+                    //[nameof(ListBoxItem.Content)] = new BindingDescribe("Title")
                 },
                 Items = this.TaskBarList,
                 [nameof(ListBox.SelectedValue)] = new BindingDescribe(this, nameof(this.SelectWindow), BindingMode.TwoWay),
@@ -73,13 +106,13 @@ namespace CPF.Toolkit.Controls
                     case TaskBarPlacement.Top:
                         this.RowDefinitions.Add(new RowDefinition { Height = 35 });
                         this.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-                        RowIndex(this.taskBar,0);
+                        RowIndex(this.taskBar, 0);
                         RowIndex(this.host, 1);
                         break;
                     case TaskBarPlacement.Bottom:
                         this.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
                         this.RowDefinitions.Add(new RowDefinition { Height = 35 });
-                        RowIndex(this.host,0);
+                        RowIndex(this.host, 0);
                         RowIndex(this.taskBar, 1);
                         break;
                 }
