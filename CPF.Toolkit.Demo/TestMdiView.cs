@@ -38,7 +38,8 @@ namespace CPF.Toolkit.Demo
                     new MdiHost
                     {
                         Size = SizeField.Fill,
-                        Attacheds = { { Grid.RowIndex,1 } }
+                        Attacheds = { { Grid.RowIndex,1 } },
+                        TaskBarPlacement = TaskBarPlacement.Top,
                     }.Assign(out var host),
                     new WrapPanel
                     {

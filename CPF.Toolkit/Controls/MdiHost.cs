@@ -2,6 +2,7 @@
 using CPF.Drawing;
 using CPF.Platform;
 using CPF.Shapes;
+using CPF.Styling;
 using CPF.Toolkit.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -25,53 +26,13 @@ namespace CPF.Toolkit.Controls
             {
                 Size = SizeField.Fill,
                 Background = "white",
-                BorderFill = new SolidColorFill { Color = Color.Silver },
+                BorderFill = "silver",
                 BorderThickness = new Thickness(0, 1, 0, 0),
                 BorderType = BorderType.BorderThickness,
                 ItemsPanel = new StackPanel { Orientation = Orientation.Horizontal },
-                ItemTemplate = new ListBoxItem
+                ItemTemplate = new TaskBarItem
                 {
-                    Width = 100,
-                    MarginRight = 1,
-                    FontSize = 16f,
-                    BorderFill = "Silver",
-                    BorderThickness = new Thickness(1),
-                    Margin = new ThicknessField(1),
-                    CornerRadius = new CornerRadius(2),
-                    IsAntiAlias = true,
-                    UseLayoutRounding = true,
-                    BorderType = BorderType.BorderThickness,
-                    ContentTemplate = new ContentTemplate
-                    {
-                        Size = SizeField.Fill,
-                        Content = "test"
-                        //Content = new StackPanel
-                        //{
-                        //    Orientation = Orientation.Horizontal,
-                        //    Size = SizeField.Fill,
-                        //    Children =
-                        //    {
-                        //        new TextBlock
-                        //        {
-                        //            //[nameof(TextBlock.Text)] = new BindingDescribe("Title",BindingMode.OneWay)
-                        //            Text = "test"
-                        //        }
-                        //    }
-                        //},
-                    },
-                    //Content = new StackPanel
-                    //{
-                    //    Size = SizeField.Fill,
-                    //    Orientation = Orientation.Horizontal,
-                    //    Children =
-                    //    {
-                    //        new TextBlock
-                    //        {
-                    //            [nameof(TextBlock.Text)] = new BindingDescribe("Title",BindingMode.OneWay)
-                    //        }
-                    //    }
-                    //},
-                    //[nameof(ListBoxItem.Content)] = new BindingDescribe("Title")
+                    [nameof(TaskBarItem.CloseClick)] = new CommandDescribe((s, e) => (s.DataContext as MdiWindow).Close())
                 },
                 Items = this.TaskBarList,
                 [nameof(ListBox.SelectedValue)] = new BindingDescribe(this, nameof(this.SelectWindow), BindingMode.TwoWay),
@@ -280,6 +241,100 @@ namespace CPF.Toolkit.Controls
                 return;
             }
             ele.ZIndex = index + 1;
+        }
+
+        class TaskBarItem : ListBoxItem
+        {
+            public event EventHandler CloseClick
+            {
+                add { AddHandler(value); }
+                remove { RemoveHandler(value); }
+            }
+
+            protected override void InitializeComponent()
+            {
+                this.Size = new SizeField(100, "90%");
+                this.Background = "white";
+                this.BorderFill = "gray";
+                this.BorderStroke = "1";
+                this.CornerRadius = new CornerRadius(2);
+                this.Margin = new ThicknessField(1);
+                this.IsAntiAlias = true;
+                this.UseLayoutRounding = true;
+                this.CommandContext = this;
+                this.Triggers.Add(new Trigger
+                {
+                    Property = nameof(IsSelected),
+                    Setters =
+                    {
+                        { nameof(Background),nameof(Color.DodgerBlue) },
+                        { nameof(Foreground),"white" }
+                    }
+                });
+                this.Children.Add(new Grid
+                {
+                    Size = SizeField.Fill,
+                    ColumnDefinitions =
+                    {
+                        new ColumnDefinition{ },
+                        new ColumnDefinition{ Width = 30 },
+                    },
+                    Children =
+                    {
+                        new TextBlock
+                        {
+                            Height = "auto",
+                            TextTrimming = TextTrimming.CharacterEllipsis,
+                            TextAlignment = TextAlignment.Center,
+                            [nameof(TextBlock.Text)] = new BindingDescribe("Title"),
+                        },
+                        new Panel
+                        {
+                            Name = "close",
+                            Attacheds = { { Grid.ColumnIndex,1 } },
+                            MarginRight = 5,
+                            Size = new SizeField(15,15),
+                            CornerRadius = new CornerRadius(5),
+                            Children =
+                            {
+                                new Line
+                                {
+                                    MarginLeft = 2,
+                                    MarginTop = 2,
+                                    StartPoint = new Point(1, 1),
+                                    EndPoint = new Point(10, 10),
+                                    StrokeStyle = "2",
+                                    IsAntiAlias = true,
+                                    [nameof(Line.StrokeFill)] = new BindingDescribe(this,nameof(Foreground)),
+                                },
+                                new Line
+                                {
+                                    MarginLeft = 2,
+                                    MarginTop = 2,
+                                    StartPoint = new Point(10, 1),
+                                    EndPoint = new Point(1, 10),
+                                    StrokeStyle = "2",
+                                    IsAntiAlias = true,
+                                    [nameof(Line.StrokeFill)] = new BindingDescribe(this,nameof(Foreground)),
+                                }
+                            },
+                            Triggers =
+                            {
+                                new Trigger
+                                {
+                                    Property = nameof(IsMouseOver),
+                                    Setters =
+                                    {
+                                        { nameof(Background) ,"red" },
+                                        { nameof(Foreground) ,"white" },
+                                    }
+                                },
+                            },
+                            [nameof(Panel.MouseUp)] = new CommandDescribe((s,e) => this.RaiseEvent(e,nameof(this.CloseClick)))
+                        },
+                    }
+                });
+            }
         }
     }
 }
