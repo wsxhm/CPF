@@ -6,6 +6,7 @@ using CPF.Drawing;
 using CPF.Shapes;
 using CPF.Styling;
 using CPF.Svg;
+using CPF.Toolkit.Controls;
 using CPF.Toolkit.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,8 @@ namespace CPF.Toolkit.Demo
         protected override void InitializeComponent()
         {
             Title = "标题";
-            Width = 500;
-            Height = 400;
+            Width = 1280;
+            Height = 720;
             Background = null;
             this.DataContext = this.CommandContext = vm;
             this.CanResize = true;
@@ -83,6 +84,17 @@ namespace CPF.Toolkit.Demo
                         {
                             { nameof(Button.Click), (s,e) => new TestMdiView().Show() }
                         }
+                    },
+
+                    new Panel
+                    {
+                    },
+                    new PageControl
+                    {
+                        Height = 35,
+                        PageIndex = 1,
+                        PageCount = 100,
+                        Width = "100%",
                     },
                 }
             }));
