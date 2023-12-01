@@ -167,17 +167,54 @@ namespace CPF.Toolkit.Controls
             {
                 this.Children.Add(new RadioButton
                 {
+                    Size = SizeField.Fill,
                     GroupName = "pageNumber",
-                    Template = (ss,ee) => 
+                    Template = (ss, ee) =>
                     {
-                        ee.Add(new TextBlock 
+                        var s = ss as RadioButton;
+                        s.BorderFill = "dodgerblue";
+                        s.BorderStroke = "1";
+                        s.CornerRadius = new CornerRadius(4);
+                        s.Size = new SizeField(35, 35);
+                        s.MarginLeft = 2;
+                        s.MarginRight = 2;
+                        s.UseLayoutRounding = true;
+                        s.IsAntiAlias = true;
+                        s.Foreground = "dodgerblue";
+                        s.Cursor = Cursors.Hand;
+                        ee.Add(new TextBlock
                         {
-                            //[nameof(TextBlock.Text)] = new BindingDescribe()
+                            FontSize = 14,
+                            [nameof(TextBlock.Text)] = new BindingDescribe(this, nameof(Content)),
+                        });
+                        s.Triggers.Add(new Trigger
+                        {
+                            Property = nameof(RadioButton.IsChecked),
+                            PropertyConditions = (x) => (bool?)x == true,
+                            Setters =
+                            {
+                                { nameof(Background) , "dodgerblue" },
+                                { nameof(Foreground) , "white" },
+                            },
                         });
                     },
                     [nameof(Content)] = new BindingDescribe(this, nameof(Content)),
-                    [nameof(RadioButton.Click)] = new CommandDescribe((s, e) => this.RaiseEvent(new IndexEventArgs(Convert.ToInt32((s as RadioButton).Content)), nameof(this.PageIndexChanged)))
-                });
+                    [nameof(RadioButton.IsChecked)] = new BindingDescribe(new CommandDescribe((s, e) =>
+                    {
+                        var btn = s as RadioButton;
+                        if (btn.IsChecked == true) this.RaiseEvent(new IndexEventArgs(Convert.ToInt32(btn.Content)), nameof(this.PageIndexChanged));
+                    })),
+                }.Assign(out var rad));
+
+                //rad.PropertyChanged += Rad_PropertyChanged;
+            }
+
+            private void Rad_PropertyChanged(object sender, CPFPropertyChangedEventArgs e)
+            {
+                if (e.PropertyName == "IsChecked" && ((bool?)e.NewValue) == true)
+                {
+                    this.RaiseEvent(new IndexEventArgs(Convert.ToInt32((sender as RadioButton).Content)), nameof(this.PageIndexChanged));
+                }
             }
         }
 
