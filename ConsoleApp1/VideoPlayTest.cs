@@ -77,7 +77,7 @@ namespace ConsoleApp1
             {
                 MaximizeBox = true,
             });
-            LoadStyleFile("res://ConsoleApp1.Stylesheet1.css");
+            LoadStyleFile("res://ConsoleApp1/Stylesheet1.css");
             //加载样式文件，文件需要设置为内嵌资源
 
             if (!DesignMode)//设计模式下不执行

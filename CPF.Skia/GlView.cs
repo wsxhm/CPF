@@ -37,6 +37,10 @@ namespace CPF.Skia
             var size = new PixelSize((int)Math.Round(cSize.Width * Root.RenderScaling), (int)Math.Round(cSize.Height * Root.RenderScaling));
             var skia = dc as SkiaDrawingContext;
             var _gl = skia.GlContext;
+            if (_gl == null)
+            {
+                return;
+            }
             if (paint == null)
             {
                 paint = new SKPaint();
@@ -52,8 +56,8 @@ namespace CPF.Skia
 
                 _gl.BindTexture(GlConsts.GL_TEXTURE_2D, ColorBuffer);
 
-                _gl.TexParameteri(GlConsts.GL_TEXTURE_2D, GlConsts.GL_TEXTURE_MIN_FILTER, (int)GlConsts.GL_LINEAR);
-                _gl.TexParameteri(GlConsts.GL_TEXTURE_2D, GlConsts.GL_TEXTURE_MAG_FILTER, GlConsts.GL_LINEAR);
+                _gl.TexParameter(GlConsts.GL_TEXTURE_2D, GlConsts.GL_TEXTURE_MIN_FILTER, (int)GlConsts.GL_LINEAR);
+                _gl.TexParameter(GlConsts.GL_TEXTURE_2D, GlConsts.GL_TEXTURE_MAG_FILTER, GlConsts.GL_LINEAR);
 
                 _gl.BindTexture(GlConsts.GL_TEXTURE_2D, 0);
 

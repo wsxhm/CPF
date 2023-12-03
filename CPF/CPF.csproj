@@ -6,11 +6,8 @@
     <Company>QQ:761716178</Company>
     <Product>QQ:761716178 跨平台UI框架</Product>
     <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>
-    <Version>0.9.6.5</Version>
+    <Version>0.9.6.6</Version>
     <LangVersion>9.0</LangVersion>
-    <SignAssembly>false</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>Xhm.CPF</PackageId>
     <PackageProjectUrl></PackageProjectUrl>
     <Copyright>Copyright (c) 2020 by http://cpf.cskin.net/</Copyright>

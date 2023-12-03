@@ -308,7 +308,7 @@ namespace CPF.Styling
                         }
                         catch (Exception e)
                         {
-                            Debug.WriteLine("加载网页失败：" + e.Message);
+                            Debug.WriteLine("加载网页失败：" + path + "   " + e.Message);
                         }
                         action(text);
                     }, null);
@@ -358,7 +358,7 @@ namespace CPF.Styling
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("读取文本失败：" + e.Message);
+                        Debug.WriteLine("读取文本失败：" + path + "   " + e.Message);
                     }
                     action(text);
                     return;
@@ -381,7 +381,7 @@ namespace CPF.Styling
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("加载文本失败：" + e.Message);
+                        Debug.WriteLine("加载文本失败：" + path + "   " + e.Message);
                     }
                     action(text);
                     return;
@@ -396,19 +396,22 @@ namespace CPF.Styling
         /// <returns></returns>
         public static Task<string> GetText(string path)
         {
-            var task = Task.Factory.StartNew(() =>
+            //var task = Task.Factory.StartNew(() =>
+            //{
+            //var invokeMre = new ManualResetEvent(false);
+            //string result = null;
+            TaskCompletionSource<string> completionSource = new TaskCompletionSource<string>();
+            GetText(path, a =>
             {
-                var invokeMre = new ManualResetEvent(false);
-                string result = null;
-                GetText(path, a =>
-                {
-                    result = a;
-                    invokeMre.Set();
-                });
-                invokeMre.WaitOne();
-                return result;
+                completionSource.SetResult(a);
+                //result = a;
+                //invokeMre.Set();
             });
-            return task;
+            //invokeMre.WaitOne();
+            //return result;
+            return completionSource.Task;
+            //});
+            //return task;
         }
         /// <summary>
         /// 读取文件或者内嵌或者网络的图片，弱引用缓存

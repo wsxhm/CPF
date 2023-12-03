@@ -24,7 +24,7 @@ namespace CPF.Input
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public Point GetPosition(UIElement element)
+        public static Point GetPosition(UIElement element)
         {
             if (element.Root == null)
             {

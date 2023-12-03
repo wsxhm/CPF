@@ -393,7 +393,7 @@ namespace CPF.Controls
             {
                 // Move Thumb to the Mouse location
 
-                Point pt = e.MouseDevice.GetPosition(Track);
+                Point pt = MouseDevice.GetPosition(Track);
                 var newValue = Track.ValueFromPoint(pt);
                 if (FloatUtil.IsFloatFinite(newValue))
                 {

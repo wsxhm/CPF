@@ -1342,7 +1342,8 @@ namespace ConsoleApp1
                                                     nameof(Model.Insert)
                                                 }
                                             },
-                                            Foreground="#fff"
+                                            Foreground="#fff",
+                                            //[nameof(Button.IsMouseOver)]=new TriggerDescribe((nameof(Button.Background),"rgb(236,245,255)"),(nameof(Button.Foreground),"rgb(64,158,255)"))
                                         },
                                         new Button
                                         {
@@ -1386,17 +1387,17 @@ namespace ConsoleApp1
                                         Width="100%",
                                         FontSize=22,
                                         Tag=this,                                        
-                                        Template=(e,c)=>{
-                                             c.Add(new Border
-                                             {
-                                                 Background="#f00",
-                                                 Height = "100%",
-                                                 Width = "100%",
-                                                 BorderFill = null,
-                                                 Name = "contentPresenter",
-                                                 PresenterFor = this
-                                             });
-                                        }
+                                        //Template=(e,c)=>{
+                                        //     c.Add(new Border
+                                        //     {
+                                        //         Background="#f00",
+                                        //         Height = "100%",
+                                        //         Width = "100%",
+                                        //         BorderFill = null,
+                                        //         Name = "contentPresenter",
+                                        //         PresenterFor = this
+                                        //     });
+                                        //}
                                     },
                                     Bindings=
                                     {

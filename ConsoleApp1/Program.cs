@@ -40,9 +40,9 @@ namespace ConsoleApp1
 #else
             (OperatingSystemType.Windows, new WindowsPlatform(false), new SkiaDrawingFactory 
             {
-#if NETCOREAPP3_1_OR_GREATER
-                UseGPU=true
-#endif
+                //#if NETCOREAPP3_1_OR_GREATER
+                UseGPU = true
+                //#endif
             })
             , (OperatingSystemType.OSX, new CPF.Mac.MacPlatform(), new SkiaDrawingFactory { UseGPU = false })
             , (OperatingSystemType.Linux, new CPF.Linux.LinuxPlatform(), new SkiaDrawingFactory { UseGPU = true })

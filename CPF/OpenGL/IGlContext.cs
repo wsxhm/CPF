@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using CPF.Drawing;
 
 namespace CPF.OpenGL
@@ -32,7 +33,7 @@ namespace CPF.OpenGL
         IntPtr GetProcAddress(string name);
     }
 
-    public static class OpenglEx
+    public static unsafe class OpenglEx
     {
         static bool loaded;
         public static void Load(IGlContext context)
@@ -332,10 +333,64 @@ namespace CPF.OpenGL
               width, height);
         }
 
+        public delegate void GlTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, IntPtr pixels);
+        [GlImport("glTexSubImage2D")]
+        static GlTexSubImage2D texSubImage2D;
+        public static void TexSubImage2D(this IGlContext context, uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, IntPtr pixels)
+        {
+            Load(context);
+            texSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
+        }
+
+        public delegate void GlBufferData(int target​, int size​, IntPtr data​, int usage​);
+        [GlImport("glBufferData")]
+        static GlBufferData bufferData;
+        public static void BufferData(this IGlContext context, int target​, int size​, IntPtr data​, int usage​)
+        {
+            Load(context);
+            bufferData(target, size, data, usage);
+        }
+
+        public delegate void GlBindBuffer(int target, int buffer);
+        [GlImport("glBindBuffer")]
+        static GlBindBuffer bindBuffer;
+        public static void BindBuffer(this IGlContext context, int target, int buffer​)
+        {
+            Load(context);
+            bindBuffer(target, buffer);
+        }
+
+        public delegate void GlUniform1i(int location, int v0);
+        [GlImport("glUniform1i")]
+        static GlUniform1i uniform1i;
+        public static void Uniform1(this IGlContext context, int location, int v0​)
+        {
+            Load(context);
+            uniform1i(location, v0);
+        }
+        public delegate void GlUniform1f(int location, float v0);
+        [GlImport("glUniform1f")]
+        static GlUniform1f uniform1f;
+        public static void Uniform1(this IGlContext context, int location, float v0​)
+        {
+            Load(context);
+            uniform1f(location, v0);
+        }
+
+        public delegate void GlBufferSubData(int target, IntPtr offset, int size, IntPtr data);
+        [GlImport("glBufferSubData")]
+        static GlBufferSubData bufferSubData;
+        public static void BufferSubData(this IGlContext context, int target, IntPtr offset, int size, IntPtr data)
+        {
+            Load(context);
+            bufferSubData(target, offset, size, data);
+        }
+
+
         public delegate void GlTexParameteri(int target, int name, int value);
         [GlImport("glTexParameteri")]
         static GlTexParameteri texParameteri;
-        public static void TexParameteri(this IGlContext context, int target, int name, int value)
+        public static void TexParameter(this IGlContext context, int target, int name, int value)
         {
             Load(context);
             texParameteri(target, name, value);
@@ -356,10 +411,347 @@ namespace CPF.OpenGL
         public delegate int GlCreateShader(int shaderType);
         [GlImport("glCreateShader")]
         static GlCreateShader createShader;
-        public static void CreateShader(this IGlContext context, int shaderType)
+        public static int CreateShader(this IGlContext context, int shaderType)
         {
             Load(context);
-            createShader(shaderType);
+            return createShader(shaderType);
+        }
+
+        public delegate void GlShaderSource(int shader, int count, IntPtr str, int* length);
+        [GlImport("glCreateShader")]
+        static GlShaderSource shaderSource;
+        public static void ShaderSource(this IGlContext context, int shader, string source)
+        {
+            Load(context);
+
+            int length = source.Length;
+            IntPtr intPtr = MarshalStringArrayToPtr(new string[] { source });
+            shaderSource(shader, 1, intPtr, &length);
+            FreeStringArrayPtr(intPtr, 1);
+        }
+
+        static IntPtr MarshalStringArrayToPtr(string[] str_array)
+        {
+            IntPtr intPtr = IntPtr.Zero;
+            if (str_array != null && str_array.Length != 0)
+            {
+                intPtr = Marshal.AllocHGlobal(str_array.Length * IntPtr.Size);
+                if (intPtr == IntPtr.Zero)
+                {
+                    throw new OutOfMemoryException();
+                }
+
+                int i = 0;
+                try
+                {
+                    for (i = 0; i < str_array.Length; i++)
+                    {
+                        IntPtr val = MarshalStringToPtr(str_array[i]);
+                        Marshal.WriteIntPtr(intPtr, i * IntPtr.Size, val);
+                    }
+                }
+                catch (OutOfMemoryException)
+                {
+                    for (i--; i >= 0; i--)
+                    {
+                        Marshal.FreeHGlobal(Marshal.ReadIntPtr(intPtr, i * IntPtr.Size));
+                    }
+
+                    Marshal.FreeHGlobal(intPtr);
+                    throw;
+                }
+            }
+
+            return intPtr;
+        }
+
+        static IntPtr MarshalStringToPtr(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return IntPtr.Zero;
+            }
+
+            int num = Encoding.UTF8.GetMaxByteCount(str.Length) + 1;
+            IntPtr intPtr = Marshal.AllocHGlobal(num);
+            if (intPtr == IntPtr.Zero)
+            {
+                throw new OutOfMemoryException();
+            }
+
+            fixed (char* chars = str)
+            {
+                int bytes = Encoding.UTF8.GetBytes(chars, str.Length, (byte*)(void*)intPtr, num);
+                Marshal.WriteByte(intPtr, bytes, 0);
+                return intPtr;
+            }
+        }
+        static void FreeStringArrayPtr(IntPtr ptr, int length)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                Marshal.FreeHGlobal(Marshal.ReadIntPtr(ptr, i * IntPtr.Size));
+            }
+
+            Marshal.FreeHGlobal(ptr);
+        }
+
+
+        public delegate int GlCreateProgram();
+        [GlImport("glCreateProgram")]
+        static GlCreateProgram createProgram;
+        public static int CreateProgram(this IGlContext context)
+        {
+            Load(context);
+            return createProgram();
+        }
+
+        public delegate void GlAttachShader(int program, int shader);
+        [GlImport("glAttachShader")]
+        static GlAttachShader attachShader;
+        public static void AttachShader(this IGlContext context, int program, int shader)
+        {
+            Load(context);
+            attachShader(program, shader);
+        }
+
+        public delegate void GlDetachShader(int program, int shader);
+        [GlImport("glDetachShader")]
+        static GlDetachShader detachShader;
+        public static void DetachShader(this IGlContext context, int program, int shader)
+        {
+            Load(context);
+            detachShader(program, shader);
+        }
+
+        public delegate void GlGetProgramiv(int program, int pname, int* @params);
+        [GlImport("glGetProgramiv")]
+        static GlGetProgramiv getProgramiv;
+        public static void GetProgram(this IGlContext context, int program, int pname, out int @params)
+        {
+            Load(context);
+            fixed (int* ptr = &@params)
+            {
+                getProgramiv(program, pname, ptr);
+            }
+        }
+
+        public delegate void GlGetProgramInfoLog(uint program, int bufSize, int* length, IntPtr infoLog);
+        [GlImport("glGetProgramInfoLog")]
+        static GlGetProgramInfoLog getProgramInfoLog;
+        public static string GetProgramInfoLog(this IGlContext context, uint program)
+        {
+            Load(context);
+            GetProgram(context, (int)program, GlConsts.GL_INFO_LOG_LENGTH, out var @params);
+            if (@params == 0)
+            {
+                return string.Empty;
+            }
+            int bufSize = @params * 2;
+            IntPtr intPtr = Marshal.AllocHGlobal((IntPtr)(bufSize + 1));
+            getProgramInfoLog(program, bufSize, &@params, intPtr);
+            var infoLog = MarshalPtrToString(intPtr);
+            Marshal.FreeHGlobal(intPtr);
+            return infoLog;
+        }
+
+        public static string GetActiveUniform(this IGlContext context, int program, int uniformIndex, out int size, out int type)
+        {
+            Load(context);
+            GetProgram(context, program, GlConsts.GL_ACTIVE_UNIFORM_MAX_LENGTH, out var @params);
+            GetActiveUniform(program, uniformIndex, (@params == 0) ? 1 : @params, out @params, out size, out type, out var name);
+            return name;
+        }
+
+        public delegate void GlGetActiveUniform(int program, int index, int bufSize, int* length, int* size, int* type, IntPtr name);
+        [GlImport("glGetActiveUniform")]
+        static GlGetActiveUniform getActiveUniform;
+        static void GetActiveUniform(int program, int index, int bufSize, out int length, out int size, out int type, out string name)
+        {
+            fixed (int* ptr = &length)
+            {
+                fixed (int* ptr2 = &size)
+                {
+                    fixed (int* ptr3 = &type)
+                    {
+                        IntPtr intPtr = Marshal.AllocHGlobal((IntPtr)(bufSize + 1));
+                        getActiveUniform(program, index, bufSize, ptr, ptr2, ptr3, intPtr);
+                        name = MarshalPtrToString(intPtr);
+                        Marshal.FreeHGlobal(intPtr);
+                    }
+                }
+            }
+        }
+        unsafe static string MarshalPtrToString(IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+            {
+                throw new ArgumentException("ptr");
+            }
+
+            sbyte* ptr2 = (sbyte*)(void*)ptr;
+            int num = 0;
+            for (; *ptr2 != 0; ptr2++)
+            {
+                num++;
+            }
+
+            return new string((sbyte*)(void*)ptr, 0, num, Encoding.UTF8);
+        }
+
+        public delegate int GlGetUniformLocation(int program, IntPtr name);
+        [GlImport("glGetUniformLocation")]
+        static GlGetUniformLocation getUniformLocation;
+        public static int GetUniformLocation(this IGlContext context, int program, string name)
+        {
+            Load(context);
+            IntPtr intPtr = MarshalStringToPtr(name);
+            var result = getUniformLocation(program, intPtr);
+            FreeStringPtr(intPtr);
+            return result;
+        }
+        static void FreeStringPtr(IntPtr ptr)
+        {
+            Marshal.FreeHGlobal(ptr);
+        }
+
+        public delegate void GlCompileShader(int shader);
+        [GlImport("glCompileShader")]
+        static GlCompileShader compileShader;
+        public static void CompileShader(this IGlContext context, int shader)
+        {
+            Load(context);
+            compileShader(shader);
+        }
+
+        public delegate void GlGetShaderiv(int shader, int pname, int* @params);
+        [GlImport("glGetShaderiv")]
+        static GlGetShaderiv getShaderiv;
+        public static void GetShader(this IGlContext context, int shader, int pname, out int @params)
+        {
+            Load(context);
+            fixed (int* ptr = &@params)
+            {
+                getShaderiv(shader, pname, ptr);
+            }
+        }
+
+        public static string GetShaderInfoLog(this IGlContext context, int shader)
+        {
+            Load(context);
+            GetShaderInfoLog(context, shader, out var info);
+            return info;
+        }
+
+        unsafe static void GetShaderInfoLog(IGlContext context, int shader, out string info)
+        {
+            GetShader(context, shader, GlConsts.GL_INFO_LOG_LENGTH, out var @params);
+            if (@params == 0)
+            {
+                info = string.Empty;
+            }
+            else
+            {
+                GetShaderInfoLog((uint)shader, @params * 2, &@params, out info);
+            }
+        }
+        public delegate void GlGetShaderInfoLog(uint shader, int bufSize, int* length, IntPtr infoLog);
+        [GlImport("glGetShaderInfoLog")]
+        static GlGetShaderInfoLog getShaderInfoLog;
+        static void GetShaderInfoLog(uint shader, int bufSize, [Out] int* length, out string infoLog)
+        {
+            IntPtr intPtr = Marshal.AllocHGlobal((IntPtr)(bufSize + 1));
+            getShaderInfoLog(shader, bufSize, length, intPtr);
+            infoLog = MarshalPtrToString(intPtr);
+            Marshal.FreeHGlobal(intPtr);
+        }
+
+        public delegate void GlLinkProgram(int program);
+        [GlImport("glLinkProgram")]
+        static GlLinkProgram linkProgram;
+        public static void LinkProgram(this IGlContext context, int program)
+        {
+            Load(context);
+            linkProgram(program);
+        }
+
+        public delegate int GlGetAttribLocation(int program, IntPtr name);
+        [GlImport("glGetAttribLocation")]
+        static GlGetAttribLocation getAttribLocation;
+        public static int GetAttribLocation(this IGlContext context, int program, string name)
+        {
+            Load(context);
+            IntPtr intPtr = MarshalStringToPtr(name);
+            int result = getAttribLocation(program, intPtr);
+            FreeStringPtr(intPtr);
+            return result;
+        }
+
+        public delegate void GlUseProgram(int program);
+        [GlImport("glUseProgram")]
+        static GlUseProgram useProgram;
+        public static void UseProgram(this IGlContext context, int program)
+        {
+            Load(context);
+            useProgram(program);
+        }
+
+        public delegate void GlGenVertexArrays(int num, uint* arrays);
+        [GlImport("glGenVertexArrays")]
+        static GlGenVertexArrays genVertexArrays;
+        public static int GenVertexArray(this IGlContext context)
+        {
+            Load(context);
+            int result = default(int);
+            genVertexArrays(1, (uint*)(&result));
+            return result;
+        }
+
+        public delegate void GlBindVertexArray(int array);
+        [GlImport("glBindVertexArray")]
+        static GlBindVertexArray bindVertexArray;
+        public static void BindVertexArray(this IGlContext context, int array)
+        {
+            Load(context);
+            bindVertexArray(array);
+        }
+
+        public delegate void GlGenBuffers(int num, uint* buffer);
+        [GlImport("glGenBuffers")]
+        static GlGenBuffers genBuffers;
+        public static int GenBuffer(this IGlContext context)
+        {
+            Load(context);
+            int result = default(int);
+            genBuffers(1, (uint*)(&result));
+            return result;
+        }
+
+        public delegate void GlEnableVertexAttribArray(int index);
+        [GlImport("glEnableVertexAttribArray")]
+        static GlEnableVertexAttribArray enableVertexAttribArray;
+        public static void EnableVertexAttribArray(this IGlContext context, int index)
+        {
+            Load(context);
+            enableVertexAttribArray(index);
+        }
+
+        public delegate void GlVertexAttribPointer(uint index, int size, int type, bool normalized, int stride, IntPtr pointer);
+        [GlImport("glVertexAttribPointer")]
+        static GlVertexAttribPointer vertexAttribPointer;
+        public static void VertexAttribPointer(this IGlContext context, uint index, int size, int type, bool normalized, int stride, int pointer)
+        {
+            Load(context);
+            vertexAttribPointer(index, size, type, normalized, stride, (IntPtr)pointer);
+        }
+
+        public delegate void GlDrawArrays(int mode, int first, int count);
+        [GlImport("glDrawArrays")]
+        static GlDrawArrays drawArrays;
+        public static void DrawArrays(this IGlContext context, int mode, int first, int count)
+        {
+            Load(context);
+            drawArrays(mode, first, count);
         }
 
         public delegate void GlEnable(int what);

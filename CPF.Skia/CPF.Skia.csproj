@@ -3,9 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>QQ:761716178 跨平台UI框架</Product>
-    <Version>0.9.6.5</Version>
-    <SignAssembly>false</SignAssembly>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>0.9.6.6</Version>
     <PackageId>Xhm.CPF.Skia</PackageId>
     <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>
     <Copyright>Copyright (c) 2020 by http://cpf.cskin.net/</Copyright>
