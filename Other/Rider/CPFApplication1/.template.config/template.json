@@ -1,0 +1,38 @@
+{
+  "author": "CPF",
+  "name": "CPFApplication1",
+  "description": "CPF项目，NetCore跨平台开发， that can run on .NET on Windows, Linux and macOS",
+  "identity": "YourName.CPFApplication",
+  "shortName": "CPFApplication1",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "CPFApplication1",
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "The target framework for the project.",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "netcoreapp3.1"
+        },
+        {
+          "choice": "net5"
+        },
+        {
+          "choice": "net6"
+        },
+        {
+          "choice": "net7"
+        },
+        {
+          "choice": "net8"
+        }
+		
+      ],
+      "defaultValue": "net6"
+    }
+  }
+}
