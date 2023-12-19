@@ -341,31 +341,58 @@ namespace CPF.GDIPlus
                     }
                     if (drawLine)
                     {
-                        var ly = y;
-                        switch (decoration.Location)
+                        var lw = drawingFactory.g.MeasureString(sub, f.Font).Width;
+
+                        if (decoration.Location.HasFlag(TextDecorationLocation.Underline))
                         {
-                            case TextDecorationLocation.Underline:
-                                ly = y + fHeight;
-                                break;
-                            case TextDecorationLocation.OverLine:
-                                break;
-                            case TextDecorationLocation.Strikethrough:
-                                ly = y + fHeight / 2;
-                                break;
+                            var ly = y;
+                            ly = y + fHeight;
+
+                            var lx = x;
+                            switch (textAlignment)
+                            {
+                                case TextAlignment.Right:
+                                    lx = x + mw - lw;
+                                    break;
+                                case TextAlignment.Center:
+                                    lx = x + (mw - lw) / 2;
+                                    break;
+                            }
+                            g.DrawLine(pen, lx, ly, lx + lw, ly);
+                        }
+                        if (decoration.Location.HasFlag(TextDecorationLocation.OverLine))
+                        {
+                            var ly = y;
+                            var lx = x;
+                            switch (textAlignment)
+                            {
+                                case TextAlignment.Right:
+                                    lx = x + mw - lw;
+                                    break;
+                                case TextAlignment.Center:
+                                    lx = x + (mw - lw) / 2;
+                                    break;
+                            }
+                            g.DrawLine(pen, lx, ly, lx + lw, ly);
+                        }
+                        if (decoration.Location.HasFlag(TextDecorationLocation.Strikethrough))
+                        {
+                            var ly = y;
+                            ly = y + fHeight / 2;
+
+                            var lx = x;
+                            switch (textAlignment)
+                            {
+                                case TextAlignment.Right:
+                                    lx = x + mw - lw;
+                                    break;
+                                case TextAlignment.Center:
+                                    lx = x + (mw - lw) / 2;
+                                    break;
+                            }
+                            g.DrawLine(pen, lx, ly, lx + lw, ly);
                         }
 
-                        var lw = drawingFactory.g.MeasureString(sub, f.Font).Width;
-                        var lx = x;
-                        switch (textAlignment)
-                        {
-                            case TextAlignment.Right:
-                                lx = x + mw - lw;
-                                break;
-                            case TextAlignment.Center:
-                                lx = x + (mw - lw) / 2;
-                                break;
-                        }
-                        g.DrawLine(pen, lx, ly, lx + lw, ly);
                     }
 
                     y += fHeight;
@@ -524,31 +551,58 @@ namespace CPF.GDIPlus
                 }
                 if (drawLine)
                 {
-                    var ly = y;
-                    switch (decoration.Location)
+                    var lw = drawingFactory.g.MeasureString(sub, f.Font).Width;
+
+                    if (decoration.Location.HasFlag(TextDecorationLocation.Underline))
                     {
-                        case TextDecorationLocation.Underline:
-                            ly = y + fHeight;
-                            break;
-                        case TextDecorationLocation.OverLine:
-                            break;
-                        case TextDecorationLocation.Strikethrough:
-                            ly = y + fHeight / 2;
-                            break;
+                        var ly = y;
+                        ly = y + fHeight;
+
+                        var lx = x;
+                        switch (textAlignment)
+                        {
+                            case TextAlignment.Right:
+                                lx = x + mw - lw;
+                                break;
+                            case TextAlignment.Center:
+                                lx = x + (mw - lw) / 2;
+                                break;
+                        }
+                        g.DrawLine(pen, lx, ly, lx + lw, ly);
+                    }
+                    if (decoration.Location.HasFlag(TextDecorationLocation.OverLine))
+                    {
+                        var ly = y;
+                        var lx = x;
+                        switch (textAlignment)
+                        {
+                            case TextAlignment.Right:
+                                lx = x + mw - lw;
+                                break;
+                            case TextAlignment.Center:
+                                lx = x + (mw - lw) / 2;
+                                break;
+                        }
+                        g.DrawLine(pen, lx, ly, lx + lw, ly);
+                    }
+                    if (decoration.Location.HasFlag(TextDecorationLocation.Strikethrough))
+                    {
+                        var ly = y;
+                        ly = y + fHeight / 2;
+
+                        var lx = x;
+                        switch (textAlignment)
+                        {
+                            case TextAlignment.Right:
+                                lx = x + mw - lw;
+                                break;
+                            case TextAlignment.Center:
+                                lx = x + (mw - lw) / 2;
+                                break;
+                        }
+                        g.DrawLine(pen, lx, ly, lx + lw, ly);
                     }
 
-                    var lw = drawingFactory.g.MeasureString(sub, f.Font).Width;
-                    var lx = x;
-                    switch (textAlignment)
-                    {
-                        case TextAlignment.Right:
-                            lx = x + mw - lw;
-                            break;
-                        case TextAlignment.Center:
-                            lx = x + (mw - lw) / 2;
-                            break;
-                    }
-                    g.DrawLine(pen, lx, ly, lx + lw, ly);
                 }
 
                 y += fHeight;

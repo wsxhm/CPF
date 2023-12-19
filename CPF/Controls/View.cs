@@ -66,7 +66,7 @@ namespace CPF.Controls
         }
         public View()
         {
-            views.TryAdd(this,this);
+            views.TryAdd(this, this);
             IsRoot = true;
             Root = this;
             viewImpl = CreateView();
@@ -187,6 +187,14 @@ namespace CPF.Controls
                                 list.Add(new CPFPropertyInfo { Name = item.Name, Value = e.ToString(), IsReadOnly = true, TypeName = item.PropertyType.FullName, GCHandle = ele.GetIntPtr().ToInt64() });
                             }
                         }
+                        if (ele.attachedValues != null)
+                        {
+                            foreach (var item in ele.attachedValues)
+                            {
+                                list.Add(new CPFPropertyInfo { Name = item.Key, Value = item.Value == null ? "" : item.Value.ToString(), IsReadOnly = true, TypeName = item.Value != null ? item.Value.GetType().FullName : "", GCHandle = ele.GetIntPtr().ToInt64() });
+                            }
+                        }
+
                         SendData(new CommandMessage<List<CPFPropertyInfo>> { MessageType = MessageType.Properties, Data = list });
                     }
                     SetDrawRenderRectangle(ele);
@@ -330,8 +338,12 @@ namespace CPF.Controls
                                 {
                                     info += "\n" + "普通属性";
                                 }
-                                SendData(new CommandMessage<string> { MessageType = MessageType.GetPropertyInfo, Data = info });
                             }
+                            else if (p.PropertyName.Contains("."))
+                            {
+                                info += "\n附加属性";
+                            }
+                            SendData(new CommandMessage<string> { MessageType = MessageType.GetPropertyInfo, Data = info });
                         }
                         catch (Exception e)
                         {

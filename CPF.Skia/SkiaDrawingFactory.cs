@@ -303,7 +303,7 @@ namespace CPF.Skia
             }
         }
 
-        public override float GetDefaultLineHeight(in Font font)
+        public override float GetLineHeight(in Font font)
         {
             using (SKPaint paint = new SKPaint())
             {
@@ -316,6 +316,38 @@ namespace CPF.Skia
                 paint.TextSize = font.FontSize;
 
                 return paint.FontSpacing;
+            }
+        }
+
+        public override float GetAscent(in Font font)
+        {
+            using (SKPaint paint = new SKPaint())
+            {
+                paint.TextEncoding = SKTextEncoding.Utf16;
+                //paint.IsStroke = false;
+                //paint.LcdRenderText = true;
+                //paint.SubpixelText = true;
+                paint.IsAntialias = true;
+                paint.Typeface = (font.AdapterFont as FontWrapper).SKTypeface;
+                paint.TextSize = font.FontSize;
+
+                return -paint.FontMetrics.Ascent;
+            }
+        }
+
+        public override float GetDescent(in Font font)
+        {
+            using (SKPaint paint = new SKPaint())
+            {
+                paint.TextEncoding = SKTextEncoding.Utf16;
+                //paint.IsStroke = false;
+                //paint.LcdRenderText = true;
+                //paint.SubpixelText = true;
+                paint.IsAntialias = true;
+                paint.Typeface = (font.AdapterFont as FontWrapper).SKTypeface;
+                paint.TextSize = font.FontSize;
+
+                return paint.FontMetrics.Descent;
             }
         }
     }

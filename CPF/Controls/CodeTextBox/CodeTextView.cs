@@ -191,7 +191,7 @@ namespace CPF.Controls
             using (var font = new Font(textBox.FontFamily, textBox.FontSize, textBox.FontStyle))
             {
                 lines.Clear();
-                var lineHeight = (float)Math.Round(font.DefaultLineHeight, 2);
+                var lineHeight = (float)Math.Round(font.LineHeight, 2);
                 var top = 0d;//换成双精度减少误差
                 var h = 0d;
                 float left = 0;
@@ -304,7 +304,7 @@ namespace CPF.Controls
                     VerticalOffset = 0;
                 }
                 lineLayoutWidth.Clear();
-                var lineHeight = (float)Math.Round(font.DefaultLineHeight, 2);
+                var lineHeight = (float)Math.Round(font.LineHeight, 2);
                 var len = Math.Ceiling(size.Height / lineHeight);
                 var start = (int)Math.Floor(VerticalOffset / lineHeight);
                 textBox.LineNumber.Start = start;
@@ -380,7 +380,7 @@ namespace CPF.Controls
             using (var font = new Font(textBox.FontFamily, textBox.FontSize, textBox.FontStyle))
             {
                 HybridDictionary<int, Cache> caches = new HybridDictionary<int, Cache>();
-                var lineHeight = (float)Math.Round(font.DefaultLineHeight, 2);
+                var lineHeight = (float)Math.Round(font.LineHeight, 2);
                 var len = Math.Ceiling(size.Height / lineHeight);
                 var start = (int)Math.Floor(vo / lineHeight);
 
@@ -634,7 +634,7 @@ namespace CPF.Controls
         {
             using (var font = new Font(textBox.FontFamily, textBox.FontSize, textBox.FontStyle))
             {
-                lineHeight = (float)Math.Round(font.DefaultLineHeight, 2);
+                lineHeight = (float)Math.Round(font.LineHeight, 2);
                 var ho = HorizontalOffset;
                 var vo = VerticalOffset;
                 var start = (int)Math.Floor(vo / lineHeight);
@@ -688,7 +688,7 @@ namespace CPF.Controls
             //var size = new Size(ViewportWidth, ViewportHeight);
             using (var font = new Font(textBox.FontFamily, textBox.FontSize, textBox.FontStyle))
             {
-                var lineHeight = Math.Round(font.DefaultLineHeight, 2);
+                var lineHeight = Math.Round(font.LineHeight, 2);
                 var ho = (double)HorizontalOffset + point.X;
                 var vo = (double)VerticalOffset;
                 var start = (int)Math.Floor(vo / lineHeight);

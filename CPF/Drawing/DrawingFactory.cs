@@ -170,7 +170,19 @@ namespace CPF.Drawing
         /// </summary>
         /// <param name="font"></param>
         /// <returns></returns>
-        public abstract float GetDefaultLineHeight(in Font font);
+        public abstract float GetLineHeight(in Font font);
+        /// <summary>
+        /// 获取从字样的基线到英语大写字母顶部的距离。
+        /// </summary>
+        /// <param name="font"></param>
+        /// <returns></returns>
+        public abstract float GetAscent(in Font font);
+        /// <summary>
+        /// 获取从字样的基线到行底部的距离。
+        /// </summary>
+        /// <param name="font"></param>
+        /// <returns></returns>
+        public abstract float GetDescent(in Font font);
 
         public abstract void Dispose();
         /// <summary>

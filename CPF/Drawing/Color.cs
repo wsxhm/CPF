@@ -1587,6 +1587,42 @@ namespace CPF.Drawing
             return c1;
         }
 
+        public static Color FromArgb(int argb)
+        {
+            return FromArgb((byte)(argb >> 24),
+                (byte)((argb >> 16) & 0xff),
+                (byte)((argb >> 8) & 0xff),
+                (byte)(argb & 0xff));
+        }
+
+        /// <summary>
+        /// Construct color value with merged RGB int value.
+        /// </summary>
+        /// <param name="rgb">Merged RGB value to create color object.</param>
+        public static Color FromRgb(int rgb)
+        {
+            return FromRgb(
+                (byte)((rgb >> 16) & 0xff),
+                (byte)((rgb >> 8) & 0xff),
+                (byte)(rgb & 0xff));
+        }
+
+        public static Color FromColor(byte alpha, Color rgb)
+        {
+            return FromArgb(alpha, rgb.R, rgb.G, rgb.B);
+        }
+
+        private static Random rand;
+        /// <summary>
+        /// Randomly generate a color.
+        /// </summary>
+        /// <returns>New random solid color.</returns>
+        public static Color Randomly()
+        {
+            if (rand == null) rand = new Random();
+            return FromRgb((byte)rand.Next(255), (byte)rand.Next(255), (byte)rand.Next(255));
+        }
+
         ///<summary>
         /// FromScRgb
         ///</summary>
@@ -1855,6 +1891,24 @@ namespace CPF.Drawing
             color = new Color();
             return false;
         }
+
+        /// <summary>
+        /// Convert color value to 4 bytes integer value.
+        /// </summary>
+        /// <returns>Converted 4 bytes integer value.</returns>
+        public int ToArgb()
+        {
+            return (this.A << 24) | (this.R << 16) | (this.G << 8) | (this.B << 0);
+        }
+
+        /// <summary>
+        /// Check whether or not this color is transparent.
+        /// </summary>
+        public bool IsTransparent
+        {
+            get { return this.A == 0; }
+        }
+
 
         /// <summary>
         /// Parses a color string. #ffffff、r,g,b、r,g,b,a

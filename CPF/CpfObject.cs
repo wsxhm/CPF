@@ -1995,6 +1995,14 @@ namespace CPF
         {
             return objInfo.ContainsKey(propertyName);
         }
+        /// <summary>
+        /// 获取所有注册了的属性元数据
+        /// </summary>
+        /// <returns></returns>
+        public virtual IEnumerable<PropertyMetadataAttribute> GetProperties()
+        {
+            return propertyInfos;
+        }
 
         #region IDisposable Support
         private bool disposedValue = false;

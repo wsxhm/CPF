@@ -232,10 +232,31 @@ namespace CPF.GDIPlus
             }
         }
 
-        public override float GetDefaultLineHeight(in Drawing.Font font)
+        public override float GetLineHeight(in Drawing.Font font)
+        {
+            //var f = (FontStruct)font.AdapterFont;
+            //return f.Height;
+            var f = (FontStruct)font.AdapterFont;
+            float emHeight = f.Font.FontFamily.GetEmHeight(f.Font.Style);
+            var lineSpacing = f.Font.FontFamily.GetLineSpacing(f.Font.Style) * f.Font.Size / emHeight;
+            return lineSpacing;
+        }
+
+        public override float GetAscent(in Drawing.Font font)
         {
             var f = (FontStruct)font.AdapterFont;
-            return f.Height;
+            float emHeight = f.Font.FontFamily.GetEmHeight(f.Font.Style);
+            //var lineSpacing = f.Font.FontFamily.GetLineSpacing(f.Font.Style) * f.Font.Size / emHeight;
+            float ascent = f.Font.FontFamily.GetCellAscent(f.Font.Style) * f.Font.Size / emHeight;
+            return ascent;
+        }
+
+        public override float GetDescent(in Drawing.Font font)
+        {
+            var f = (FontStruct)font.AdapterFont;
+            float emHeight = f.Font.FontFamily.GetEmHeight(f.Font.Style);
+            float descent = f.Font.FontFamily.GetCellDescent(f.Font.Style) * f.Font.Size / emHeight;
+            return descent;
         }
 
         ///// <summary>

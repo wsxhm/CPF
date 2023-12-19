@@ -605,7 +605,7 @@ namespace CPF.Charts
 
                             if (length > 1)
                             {
-                                var count = (width + size.Width) / ((w1 + size.Width) / 2 + Font.DefaultLineHeight);
+                                var count = (width + size.Width) / ((w1 + size.Width) / 2 + Font.LineHeight);
                                 var offset = 1.0 * (width) / (length - 1);
                                 var of = length / count;
                                 if (of < 1)
@@ -639,7 +639,7 @@ namespace CPF.Charts
                                         {
                                             g.DrawLine(new Stroke(1), gpen, new Point(x, ownerSize.Height - padding.Bottom), new Point(x, padding.Top));
                                         }
-                                        g.DrawString(new Point(x - cs.Width / 2, ownerSize.Height - padding.Bottom + Font.DefaultLineHeight / 4), foreColorBrush, c, Font, TextAlignment.Center, cs.Width + cs.Width / 5);
+                                        g.DrawString(new Point(x - cs.Width / 2, ownerSize.Height - padding.Bottom + Font.LineHeight / 4), foreColorBrush, c, Font, TextAlignment.Center, cs.Width + cs.Width / 5);
                                     }
                                     w = cs.Width;
                                     index += of;

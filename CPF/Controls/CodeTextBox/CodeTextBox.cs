@@ -682,7 +682,7 @@ namespace CPF.Controls
                             var size = codeTextView.ActualSize;
                             using (var font = new Font(FontFamily, FontSize, FontStyle))
                             {
-                                var lineHeight = (float)Math.Round(font.DefaultLineHeight, 2);
+                                var lineHeight = (float)Math.Round(font.LineHeight, 2);
                                 var len = (int)Math.Ceiling(size.Height / lineHeight);
 
                                 scrollViewer.PageDown();
@@ -705,7 +705,7 @@ namespace CPF.Controls
                             var size = codeTextView.ActualSize;
                             using (var font = new Font(FontFamily, FontSize, FontStyle))
                             {
-                                var lineHeight = (float)Math.Round(font.DefaultLineHeight, 2);
+                                var lineHeight = (float)Math.Round(font.LineHeight, 2);
                                 var len = (int)Math.Ceiling(size.Height / lineHeight);
 
                                 scrollViewer.PageUp();

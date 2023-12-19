@@ -26,5 +26,7 @@ namespace CPF.Drawing
         bool Contains(float x, float y);
 
         IPathImpl CreateStrokePath(float strokeWidth);
+
+        void Reset();
     }
 }

@@ -151,6 +151,14 @@ namespace CPF.Controls
             get { return GetValue<CustomScrollData>(); }
             set { SetValue(value); }
         }
+        /// <summary>
+        /// 获取或设置一个值，该值指示是否自动创建列
+        /// </summary>
+        public bool AutoGenerateColumns
+        {
+            get { return GetValue<bool>(); }
+            set { SetValue(value); }
+        }
 
         protected override void InitializeComponent()
         {
@@ -687,13 +695,117 @@ namespace CPF.Controls
         }
 
         [PropertyChanged(nameof(Items))]
-        void RegisterItems(object newValue, object oldValue, PropertyMetadataAttribute attribute)
+        void OnItems(object newValue, object oldValue, PropertyMetadataAttribute attribute)
         {
             if (presenter)
             {
                 presenter.Items = newValue as IList;
             }
         }
+
+        protected override bool OnSetValue(string propertyName, ref object value)
+        {
+            if (propertyName == nameof(Items) && AutoGenerateColumns)
+            {
+                Items.Clear();
+                Columns.Clear();
+                if (value != null)
+                {
+                    //if (value is DataRows rows)
+                    //{
+                    //    foreach (var item in rows.DataTable.Columns)
+                    //    {
+
+                    //    }
+                    //}
+                    if (value is IList list)
+                    {
+                        if (list.Count > 0)
+                        {
+                            var v = list[0];
+                            if (v is CpfObject cpf)
+                            {
+                                foreach (var item in cpf.GetProperties())
+                                {
+                                    CreateColumn(item.PropertyType, item.PropertyName);
+                                }
+                            }
+                            else
+                            {
+                                var t = v.GetType();
+                                var ps = t.GetProperties();
+                                foreach (var item in ps)
+                                {
+                                    CreateColumn(item.PropertyType, item.Name);
+                                }
+                            }
+                        }
+                        else if (list.Count == 0)
+                        {
+                            var t = list.GetType();
+                            if (t.IsArray)
+                            {
+                                var ps = t.GetElementType().GetProperties();
+                                foreach (var item in ps)
+                                {
+                                    CreateColumn(item.PropertyType, item.Name);
+                                }
+                            }
+                            else
+                            {
+                                var gs = t.GetGenericArguments();
+                                if (gs != null && gs.Length == 1)
+                                {
+                                    var ps = gs[0].GetProperties();
+                                    foreach (var item in ps)
+                                    {
+                                        CreateColumn(item.PropertyType, item.Name);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return base.OnSetValue(propertyName, ref value);
+        }
+
+        private void CreateColumn(Type PropertyType, string PropertyName)
+        {
+            DataGridColumn column;
+
+            if (PropertyType == typeof(bool))
+            {
+                column = new DataGridCheckBoxColumn { };
+            }
+            else if (PropertyType.IsEnum)
+            {
+                //var kp = new List<(string, object)>();
+                //var vs = Enum.GetValues(item.PropertyType);
+                //foreach (var vv in vs)
+                //{
+                //    kp.Add((Enum.GetName(item.PropertyType, vv), vv));
+                //}
+                //column = new DataGridComboBoxColumn { DisplayMemberPath = "Item1", SelectedValuePath = "Item2", Items = kp };
+                column = new DataGridComboBoxColumn { Items = Enum.GetValues(PropertyType) };
+            }
+            else
+            {
+                column = new DataGridTextColumn { };
+            }
+            column.Width = 100;
+            column.Binding = PropertyName;
+            column.Header = PropertyName;
+            var auto = new DataGridAutoGeneratingColumnEventArgs(column, PropertyName, PropertyType);
+            OnAutoGeneratingColumn(auto);
+            if (!auto.Cancel && auto.Column != null)
+            {
+                Columns.Add(auto.Column);
+            }
+        }
+
+
+
         //protected override void OnPropertyChanged(string propertyName, object oldValue, object newValue, PropertyMetadataAttribute propertyMetadata)
         //{
         //    if (propertyName == nameof(Items) && presenter)
@@ -1067,6 +1179,17 @@ namespace CPF.Controls
             overridePropertys.Override(nameof(ItemTemplate), new PropertyMetadataAttribute((UIElementTemplate<DataGridRow>)typeof(DataGridRow)));
         }
 
+        public event EventHandler<DataGridAutoGeneratingColumnEventArgs> AutoGeneratingColumn
+        {
+            add { AddHandler(value); }
+            remove { RemoveHandler(value); }
+        }
+
+        protected virtual void OnAutoGeneratingColumn(DataGridAutoGeneratingColumnEventArgs eventArgs)
+        {
+            this.RaiseEvent(eventArgs, nameof(AutoGeneratingColumn));
+        }
+
         class EditCell
         {
             public int RowIndex;
@@ -1145,5 +1268,21 @@ namespace CPF.Controls
         /// 获取单元格在编辑模式中显示的元素。
         /// </summary>
         public DataGridCellTemplate EditingElement { get; private set; }
+    }
+    public class DataGridAutoGeneratingColumnEventArgs : EventArgs
+    {
+        public DataGridAutoGeneratingColumnEventArgs(DataGridColumn column, string propertyName, Type propertyType)
+        {
+            Column = column;
+            PropertyName = propertyName;
+            PropertyType = propertyType;
+        }
+        public bool Cancel { get; set; }
+
+        public DataGridColumn Column { get; set; }
+
+        public string PropertyName { get; }
+
+        public Type PropertyType { get; }
     }
 }

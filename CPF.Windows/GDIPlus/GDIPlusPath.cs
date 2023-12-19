@@ -272,6 +272,11 @@ namespace CPF.GDIPlus
             return new GDIPlusPath(p);
         }
 
+        public void Reset()
+        {
+            path.Reset();
+        }
+
         ~GDIPlusPath()
         {
             Dispose();

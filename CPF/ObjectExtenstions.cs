@@ -28,7 +28,7 @@ namespace CPF
         /// <param name="o"></param>
         /// <param name="v"></param>
         /// <returns></returns>
-        public static T Assign<T>(this T o,out T v)
+        public static T Assign<T>(this T o, out T v)
         {
             v = o;
             return o;
@@ -983,6 +983,16 @@ namespace CPF
         {
             //return base.GetPropertyMetadata(propertyName);
             return new PropertyMetadataAttribute() { PropertyName = propertyName, PropertyType = row.Table.Columns[propertyName].DataType };
+        }
+
+        public override IEnumerable<PropertyMetadataAttribute> GetProperties()
+        {
+            List<PropertyMetadataAttribute> list = new List<PropertyMetadataAttribute>();
+            foreach (DataColumn item in row.Table.Columns)
+            {
+                list.Add(new PropertyMetadataAttribute { PropertyName = item.ColumnName, PropertyType = item.DataType,  });
+            }
+            return list;
         }
     }
 }

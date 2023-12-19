@@ -125,5 +125,10 @@ namespace CPF.Skia
                 return new SkiaPath(p);
             }
         }
+
+        public void Reset()
+        {
+            path.Reset();
+        }
     }
 }

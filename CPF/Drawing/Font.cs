@@ -22,6 +22,9 @@ namespace CPF.Drawing
             this.FontFamily = fontfamily;
             this.FontSize = size;
             this.FontStyle = fontstyle;
+            ascent = 0;
+            descent = 0;
+            lineHeight = 0;
         }
 
         //public Font(IDisposable font, string fontfamily, float size, FontStyles fontstyle)
@@ -76,13 +79,54 @@ namespace CPF.Drawing
             }
             //GC.SuppressFinalize(this);
         }
+        float lineHeight;
         /// <summary>
         /// 字体默认行高
         /// </summary>
-        public float DefaultLineHeight
+        public float LineHeight
         {
-            get { return Platform.Application.GetDrawingFactory().GetDefaultLineHeight(this); }
+            get
+            {
+                if (lineHeight == 0)
+                {
+                    lineHeight = Platform.Application.GetDrawingFactory().GetLineHeight(this);
+                }
+                return lineHeight;
+            }
         }
+
+        float ascent;
+        /// <summary>
+        /// 获取从字样的基线到英语大写字母顶部的距离。
+        /// </summary>
+        public float Ascent
+        {
+            get
+            {
+                if (ascent == 0)
+                {
+                    ascent = Platform.Application.GetDrawingFactory().GetAscent(this);
+                }
+                return ascent;
+            }
+        }
+
+        float descent;
+        /// <summary>
+        /// 获取从字样的基线到行底部的距离
+        /// </summary>
+        public float Descent
+        {
+            get
+            {
+                if (descent == 0)
+                {
+                    descent = Platform.Application.GetDrawingFactory().GetDescent(this);
+                }
+                return descent;
+            }
+        }
+
         //~Font()
         //{
         //    Dispose();

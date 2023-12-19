@@ -440,7 +440,7 @@ namespace CPF.Skia
                 InitializeBrush(strokeBrush);
                 paintWrapper = CreatePaint(strokeBrush, stroke, font);
             }
-            var drawline = decoration.Stroke.Width > 0 && decoration.Brush != null;
+            var drawline = decoration.Stroke.Width > 0 && decoration.Brush != null && decoration.Location != TextDecorationLocation.None;
             List<LinePosition> linePositions = null;
             if (drawline)
             {
@@ -460,13 +460,16 @@ namespace CPF.Skia
                     if (textAlignment != TextAlignment.Left && maxWidth != float.MaxValue || drawline)
                     {
                         w = paint.Paint.MeasureString(text);
-                        if (textAlignment == TextAlignment.Right)
+                        if (textAlignment != TextAlignment.Left && maxWidth != float.MaxValue)
                         {
-                            x = x + (maxWidth - w);
-                        }
-                        else if (textAlignment == TextAlignment.Center)
-                        {
-                            x = x + (maxWidth - w) / 2;
+                            if (textAlignment == TextAlignment.Right)
+                            {
+                                x = x + (maxWidth - w);
+                            }
+                            else if (textAlignment == TextAlignment.Center)
+                            {
+                                x = x + (maxWidth - w) / 2;
+                            }
                         }
                     }
                     if (strokeBrush != null && stroke.Width > 0)
@@ -490,17 +493,17 @@ namespace CPF.Skia
                         {
                             w += 2;
                         }
-                        switch (decoration.Location)
+                        if (decoration.Location.HasFlag(TextDecorationLocation.Underline))
                         {
-                            case TextDecorationLocation.Underline:
-                                linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing, Width = w });
-                                break;
-                            case TextDecorationLocation.OverLine:
-                                linePositions.Add(new LinePosition { X = x, Y = location.Y, Width = w });
-                                break;
-                            case TextDecorationLocation.Strikethrough:
-                                linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing / 2, Width = w });
-                                break;
+                            linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing, Width = w });
+                        }
+                        if (decoration.Location.HasFlag(TextDecorationLocation.OverLine))
+                        {
+                            linePositions.Add(new LinePosition { X = x, Y = location.Y, Width = w });
+                        }
+                        if (decoration.Location.HasFlag(TextDecorationLocation.Strikethrough))
+                        {
+                            linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing / 2, Width = w });
                         }
                     }
                 }
@@ -616,17 +619,17 @@ namespace CPF.Skia
                         }
                         if (drawline)
                         {
-                            switch (decoration.Location)
+                            if (decoration.Location.HasFlag(TextDecorationLocation.Underline))
                             {
-                                case TextDecorationLocation.Underline:
-                                    linePositions.Add(new LinePosition { X = xx, Y = item.y + paint.Paint.FontSpacing + paint.Paint.FontMetrics.Ascent, Width = item.w });
-                                    break;
-                                case TextDecorationLocation.OverLine:
-                                    linePositions.Add(new LinePosition { X = xx, Y = item.y + paint.Paint.FontMetrics.Ascent, Width = item.w });
-                                    break;
-                                case TextDecorationLocation.Strikethrough:
-                                    linePositions.Add(new LinePosition { X = xx, Y = item.y + paint.Paint.FontSpacing / 2 + paint.Paint.FontMetrics.Ascent, Width = item.w });
-                                    break;
+                                linePositions.Add(new LinePosition { X = xx, Y = item.y + paint.Paint.FontSpacing + paint.Paint.FontMetrics.Ascent, Width = item.w });
+                            }
+                            if (decoration.Location.HasFlag(TextDecorationLocation.OverLine))
+                            {
+                                linePositions.Add(new LinePosition { X = xx, Y = item.y + paint.Paint.FontMetrics.Ascent, Width = item.w });
+                            }
+                            if (decoration.Location.HasFlag(TextDecorationLocation.Strikethrough))
+                            {
+                                linePositions.Add(new LinePosition { X = xx, Y = item.y + paint.Paint.FontSpacing / 2 + paint.Paint.FontMetrics.Ascent, Width = item.w });
                             }
                         }
                     }
@@ -636,10 +639,10 @@ namespace CPF.Skia
             paintWrapper?.Dispose();
             if (drawline)
             {
-                using (var brush = decoration.Brush)
+                //using (var brush = decoration.Brush)
                 {
-                    InitializeBrush(brush);
-                    using (var paint = CreatePaint(brush, decoration.Stroke))
+                    InitializeBrush(decoration.Brush);
+                    using (var paint = CreatePaint(decoration.Brush, decoration.Stroke))
                     {
                         foreach (var item in linePositions)
                         {
@@ -662,7 +665,7 @@ namespace CPF.Skia
                 InitializeBrush(strokeBrush);
                 paintWrapper = CreatePaint(strokeBrush, stroke, font);
             }
-            var drawline = decoration.Stroke.Width > 0 && decoration.Brush != null;
+            var drawline = decoration.Stroke.Width > 0 && decoration.Brush != null && decoration.Location != TextDecorationLocation.None;
             List<LinePosition> linePositions = null;
             if (drawline)
             {
@@ -680,13 +683,16 @@ namespace CPF.Skia
                     if (textAlignment != TextAlignment.Left && maxWidth != float.MaxValue || drawline)
                     {
                         w = paint.Paint.MeasureString(text);
-                        if (textAlignment == TextAlignment.Right)
+                        if (textAlignment != TextAlignment.Left && maxWidth != float.MaxValue)
                         {
-                            x = x + (maxWidth - w);
-                        }
-                        else if (textAlignment == TextAlignment.Center)
-                        {
-                            x = x + (maxWidth - w) / 2;
+                            if (textAlignment == TextAlignment.Right)
+                            {
+                                x = x + (maxWidth - w);
+                            }
+                            else if (textAlignment == TextAlignment.Center)
+                            {
+                                x = x + (maxWidth - w) / 2;
+                            }
                         }
                     }
                     if (strokeBrush != null && stroke.Width > 0)
@@ -705,17 +711,17 @@ namespace CPF.Skia
                         {
                             w += 2;
                         }
-                        switch (decoration.Location)
+                        if (decoration.Location.HasFlag(TextDecorationLocation.Underline))
                         {
-                            case TextDecorationLocation.Underline:
-                                linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing, Width = w });
-                                break;
-                            case TextDecorationLocation.OverLine:
-                                linePositions.Add(new LinePosition { X = x, Y = location.Y, Width = w });
-                                break;
-                            case TextDecorationLocation.Strikethrough:
-                                linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing / 2, Width = w });
-                                break;
+                            linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing, Width = w });
+                        }
+                        if (decoration.Location.HasFlag(TextDecorationLocation.OverLine))
+                        {
+                            linePositions.Add(new LinePosition { X = x, Y = location.Y, Width = w });
+                        }
+                        if (decoration.Location.HasFlag(TextDecorationLocation.Strikethrough))
+                        {
+                            linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing / 2, Width = w });
                         }
                     }
                 }
@@ -764,13 +770,16 @@ namespace CPF.Skia
                     if (textAlignment != TextAlignment.Left && maxWidth != float.MaxValue || drawline)
                     {
                         w = paint.Paint.MeasureString(newText);
-                        if (textAlignment == TextAlignment.Right)
+                        if (textAlignment != TextAlignment.Left && maxWidth != float.MaxValue)
                         {
-                            x = x + (maxWidth - w);
-                        }
-                        else if (textAlignment == TextAlignment.Center)
-                        {
-                            x = x + (maxWidth - w) / 2;
+                            if (textAlignment == TextAlignment.Right)
+                            {
+                                x = x + (maxWidth - w);
+                            }
+                            else if (textAlignment == TextAlignment.Center)
+                            {
+                                x = x + (maxWidth - w) / 2;
+                            }
                         }
                     }
                     if (strokeBrush != null && stroke.Width > 0)
@@ -789,17 +798,17 @@ namespace CPF.Skia
                         {
                             w += 2;
                         }
-                        switch (decoration.Location)
+                        if (decoration.Location.HasFlag(TextDecorationLocation.Underline))
                         {
-                            case TextDecorationLocation.Underline:
-                                linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing, Width = w });
-                                break;
-                            case TextDecorationLocation.OverLine:
-                                linePositions.Add(new LinePosition { X = x, Y = location.Y, Width = w });
-                                break;
-                            case TextDecorationLocation.Strikethrough:
-                                linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing / 2, Width = w });
-                                break;
+                            linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing, Width = w });
+                        }
+                        if (decoration.Location.HasFlag(TextDecorationLocation.OverLine))
+                        {
+                            linePositions.Add(new LinePosition { X = x, Y = location.Y, Width = w });
+                        }
+                        if (decoration.Location.HasFlag(TextDecorationLocation.Strikethrough))
+                        {
+                            linePositions.Add(new LinePosition { X = x, Y = location.Y + paint.Paint.FontSpacing / 2, Width = w });
                         }
                     }
                 }
@@ -807,10 +816,10 @@ namespace CPF.Skia
             paintWrapper?.Dispose();
             if (drawline)
             {
-                using (var brush = decoration.Brush)
+                //using (var brush = decoration.Brush)
                 {
-                    InitializeBrush(brush);
-                    using (var paint = CreatePaint(brush, decoration.Stroke))
+                    InitializeBrush(decoration.Brush);
+                    using (var paint = CreatePaint(decoration.Brush, decoration.Stroke))
                     {
                         foreach (var item in linePositions)
                         {

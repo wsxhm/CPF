@@ -247,6 +247,11 @@ namespace CPF.Drawing
             return base.ToString();
         }
 
+        public void Reset()
+        {
+            PathIml.Reset();
+        }
+
         #region IDisposable Support
 
         protected virtual void Dispose(bool disposing)

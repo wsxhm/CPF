@@ -323,7 +323,7 @@ namespace CPF.Controls
                     line.Measure(availableSize);
                     if (document.Children.Count == 0)
                     {
-                        return new Size(1, font.DefaultLineHeight);
+                        return new Size(1, font.LineHeight);
                     }
                     return new Size(((IDocumentElement)document).Width, document.Height);
                 }
@@ -350,7 +350,7 @@ namespace CPF.Controls
                     //return finalSize;
                     if (document.Children.Count == 0)
                     {
-                        return new Size(1, font.DefaultLineHeight);
+                        return new Size(1, font.LineHeight);
                     }
                     return new Size(((IDocumentElement)document).Width, document.Height);
                 }

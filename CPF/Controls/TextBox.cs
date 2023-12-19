@@ -842,6 +842,42 @@ namespace CPF.Controls
             TextBoxView.UpdateCaretPosition();
         }
 
+        public void Undo()
+        {
+            if (!IsReadOnly && IsUndoEnabled)
+            {
+                if (undoRedoStates.Count > 1 && undoIndex > 0)
+                {
+                    isRedo = true;
+                    undoIndex--;
+                    Document.Children.Clear();
+                    document.Children.AddRange(undoRedoStates[undoIndex].Items);
+                    caretIndex.Clear();
+                    caretIndex.Add(undoRedoStates[undoIndex].CaretPosition);
+                    selectionEnd.Clear();
+                    //isRedo = false;
+                }
+            }
+        }
+
+        public void Redo()
+        {
+            if (!IsReadOnly && IsUndoEnabled)
+            {
+                if (undoIndex < undoRedoStates.Count - 1)
+                {
+                    isRedo = true;
+                    undoIndex++;
+                    Document.Children.Clear();
+                    document.Children.AddRange(undoRedoStates[undoIndex].Items);
+                    caretIndex.Clear();
+                    caretIndex.Add(undoRedoStates[undoIndex].CaretPosition);
+                    selectionEnd.Clear();
+                    //isRedo = false;
+                }
+            }
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
@@ -993,36 +1029,10 @@ namespace CPF.Controls
                         }
                         break;
                     case PlatformHotkey.Undo:
-                        if (!IsReadOnly && IsUndoEnabled)
-                        {
-                            if (undoRedoStates.Count > 1 && undoIndex > 0)
-                            {
-                                isRedo = true;
-                                undoIndex--;
-                                Document.Children.Clear();
-                                document.Children.AddRange(undoRedoStates[undoIndex].Items);
-                                caretIndex.Clear();
-                                caretIndex.Add(undoRedoStates[undoIndex].CaretPosition);
-                                selectionEnd.Clear();
-                                //isRedo = false;
-                            }
-                        }
+                        Undo();
                         break;
                     case PlatformHotkey.Redo:
-                        if (!IsReadOnly && IsUndoEnabled)
-                        {
-                            if (undoIndex < undoRedoStates.Count - 1)
-                            {
-                                isRedo = true;
-                                undoIndex++;
-                                Document.Children.Clear();
-                                document.Children.AddRange(undoRedoStates[undoIndex].Items);
-                                caretIndex.Clear();
-                                caretIndex.Add(undoRedoStates[undoIndex].CaretPosition);
-                                selectionEnd.Clear();
-                                //isRedo = false;
-                            }
-                        }
+                        Redo();
                         break;
                     default:
                         break;

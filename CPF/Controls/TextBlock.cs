@@ -185,7 +185,7 @@ namespace CPF.Controls
                             s = DrawingFactory.Default.MeasureString(text, font, size.Width);
                             if (TextTrimming == TextTrimming.CharacterEllipsis)
                             {
-                                var fh = font.DefaultLineHeight;
+                                var fh = font.LineHeight;
                                 if (size.Height > fh && s.Height > size.Height && size.Height % fh > 0.001)
                                 {
                                     s.Height = (int)(size.Height / fh) * fh;
@@ -197,7 +197,7 @@ namespace CPF.Controls
                             s = DrawingFactory.Default.MeasureString(text, font, size.Width);
                             if (TextTrimming == TextTrimming.CharacterEllipsis)
                             {
-                                var fh = font.DefaultLineHeight;
+                                var fh = font.LineHeight;
                                 if (size.Height > fh && s.Height > size.Height && size.Height % fh > 0.001)
                                 {
                                     s.Height = (int)(size.Height / fh) * fh;

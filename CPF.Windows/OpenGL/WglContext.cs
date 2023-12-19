@@ -51,19 +51,18 @@ namespace CPF.Windows.OpenGL
             //Wgl.WGL_ALPHA_BITS_ARB, 8, 
             ////Wgl.WGL_SAMPLE_BUFFERS_ARB, 1,    // MSAA on,开启多重采样
             ////Wgl.WGL_SAMPLES_ARB, 4,                 // 4x MSAA ,多重采样样本数量为4
-
             //0, 0
             //}, new float[] { 0, 0 }, 1, nPixelFormat, out var f);
-            //Wgl.SetPixelFormat(dc, nPixelFormat[0], ref pfd);
+            //r= Wgl.SetPixelFormat(dc, nPixelFormat[0], ref pfd);
             //rc = Wgl.WglCreateContextAttribsArb(dc, IntPtr.Zero,
             //new[]
             //{
             //    // major
             //    WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
             //    // minor
-            //    WGL_CONTEXT_MINOR_VERSION_ARB,  0,
+            //    WGL_CONTEXT_MINOR_VERSION_ARB,  3,
             //    // core profile
-            //    WGL_CONTEXT_PROFILE_MASK_ARB, 1, 
+            //    //WGL_CONTEXT_PROFILE_MASK_ARB, 0, 
             //    // debug 
             //    // WGL_CONTEXT_FLAGS_ARB, 1,
             //    // end
@@ -73,6 +72,7 @@ namespace CPF.Windows.OpenGL
             if (rc == IntPtr.Zero)
             {
                 Console.WriteLine("无法创建OpenGLContext   DC:" + dc + "  Handle:" + handle);
+                System.Diagnostics.Debug.WriteLine("无法创建OpenGLContext   DC:" + dc + "  Handle:" + handle);
             }
             else
             {

@@ -69,18 +69,19 @@ namespace CPF.Drawing
 
     public enum TextDecorationLocation : byte
     {
+        None,
         /// <summary>
-        /// 下划线的垂直位置。 这是默认值。
+        /// 下划线的垂直位置。
         /// </summary>
-        Underline = 0,
+        Underline = 1,
         /// <summary>
         /// 上划线的垂直位置。
         /// </summary>
-        OverLine = 1,
+        OverLine = 2,
         /// <summary>
         /// 删除线的垂直位置。
         /// </summary>
-        Strikethrough = 2,
+        Strikethrough = 4,
 
     }
 }
