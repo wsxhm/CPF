@@ -145,8 +145,16 @@ namespace CPF.Controls
                 }
                 return;
             }
+            if (string.IsNullOrEmpty(data))
+            {
+                return;
+            }
             var root = Root;
             var cm = CommandMessage<object>.DeserializeWithString(data);
+            if (cm == null)
+            {
+                return;
+            }
             Invoke(() =>
             {
                 if (cm.MessageType == MessageType.GetChildren)

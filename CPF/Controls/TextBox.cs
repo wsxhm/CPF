@@ -1478,28 +1478,45 @@ namespace CPF.Controls
         /// <returns></returns>
         public (string text, string html) GetSelectedString()
         {
+            return GetString(caretIndex, selectionEnd);
+        }
+        /// <summary>
+        /// 获取所有Html和Text格式内容
+        /// </summary>
+        /// <returns></returns>
+        public (string text, string html) GetString()
+        {
+            return GetString(new uint[] { 0 }, new uint[] { (uint)Document.Children.Count });
+        }
+
+        /// <summary>
+        /// 获取Html和Text格式内容
+        /// </summary>
+        /// <returns></returns>
+        public (string text, string html) GetString(IList<uint> start, IList<uint> end)
+        {
             StringBuilder sb = new StringBuilder();
             sb.Append("<pre>");
             StringBuilder textSb = new StringBuilder();
             IDocumentContainer documentContainer = Document;
-            var l = Math.Min(caretIndex.Count, selectionEnd.Count);
+            var l = Math.Min(start.Count, end.Count);
             for (int i = 0; i < l; i++)
             {
-                if (caretIndex[i] > selectionEnd[i])
+                if (start[i] > end[i])
                 {
-                    GetText(sb, textSb, i, documentContainer, caretIndex, selectionEnd);
+                    GetText(sb, textSb, i, documentContainer, start, end);
                     break;
                 }
-                else if (caretIndex[i] < selectionEnd[i])
+                else if (start[i] < end[i])
                 {
-                    GetText(sb, textSb, i, documentContainer, selectionEnd, caretIndex);
+                    GetText(sb, textSb, i, documentContainer, end, start);
                     break;
                 }
                 else
                 {
                     if (i < l - 1)
                     {
-                        documentContainer = documentContainer.Children[(int)caretIndex[i]] as IDocumentContainer;
+                        documentContainer = documentContainer.Children[(int)start[i]] as IDocumentContainer;
                         if (documentContainer == null)
                         {
                             break;
@@ -1509,17 +1526,6 @@ namespace CPF.Controls
             }
             sb.Append("</pre>");
             return (textSb.ToString(), sb.ToString());
-        }
-
-        /// <summary>
-        /// 获取选中的内容
-        /// </summary>
-        /// <returns></returns>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("建议用GetSelectedString")]
-        public (string text, string html) GetString()
-        {
-            return GetSelectedString();
         }
 
         public virtual void Paste()
