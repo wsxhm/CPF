@@ -18,11 +18,11 @@ namespace CPF
             PropertyName = sourceProperty;
         }
 
-        public BindingDescribe(string sourceProperty, BindingMode binding)
-        {
-            PropertyName = sourceProperty;
-            BindingMode = binding;
-        }
+        //public BindingDescribe(string sourceProperty, BindingMode binding)
+        //{
+        //    PropertyName = sourceProperty;
+        //    BindingMode = binding;
+        //}
         /// <summary>
         /// 设置绑定
         /// </summary>
@@ -39,25 +39,24 @@ namespace CPF
         /// 设置绑定
         /// </summary>
         /// <param name="source">如果是int或者byte，0是自己，1是Parent，2是Parent.Parent....</param>
-        /// <param name="source"></param>
         /// <param name="sourceProperty"></param>
         public BindingDescribe(object source, string sourceProperty)
         {
             PropertyName = sourceProperty;
             Source = source;
         }
-        /// <summary>
-        /// 设置绑定
-        /// </summary>
-        /// <param name="source">如果是int或者byte，0是自己，1是Parent，2是Parent.Parent....</param>
-        /// <param name="sourceProperty"></param>
-        /// <param name="convert"></param>
-        public BindingDescribe(object source, string sourceProperty, Func<object, object> convert)
-        {
-            PropertyName = sourceProperty;
-            Source = source;
-            Convert = convert;
-        }
+        ///// <summary>
+        ///// 设置绑定
+        ///// </summary>
+        ///// <param name="source">如果是int或者byte，0是自己，1是Parent，2是Parent.Parent....</param>
+        ///// <param name="sourceProperty"></param>
+        ///// <param name="convert"></param>
+        //public BindingDescribe(object source, string sourceProperty, Func<object, object> convert)
+        //{
+        //    PropertyName = sourceProperty;
+        //    Source = source;
+        //    Convert = convert;
+        //}
         /// <summary>
         /// 设置绑定
         /// </summary>
@@ -80,7 +79,7 @@ namespace CPF
         /// <param name="binding"></param>
         /// <param name="convert"></param>
         /// <param name="convertBack"></param>
-        public BindingDescribe(object source, string sourceProperty, BindingMode binding, Func<object, object> convert, Func<object, object> convertBack)
+        public BindingDescribe(object source, string sourceProperty, BindingMode binding, Func<object, object> convert = null, Func<object, object> convertBack = null)
         {
             BindingMode = binding;
             PropertyName = sourceProperty;
@@ -98,7 +97,7 @@ namespace CPF
         /// <param name="convertBack"></param>
         /// <param name="SourceToTargetError"></param>
         /// <param name="TargetToSourceError"></param>
-        public BindingDescribe(object source, string sourceProperty, BindingMode binding, Func<object, object> convert, Func<object, object> convertBack, Action<Binding, object, Exception> SourceToTargetError, Action<Binding, object, Exception> TargetToSourceError)
+        public BindingDescribe(object source, string sourceProperty, BindingMode binding, Func<object, object> convert = null, Func<object, object> convertBack = null, Action<Binding, object, Exception> SourceToTargetError = null, Action<Binding, object, Exception> TargetToSourceError = null)
         {
             BindingMode = binding;
             PropertyName = sourceProperty;
@@ -109,10 +108,10 @@ namespace CPF
             this.TargetToSourceError = TargetToSourceError;
         }
 
-        public BindingDescribe(CommandDescribe command)
-        {
-            Command = command;
-        }
+        //public BindingDescribe(CommandDescribe command)
+        //{
+        //    Command = command;
+        //}
 
         /// <summary>
         /// 数据绑定的转换

@@ -35,32 +35,30 @@ namespace CPF.Drawing
             return Color.ToString();
         }
 
-        protected override void Disposing()
-        {
-            //usings.Remove(this);
-            disposes.Add(this);
-        }
+        //protected override void Disposing()
+        //{
+        //    //usings.Remove(this);
+        //    disposes.Add(this);
+        //}
 
-        internal static SolidColorBrush Creaate(Color color)
+        internal static SolidColorBrush Create(Color color)
         {
             SolidColorBrush sb;
-            if (disposes.Count == 0)
-            {
-                sb = new SolidColorBrush(color);
-            }
-            else
-            {
-                sb = disposes[disposes.Count - 1];
-                disposes.RemoveAt(disposes.Count - 1);
-                sb.Color = color;
-                sb.IsDisposed = false;
-            }
-            //usings.Add(sb);
+            //if (disposes.Count == 0)
+            //{
+            sb = new SolidColorBrush(color);
+            //}
+            //else
+            //{
+            //    sb = disposes[disposes.Count - 1];
+            //    disposes.RemoveAt(disposes.Count - 1);
+            //    sb.Color = color;
+            //    sb.IsDisposed = false;
+            //}
             return sb;
         }
 
-        static List<SolidColorBrush> disposes = new List<SolidColorBrush>();
-        //static HashSet<SolidColorBrush> usings = new HashSet<SolidColorBrush>();
+        //static List<SolidColorBrush> disposes = new List<SolidColorBrush>();
 
     }
 }

@@ -30,9 +30,17 @@ namespace CPF.Design
         }
         public static CommandMessage<T> DeserializeWithString(string json)
         {
-            var obj = JsonSerializer.ToObject<CommandMessage<T>>(json);
-            return obj;
-            //return default;
+            var t = typeof(T);
+            try
+            {
+                var obj = JsonSerializer.ToObject<CommandMessage<T>>(json);
+                return obj;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("JSON异常：" + json + "      \n\n" + t.Name + "   " + e);
+            }
+            return default;
         }
 
         /// <summary>

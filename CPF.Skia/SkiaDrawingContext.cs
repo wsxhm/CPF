@@ -52,6 +52,11 @@ namespace CPF.Skia
         public SkiaDrawingContext(IRenderTarget target, SkiaDrawingFactory drawingFactory)
         {
             this.drawingFactory = drawingFactory;
+            if (target.Width < 1 || target.Height < 1)
+            {
+                Debug.WriteLine("绘图表面为空");
+                Console.WriteLine("绘图表面为空");
+            }
             if (!target.CanUseGPU || !drawingFactory.UseGPU)
             {
                 IntPtr hdc = IntPtr.Zero;

@@ -686,6 +686,7 @@ namespace CPF.Controls
     /// <summary>
     /// 响应布局元素的可见性
     /// </summary>
+    [Flags]
     public enum RVisible : byte
     {
         Hidden = 0,

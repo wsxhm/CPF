@@ -23,7 +23,7 @@ namespace CPF
         public override Brush CreateBrush(in Rect rect, in float renderScaling)
         {
             //return new SolidColorBrush(Color);
-            return SolidColorBrush.Creaate(Color);
+            return SolidColorBrush.Create(Color);
         }
 
         public override string ToString()

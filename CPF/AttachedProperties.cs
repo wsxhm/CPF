@@ -226,16 +226,16 @@ namespace CPF
         {
             Value = value;
         }
-        /// <summary>
-        /// 设置和绑定附加属性
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="sourceProperty"></param>
-        /// <param name="binding"></param>
-        public AttachedDescribe(object value, string sourceProperty, BindingMode binding) : base(sourceProperty, binding)
-        {
-            Value = value;
-        }
+        ///// <summary>
+        ///// 设置和绑定附加属性
+        ///// </summary>
+        ///// <param name="value"></param>
+        ///// <param name="sourceProperty"></param>
+        ///// <param name="binding"></param>
+        //public AttachedDescribe(object value, string sourceProperty, BindingMode binding) : base(sourceProperty, binding)
+        //{
+        //    Value = value;
+        //}
         /// <summary>
         /// 设置和绑定附加属性
         /// </summary>
@@ -257,17 +257,17 @@ namespace CPF
         {
             Value = value;
         }
-        /// <summary>
-        /// 设置和绑定附加属性
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="source"></param>
-        /// <param name="sourceProperty"></param>
-        /// <param name="convert"></param>
-        public AttachedDescribe(object value, object source, string sourceProperty, Func<object, object> convert) : base(source, sourceProperty, convert)
-        {
-            Value = value;
-        }
+        ///// <summary>
+        ///// 设置和绑定附加属性
+        ///// </summary>
+        ///// <param name="value"></param>
+        ///// <param name="source"></param>
+        ///// <param name="sourceProperty"></param>
+        ///// <param name="convert"></param>
+        //public AttachedDescribe(object value, object source, string sourceProperty, Func<object, object> convert) : base(source, sourceProperty, convert)
+        //{
+        //    Value = value;
+        //}
         /// <summary>
         /// 设置和绑定附加属性
         /// </summary>
