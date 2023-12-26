@@ -644,10 +644,11 @@ namespace CPF.Json
     class ILGenerator
     {
         static Type type = Type.GetType("System.Reflection.Emit.ILGenerator");
+        static Type LocalBuilder = Type.GetType("System.Reflection.Emit.LocalBuilder");
         static MethodInfo Emit_ = type.GetMethod("Emit", new Type[] { typeof(OpCode) });
         static MethodInfo Emit_Type = type.GetMethod("Emit", new Type[] { typeof(OpCode), typeof(Type) });
         static MethodInfo Emit_con = type.GetMethod("Emit", new Type[] { typeof(OpCode), typeof(ConstructorInfo) });
-        static MethodInfo Emit_Local = type.GetMethod("Emit", new Type[] { typeof(OpCode), typeof(LocalVariableInfo) });
+        static MethodInfo Emit_Local = type.GetMethod("Emit", new Type[] { typeof(OpCode), LocalBuilder });
         static MethodInfo Emit_FieldInfo = type.GetMethod("Emit", new Type[] { typeof(OpCode), typeof(FieldInfo) });
         static MethodInfo Emit_MethodInfo = type.GetMethod("Emit", new Type[] { typeof(OpCode), typeof(MethodInfo) });
         static MethodInfo Emit_MethodInfo_Type = type.GetMethod("EmitCall", new Type[] { typeof(OpCode), typeof(MethodInfo), typeof(Type[]) });

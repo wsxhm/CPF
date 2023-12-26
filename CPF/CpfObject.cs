@@ -223,6 +223,10 @@ namespace CPF
                     {
                         Bindings.Add(propertyName, value.PropertyName, layer1, value.BindingMode, value.Convert, value.ConvertBack, value.SourceToTargetError, value.TargetToSourceError);
                     }
+                    else if (value.Source is Func<UIElement, UIElement> find)
+                    {
+                        Bindings.Add(propertyName, value.PropertyName, find, value.BindingMode, value.Convert, value.ConvertBack, value.SourceToTargetError, value.TargetToSourceError);
+                    }
                     else
                     {
                         Bindings.Add(propertyName, value.PropertyName, value.Source, value.BindingMode, value.Convert, value.ConvertBack, value.SourceToTargetError, value.TargetToSourceError);

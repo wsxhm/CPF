@@ -108,6 +108,18 @@ namespace CPF
             this.TargetToSourceError = TargetToSourceError;
         }
 
+        public BindingDescribe(Func<UIElement, UIElement> find, string sourcePropertyName, BindingMode bindingMode = BindingMode.OneWay, Func<object, object> convert = null, Func<object, object> convertBack = null, Action<Binding, object, Exception> SourceToTargetError = null, Action<Binding, object, Exception> TargetToSourceError = null)
+        {
+            BindingMode = bindingMode;
+            PropertyName = sourcePropertyName;
+            Source = find;
+            //Find = find;
+            Convert = convert;
+            ConvertBack = convertBack;
+            this.SourceToTargetError = SourceToTargetError;
+            this.TargetToSourceError = TargetToSourceError;
+        }
+
         //public BindingDescribe(CommandDescribe command)
         //{
         //    Command = command;
@@ -388,6 +400,7 @@ namespace CPF
         //}
         public BindingMode BindingMode { get; set; } = BindingMode.OneWay;
         public object Source { get; set; }
+        //public Func<UIElement, UIElement> Find { get; set; }
 
         public Action<Binding, object, Exception> SourceToTargetError { get; set; }
         public Action<Binding, object, Exception> TargetToSourceError { get; set; }

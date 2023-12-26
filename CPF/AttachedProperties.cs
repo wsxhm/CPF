@@ -308,6 +308,10 @@ namespace CPF
         {
             Value = value;
         }
+        public AttachedDescribe(object value, Func<UIElement, UIElement> find, string sourceProperty, BindingMode binding, Func<object, object> convert, Func<object, object> convertBack, Action<Binding, object, Exception> SourceToTargetError, Action<Binding, object, Exception> TargetToSourceError) : base(find, sourceProperty, binding, convert, convertBack, SourceToTargetError, TargetToSourceError)
+        {
+            Value = value;
+        }
 
 
         public object Value { get; set; }
