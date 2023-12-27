@@ -860,7 +860,7 @@ namespace CPF.Controls
                         List<object> list = new List<object>();
                         foreach (var item in SelectedIndexs)
                         {
-                            if (item >= items.Count && item < 0)
+                            if (item >= items.Count || item < 0)
                             {
                                 continue;
                             }
