@@ -273,7 +273,7 @@ namespace CPF.Controls
         /// <param name="propertyName">缓存的属性</param>
         /// <param name="descending">降序</param>
         public void Sort(Comparison<object> comparison, string propertyName = null, bool descending = false)
-        {//选择排序
+        {
             Events[nameof(StartSort)]?.Invoke(this, EventArgs.Empty);
 
             this.comparison = comparison;

@@ -3044,7 +3044,32 @@ namespace CPF
 
         public void Sort(IComparer<T> comparison)
         {
-            Array.Sort(_items, 0, Count, comparison);
+            //Array.Sort(_items, 0, Count, comparison);
+            InsertSort(_items, Count, comparison);
+        }
+
+        //插入排序法
+        void InsertSort(T[] array, int count, IComparer<T> comparison)
+        {
+            //for循环：i作为指针，进行从左到右扫描数据的工作
+            //指针i从1开始扫描，因为i=0时指针左侧无元素
+            for (int i = 1; i < count; i++)
+            {
+                //temp作为指针键值
+                var temp = array[i];
+
+                //新建变量j，从i开始向左扫描已经有序的元素，并与temp比较
+                //若temp小于扫描元素，则将j指针元素向右移位腾出空间
+                int j = i;
+                while (j > 0 && comparison.Compare(array[j - 1], temp) > 0)//array[j - 1] > temp
+                {
+                    array[j] = array[j - 1];
+                    j--;
+                }
+                //循环完成后将temp放在j指针位置，完成本次插入
+                array[j] = temp;
+            }
+
         }
     }
 

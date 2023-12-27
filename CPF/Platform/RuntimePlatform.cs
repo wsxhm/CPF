@@ -25,7 +25,7 @@ namespace CPF.Platform
 
         public abstract INotifyIconImpl CreateNotifyIcon();
 
-#if Net4
+#if NET40
         public abstract IList<Screen> GetAllScreen();
 #else
         public abstract IReadOnlyList<Screen> GetAllScreen();

@@ -77,7 +77,7 @@ namespace CPF.Threading
                 timeMre.Reset();
                 //Thread.Sleep(1);
                 //Thread.SpinWait(10000);
-                //#if Net4
+                //#if NET40
                 //                var task = TaskEx.Delay(delay, cancellationTokenSource.Token);
                 //#else
                 //                var task = Task.Delay(delay, cancellationTokenSource.Token);

@@ -174,7 +174,7 @@ namespace CPF.Controls
                         {
                             try
                             {
-#if Net4
+#if NET40
                                 if (item.CanRead && item.GetGetMethod().GetParameters().Length == 0)
                                 {
                                     var v = item.GetValue(ele, null);

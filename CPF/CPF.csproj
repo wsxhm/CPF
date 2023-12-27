@@ -6,7 +6,7 @@
     <Company>QQ:761716178</Company>
     <Product>QQ:761716178 跨平台UI框架</Product>
     <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>
-    <Version>0.9.6.6</Version>
+    <Version>0.9.6.7</Version>
     <LangVersion>9.0</LangVersion>
     <PackageId>Xhm.CPF</PackageId>
     <PackageProjectUrl></PackageProjectUrl>
@@ -50,7 +50,7 @@
     <Compile Remove="Drawing\FormattedText.cs" />
     <Compile Remove="Drawing\Matrix - 复制.cs" />
     <Compile Remove="Effects\OpacityMaskEffect.cs" />
-    <Compile Remove="Net4\CallerMember.cs" />
+    <Compile Remove="NET40\CallerMember.cs" />
     <Compile Remove="Platform\IScreenImpl.cs" />
     <Compile Remove="Reflection\Accessor.cs" />
     <Compile Remove="Reflection\ConstructorInvoker.cs" />
@@ -95,7 +95,7 @@
     <EmbeddedResource Include="loading.gif" />
   </ItemGroup>
   <PropertyGroup>
-    <DefineConstants Condition="'$(TargetFramework)'=='net40'">Net4</DefineConstants>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
     <PackageReference Include="AsyncBridge" Version="0.3.1" />

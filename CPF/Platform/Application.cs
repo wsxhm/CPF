@@ -39,7 +39,7 @@ namespace CPF.Platform
         {
             Threading.Dispatcher.mainId = Thread.CurrentThread.ManagedThreadId;
             CPF.Threading.Dispatcher.mainThread = null;
-#if Net4
+#if NET40
             OperatingSystem = OperatingSystemType.Windows;
             foreach (var item in runtimes)
             {

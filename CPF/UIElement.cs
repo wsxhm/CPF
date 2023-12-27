@@ -3062,7 +3062,7 @@ namespace CPF
         /// </summary>
         /// <returns></returns>
 
-#if Net4
+#if NET40
         public IList<UIElement> GetChildren()
 #else
         public IReadOnlyList<UIElement> GetChildren()

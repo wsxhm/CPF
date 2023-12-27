@@ -10,7 +10,7 @@ namespace CPF
     /// 子元素集合
     /// </summary>
     public class UIElementCollection : IEnumerable<UIElement>, IList, IList<UIElement>
-#if Net4
+#if NET40
 #else
         , IReadOnlyList<UIElement>
 #endif

@@ -1009,7 +1009,7 @@ namespace CPF
         public bool ReadValue<T>(out T value) where T : struct
         {
             value = default;
-#if Net4
+#if NET40
             int len = Marshal.SizeOf(typeof(T));
 #else
             int len = Marshal.SizeOf<T>();
@@ -1018,7 +1018,7 @@ namespace CPF
             {
                 IntPtr ptr = Marshal.AllocHGlobal(len);
                 Marshal.Copy(data, 0, ptr, len);
-#if Net4
+#if NET40
                 value = (T)Marshal.PtrToStructure(ptr, typeof(T));
 #else
                 value = Marshal.PtrToStructure<T>(ptr);

@@ -8,7 +8,7 @@ namespace CPF.Platform
     public class Screen
     {
 
-#if Net4
+#if NET40
         private static IList<Screen> _allScreens;
         public static IList<Screen> AllScreens
 #else

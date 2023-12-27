@@ -211,7 +211,7 @@ namespace CPF.Documents
         /// <summary>
         /// 布局好的行
         /// </summary>
-#if Net4
+#if NET40
         public IList<TextLine> Lines
         {
             get { return lines; }

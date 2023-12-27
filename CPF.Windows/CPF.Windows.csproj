@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net40;netstandard2.0;net5</TargetFrameworks>
     <Product>QQ:761716178 跨平台UI框架</Product>
-    <Version>0.9.6.6</Version>
+    <Version>0.9.6.7</Version>
     <PackageId>Xhm.CPF.Windows</PackageId>
     <Description>CPF(Cross platform UI framework) QQ:761716178 跨平台UI框架  http://cpf.cskin.net/</Description>
     <PackageProjectUrl>http://cpf.cskin.net/</PackageProjectUrl>
@@ -55,6 +55,7 @@
 
   <PropertyGroup>
     <DefineConstants Condition="'$(TargetFramework)'=='net40'">Net4</DefineConstants>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   
 </Project>

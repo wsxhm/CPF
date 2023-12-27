@@ -45,7 +45,7 @@ namespace CPF.Design
         }
 
         Screen[] screens = new Screen[] { new Screen(new Rect(0, 0, 1920, 1080), new Rect(0, 0, 1920, 1080), true) };
-#if Net4
+#if NET40
         public override IList<Screen> GetAllScreen()
         {
             return screens;

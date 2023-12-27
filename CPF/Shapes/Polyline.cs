@@ -23,7 +23,7 @@ namespace CPF.Shapes
                 if (points == null)
                 {
                     points = new Collection<Point>();
-//#if Net4
+//#if NET40
                     points.CollectionChanged += Points_CollectionChanged;
 //#else
 //                    var method = typeof(Polyline).GetMethod(nameof(Points_CollectionChanged), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);

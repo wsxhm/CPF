@@ -535,7 +535,7 @@ namespace CPF
             };
             layer.ShowDialog(root);
             return await
-#if Net4
+#if NET40
                 TaskEx
 #else
                 Task
@@ -574,7 +574,7 @@ namespace CPF
             };
             layer.ShowDialog(root);
             await
-#if Net4
+#if NET40
                 TaskEx
 #else
                 Task

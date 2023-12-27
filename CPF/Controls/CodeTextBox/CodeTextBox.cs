@@ -225,7 +225,7 @@ namespace CPF.Controls
         /// <summary>
         /// 布局好的行
         /// </summary>
-#if Net4
+#if NET40
         public IList<TextLine> Lines
         {
             get { return codeTextView.Lines; }
@@ -269,7 +269,7 @@ namespace CPF.Controls
             if (render)
             {
                 render = false;
-#if Net4
+#if NET40
                 await TaskEx.Delay(30);
 #else
                 await Task.Delay(30);
@@ -285,7 +285,7 @@ namespace CPF.Controls
                     Cancellation = new CancellationTokenSource();
                 }
                 var ks = KeywordsStyles.ToArray();
-#if Net4
+#if NET40
                 var styles = await TaskEx.Run(() => CodeTextView.RenderKeywords(Cancellation.Token, ks, codeTextView.Text));
 #else
                 var styles = await Task.Run(() => CodeTextView.RenderKeywords(Cancellation.Token, ks, codeTextView.Text));
