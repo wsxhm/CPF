@@ -163,6 +163,10 @@ namespace CPF.Json
             {
                 sd = new Dictionary<string, myPropInfo>();
                 var bf = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
+                if (type.Name == "Nullable`1")
+                {
+                    type = type.GetGenericArguments()[0];
+                }
                 PropertyInfo[] pr = type.GetProperties(bf);
                 foreach (PropertyInfo p in pr)
                 {
@@ -317,16 +321,26 @@ namespace CPF.Json
                     }
                     else // structs
                     {
-                        DynamicMethod dynMethod = new DynamicMethod("_", typeof(object), null);
-                        ILGenerator ilGen = dynMethod.GetILGenerator();
-                        var lv = ilGen.DeclareLocal(objtype);
-                        ilGen.Emit(OpCodes.Ldloca_S, lv);
-                        ilGen.Emit(OpCodes.Initobj, objtype);
-                        ilGen.Emit(OpCodes.Ldloc_0);
-                        ilGen.Emit(OpCodes.Box, objtype);
-                        ilGen.Emit(OpCodes.Ret);
-                        c = (CreateObject)dynMethod.CreateDelegate(typeof(CreateObject));
-                        _constrcache.Add(objtype, c);
+                        if (objtype.Name == "Nullable`1")
+                        {
+                            var sType = objtype.GetGenericArguments()[0];
+                            var create = objtype.GetConstructor(new Type[] { sType });
+                            c = () => create.Invoke(new object[] { null });
+                            _constrcache.Add(objtype, c);
+                        }
+                        else
+                        {
+                            DynamicMethod dynMethod = new DynamicMethod("_", typeof(object), null);
+                            ILGenerator ilGen = dynMethod.GetILGenerator();
+                            var lv = ilGen.DeclareLocal(objtype);
+                            ilGen.Emit(OpCodes.Ldloca_S, lv);
+                            ilGen.Emit(OpCodes.Initobj, objtype);
+                            ilGen.Emit(OpCodes.Ldloc_0);
+                            ilGen.Emit(OpCodes.Box, objtype);
+                            ilGen.Emit(OpCodes.Ret);
+                            c = (CreateObject)dynMethod.CreateDelegate(typeof(CreateObject));
+                            _constrcache.Add(objtype, c);
+                        }
                     }
                     return c();
                 }

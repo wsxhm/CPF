@@ -228,6 +228,11 @@ namespace CPF.Platform
             get;
             set;
         }
+        /// <summary>
+        /// 某些平台下不能使用CPF的消息循环，需要将该属性改成false
+        /// </summary>
+        public static bool NeedRunLoop { get; set; } = true;
+
 //#if NETSTANDARD
 //        /// <summary>
 //        /// 启用AOT功能，net5以及以上版本才能使用，其中包括，禁用弱引用事件功能，一般在Aot的release发布的时候设置。如果不用Aot，请勿设置，否则可能有内存泄露风险，而且会导致性能降低。 以及切换windows的com包装

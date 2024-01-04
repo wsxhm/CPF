@@ -1490,8 +1490,10 @@ BLENDFUNCTION blendFunction // alpha-blending function
         //[DllImport("shell32.dll", CharSet = CharSet.Auto)]
         //public static extern int DragQueryFile(HandleRef hDrop, int iFile, StringBuilder lpszFile, int cch);
 
-        [DllImport("dwmapi.dll", PreserveSig = false)]
-        public static extern bool DwmIsCompositionEnabled();
+        //[DllImport("dwmapi.dll", PreserveSig = false)]
+        //public static extern bool DwmIsCompositionEnabled();
+        [DllImport("dwmapi.dll", BestFitMapping = false)]
+        public static extern int DwmIsCompositionEnabled(out Int32 enabled);
 
         [DllImport("dwmapi.dll")]
         public static extern int DwmEnableBlurBehindWindow(IntPtr hWnd, ref DWM_BLURBEHIND pBlurBehind);

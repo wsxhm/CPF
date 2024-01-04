@@ -620,7 +620,7 @@ namespace CPF
                 throw new Exception($"错误:{ex}");
             }
         }
-        CpfObject SourceProperty = null;
+        //CpfObject SourceProperty = null;
         private void Target_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //重新绑定

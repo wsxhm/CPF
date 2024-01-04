@@ -46,7 +46,7 @@ namespace CPF.Threading
             if (timeThread == null)
             {
                 timers = new List<DispatcherTimer>();
-                tempTimers = new List<DispatcherTimer>(); 
+                tempTimers = new List<DispatcherTimer>();
                 timeThread = new Thread(SetTime) { IsBackground = true, Name = "定时器线程" };
                 timeThread.Start();
             }
@@ -100,7 +100,7 @@ namespace CPF.Threading
                 }
                 if (tempTimers.Count > 0)
                 {
-                    if (CPF.Platform.Application.Main != null)
+                    if ((CPF.Platform.Application.NeedRunLoop && CPF.Platform.Application.Main != null) || !CPF.Platform.Application.NeedRunLoop)
                     {
                         Dispatcher.MainThread.Invoke(() =>
                         {

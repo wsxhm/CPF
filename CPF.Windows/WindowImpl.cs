@@ -83,7 +83,7 @@ namespace CPF.Windows
             }
             posttime = Application.Elapsed;
             var v = System.Environment.OSVersion.Version;
-            if (v.Major >= 6 && DwmIsCompositionEnabled() && !Application.DesignMode)
+            if (v.Major >= 6 && DwmIsCompositionEnabled(out var e) == 0 && e == 1 && !Application.DesignMode)
             {
             }
             else
@@ -92,7 +92,7 @@ namespace CPF.Windows
             }
             if ((v.Major == 6 && v.Minor < 2))
             {
-               touchMsg =  RegisterTouchWindow(handle, RegisterTouchFlags.TWF_NONE);
+                touchMsg = RegisterTouchWindow(handle, RegisterTouchFlags.TWF_NONE);
             }
             _className = "CPFWindow-" + Guid.NewGuid();
             // 初始化窗口类结构  
