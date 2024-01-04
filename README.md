@@ -11,6 +11,9 @@ C#跨平台UI框架
 除了使用平台相关API之外，基本可以实现一次编写，到处运行<br/>
 全面支持国产化，支持国产Linux + 龙芯、飞腾、兆芯、海光等CPU平台
 
+ **gitee** :https://gitee.com/csharpui/CPF <br/>
+ **github** :https://github.com/wsxhm/CPF
+
 ![输入图片说明](Other/2image.png)
 
 ![输入图片说明](Other/1image.png)
@@ -46,6 +49,17 @@ https://gitee.com/csharpui/cpf.vlc  使用CPF对vlc的封装，跨平台视频�
 
 ![输入图片说明](Other/3image.png)
 ![输入图片说明](Other/4image.png)
+
+### Nugets
+
+| Packages |           Version                       |
+|----------|-----------------------------------------|
+| Xhm.CPF  | [![NuGet Status](https://img.shields.io/nuget/v/Xhm.CPF.svg?style=flat)](https://www.nuget.org/packages/Xhm.CPF/)|
+| Xhm.CPF.Windows | [![NuGet Status](https://img.shields.io/nuget/v/Xhm.CPF.Windows.svg?style=flat)](https://www.nuget.org/packages/Xhm.CPF.Windows/)|
+| Xhm.CPF.Skia | [![NuGet Status](https://img.shields.io/nuget/v/Xhm.CPF.Skia.svg?style=flat)](https://www.nuget.org/packages/Xhm.CPF.Skia/)|
+| Xhm.CPF.Linux | [![NuGet Status](https://img.shields.io/nuget/v/Xhm.CPF.Linux.svg?style=flat)](https://www.nuget.org/packages/Xhm.CPF.Linux/)|
+| Xhm.CPF.Mac | [![NuGet Status](https://img.shields.io/nuget/v/Xhm.CPF.Mac.svg?style=flat)](https://www.nuget.org/packages/Xhm.CPF.Mac/)|
+
 
 #### 参与贡献
 
