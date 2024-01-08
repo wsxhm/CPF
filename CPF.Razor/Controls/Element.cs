@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CPF.Razor.Controls
 {
-    public abstract class Element<T> : NativeControlComponentBase<T> where T : UIElement, new()
+    public abstract partial class Element<T> : NativeControlComponentBase<T> where T : UIElement, new()
     {
         protected override void RenderAttributes(AttributesBuilder builder)
         {
@@ -94,15 +94,15 @@ namespace CPF.Razor.Controls
         }
 
 
-        //只要属性和事件自动生成就行
-        [Parameter] public string Name { get; set; }
-        [Parameter] public FloatField? MarginLeft { get; set; }
-        [Parameter] public FloatField? MarginTop { get; set; }
-        [Parameter] public FloatField? MarginBottom { get; set; }
-        [Parameter] public FloatField? MarginRight { get; set; }
-        [Parameter] public CPF.FloatField? Width { get; set; }
-        [Parameter] public CPF.FloatField? Height { get; set; }
-        [Parameter] public EventCallback<MouseButtonEventArgs> MouseDown { get; set; }
+        ////只要属性和事件自动生成就行
+        //[Parameter] public string Name { get; set; }
+        //[Parameter] public FloatField? MarginLeft { get; set; }
+        //[Parameter] public FloatField? MarginTop { get; set; }
+        //[Parameter] public FloatField? MarginBottom { get; set; }
+        //[Parameter] public FloatField? MarginRight { get; set; }
+        //[Parameter] public CPF.FloatField? Width { get; set; }
+        //[Parameter] public CPF.FloatField? Height { get; set; }
+        //[Parameter] public EventCallback<MouseButtonEventArgs> MouseDown { get; set; }
 
     }
 }

@@ -12,7 +12,7 @@ namespace CPF.Razor
     public static class CpfExtensions
     {
         /// <summary>
-        /// Creates a component of type <typeparamref name="TComponent"/> and adds it as a child of <paramref name="parent"/>.
+        /// 创建视图 <typeparamref name="TComponent"/> 添加到 <paramref name="parent"/>.
         /// </summary>
         /// <typeparam name="TComponent"></typeparam>
         /// <param name="host"></param>

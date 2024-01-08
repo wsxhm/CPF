@@ -1,17 +1,20 @@
 ﻿
-<Panel Background="#f00" Width="100" Height="100">
-    <Panel Background="#00f" Width="20" Height="30" MouseDown="OnMouseDown">
-    </Panel>        
+<StackPanel Background="#f00" Width="500" Height="500">
+    <Button Width="80" Height="30" Click="OnMouseDown" Content="text">
+    </Button>
+    <CheckBox Content="12"></CheckBox>
     @if (visible)
     {
         <Panel Background="#0f0" Width="20" Height="30" MarginLeft="10"></Panel>
     }
-</Panel>
+</StackPanel>
 @code
 {
     bool visible = false;
+    string text = "test";
     void OnMouseDown()
     {
+        text = "test" + visible;
         visible = !visible;
     }
 }
