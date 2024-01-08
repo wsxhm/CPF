@@ -8,5 +8,6 @@ namespace CPF.Razor
     public interface ICpfElementHandler : IElementHandler
     {
         UIElement Element { get; }
+        NativeComponentRenderer Renderer { get; set; }
     }
 }

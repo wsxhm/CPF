@@ -1,7 +1,17 @@
 ﻿
 <Panel Background="#f00" Width="100" Height="100">
-    <Panel Background="#00f" Width="20" Height="30"></Panel>
-    <Panel Background="#0ff" Width="20" Height="30" MarginLeft="0"></Panel>
+    <Panel Background="#00f" Width="20" Height="30" MouseDown="OnMouseDown">
+    </Panel>        
+    @if (visible)
+    {
+        <Panel Background="#0f0" Width="20" Height="30" MarginLeft="10"></Panel>
+    }
 </Panel>
-@*<Button></Button>*@
-@*<TestElement Test="123"></TestElement>*@
+@code
+{
+    bool visible = false;
+    void OnMouseDown()
+    {
+        visible = !visible;
+    }
+}

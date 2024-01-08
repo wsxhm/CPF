@@ -258,6 +258,10 @@ namespace CPF.Razor
             //{
             //    componentInstance.SetElementReference(elementHandler);
             //}
+            if (elementHandler is ICpfElementHandler handler)
+            {
+                handler.Renderer = Renderer;
+            }
 
             if (siblingIndex != 0)
             {

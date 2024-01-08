@@ -9,7 +9,7 @@ namespace CPF.Razor
 {
     public abstract class NativeControlComponentBase<T> : ComponentBase, ICpfElementHandler where T : UIElement, new()
     {
-        public IElementHandler ElementHandler { get; private set; }
+        //public IElementHandler ElementHandler { get; private set; }
 
         UIElement ICpfElementHandler.Element => Element;
 
@@ -27,6 +27,13 @@ namespace CPF.Razor
         }
 
         public object TargetElement => Element;
+
+        NativeComponentRenderer _Renderer;
+        public NativeComponentRenderer Renderer
+        {
+            get => _Renderer;
+            set => _Renderer = value;
+        }
 
         //public void SetElementReference(IElementHandler elementHandler)
         //{
