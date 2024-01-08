@@ -59,6 +59,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPF.Demo", "CPF_Demo\CPF.De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "蓝图重制版", "蓝图重制版\蓝图重制版.csproj", "{003E155A-8C40-41AF-A796-ED17E729E013}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPF.Razor", "CPF.Razor\CPF.Razor.csproj", "{87E1ED0A-BFBF-4F5E-9FDF-5EAFE48DD719}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpfRazorSample", "CpfRazorSample\CpfRazorSample.csproj", "{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Private\SharedVSIX\SharedVSIX.projitems*{db53e8d7-dfb6-48eb-a7b6-d1cf762acb9b}*SharedItemsImports = 4
@@ -224,6 +228,18 @@ Global
 		{003E155A-8C40-41AF-A796-ED17E729E013}.Release|Any CPU.Build.0 = Release|Any CPU
 		{003E155A-8C40-41AF-A796-ED17E729E013}.类库d|Any CPU.ActiveCfg = 类库d|Any CPU
 		{003E155A-8C40-41AF-A796-ED17E729E013}.类库d|Any CPU.Build.0 = 类库d|Any CPU
+		{87E1ED0A-BFBF-4F5E-9FDF-5EAFE48DD719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87E1ED0A-BFBF-4F5E-9FDF-5EAFE48DD719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87E1ED0A-BFBF-4F5E-9FDF-5EAFE48DD719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87E1ED0A-BFBF-4F5E-9FDF-5EAFE48DD719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87E1ED0A-BFBF-4F5E-9FDF-5EAFE48DD719}.类库d|Any CPU.ActiveCfg = Debug|Any CPU
+		{87E1ED0A-BFBF-4F5E-9FDF-5EAFE48DD719}.类库d|Any CPU.Build.0 = Debug|Any CPU
+		{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}.类库d|Any CPU.ActiveCfg = Debug|Any CPU
+		{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}.类库d|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -240,5 +256,8 @@ Global
 		{1278A1BC-327D-4D13-AD04-C6FF2B680530} = {2B729C46-7592-425A-87E9-D769A94881F7}
 		{F34CFFEE-546F-490E-A76A-2792840B284D} = {2B729C46-7592-425A-87E9-D769A94881F7}
 		{DF526631-D060-47F2-AFD4-62C6CEA2FE9A} = {2B729C46-7592-425A-87E9-D769A94881F7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16FB883C-167C-4E1A-B311-6D74452A3CD6}
 	EndGlobalSection
 EndGlobal

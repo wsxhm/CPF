@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Core\ElementHandlerFactory.cs" />
+    <Compile Remove="Core\ElementHandlerFactoryContext.cs" />
+    <Compile Remove="Core\ElementHandlerRegistry.cs" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <Compile Remove="Core\**" />
+    <EmbeddedResource Remove="Core\**" />
+    <None Remove="Core\**" />
+  </ItemGroup>-->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="0.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CPF\CPF.csproj" />
+  </ItemGroup>
+</Project>
