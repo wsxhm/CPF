@@ -13,7 +13,7 @@ namespace CPF.Razor.Controls
     /// <summary>
     /// 表示可包含其他可视元素的可滚动区域
     /// </summary>
-    public partial class ScrollViewer : Element<CPF.Controls.ScrollViewer>
+    public partial class ScrollViewer : Element<CPF.Controls.ScrollViewer> ,IHandleChildContentText
     {
         
         /// <summary>

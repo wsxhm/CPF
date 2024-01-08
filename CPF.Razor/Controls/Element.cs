@@ -93,6 +93,13 @@ namespace CPF.Razor.Controls
             return r;
         }
 
+        public void HandleText(int index, string text)
+        {
+            if (Element is CPF.Controls.ContentControl control)
+            {
+                control.Content = text;
+            }
+        }
 
         ////只要属性和事件自动生成就行
         //[Parameter] public string Name { get; set; }

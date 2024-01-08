@@ -13,7 +13,7 @@ namespace CPF.Razor.Controls
     /// <summary>
     /// 表示 Windows 按钮控件，该按钮对 Click 事件做出反应。
     /// </summary>
-    public partial class Button : Element<CPF.Controls.Button>
+    public partial class Button : Element<CPF.Controls.Button> ,IHandleChildContentText
     {
         
         /// <summary>

@@ -13,7 +13,7 @@ namespace CPF.Razor.Controls
     /// <summary>
     /// 表示一种控件，该控件显示具有可折叠内容显示窗口的标题。
     /// </summary>
-    public partial class Expander : Element<CPF.Controls.Expander>
+    public partial class Expander : Element<CPF.Controls.Expander> ,IHandleChildContentText
     {
         
         /// <summary>

@@ -13,7 +13,7 @@ namespace CPF.Razor.Controls
     /// <summary>
     /// 表示从按下按钮到释放按钮的时间内重复引发其 Click 事件的控件。
     /// </summary>
-    public partial class RepeatButton : Element<CPF.Controls.RepeatButton>
+    public partial class RepeatButton : Element<CPF.Controls.RepeatButton> ,IHandleChildContentText
     {
         
         /// <summary>

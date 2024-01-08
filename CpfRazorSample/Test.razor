@@ -1,18 +1,22 @@
-﻿
-<StackPanel Background="#f00" Width="500" Height="500">
-    <Button Width="80" Height="30" Click="OnMouseDown" Content="text">
-    </Button>
-    <CheckBox Content="12"></CheckBox>
-    @if (visible)
-    {
-        <Panel Background="#0f0" Width="20" Height="30" MarginLeft="10"></Panel>
-    }
-</StackPanel>
+﻿<WindowFrame MaximizeBox="true" Width='"100%"' Height="@("100%")">
+    <StackPanel Background="#f00" Width='"100%"' Height="@("100%")">
+        <Button Width="80" Height="30" MouseDown="OnMouseDown" Content="text">
+        </Button>
+        <CheckBox Content="12"></CheckBox>
+        @if (visible)
+        {
+            <Panel Background="#0f0" Width="20" Height="30" MarginLeft="10"></Panel>
+        }
+        <Button>1234dsggs</Button>
+        <TextBox Text="@text"></TextBox>
+        <Button><CheckBox></CheckBox></Button>
+    </StackPanel>
+</WindowFrame>
 @code
 {
     bool visible = false;
     string text = "test";
-    void OnMouseDown()
+    void OnMouseDown(CPF.Input.MouseButtonEventArgs e)
     {
         text = "test" + visible;
         visible = !visible;

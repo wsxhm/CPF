@@ -7,14 +7,13 @@ using CPF.Input;
 using CPF.Razor;
 using CPF.Shapes;
 using Microsoft.AspNetCore.Components;
-using System;
 
 namespace CPF.Razor.Controls
 {
     /// <summary>
-    /// 可切换状态的控件基类
+    /// 通用窗体框架，包含窗体边框，系统按钮，阴影这些元素
     /// </summary>
-    public partial class ToggleButton : Element<CPF.Controls.ToggleButton> ,IHandleChildContentText
+    public partial class WindowFrame : Element<CPF.Controls.WindowFrame>
     {
         
         /// <summary>
@@ -37,12 +36,6 @@ namespace CPF.Razor.Controls
         /// 边框类型，BorderStroke和BorderThickness
         /// <summary>
         [Parameter] public BorderType? BorderType { get; set; }
-        [Parameter] public ClickMode? ClickMode { get; set; }
-        /// <summary>
-        /// 内容可以是字符串，UI元素等等
-        /// <summary>
-        [Parameter] public object Content { get; set; }
-        [Parameter] public string ContentStringFormat { get; set; }
         /// <summary>
         /// 获取或设置一个值，该值表示将 Border 的角倒圆的程度。格式 一个数字或者四个数字 比如10或者 10,10,10,10  topLeft,topRight,bottomRight,bottomLeft
         /// <summary>
@@ -63,20 +56,24 @@ namespace CPF.Razor.Controls
         /// 控件文字的填充
         /// <summary>
         [Parameter] public string Foreground { get; set; }
-        [Parameter] public Nullable<bool> IsChecked { get; set; }
-        [Parameter] public bool? IsThreeState { get; set; }
+        [Parameter] public bool? MaximizeBox { get; set; }
+        [Parameter] public bool? MinimizeBox { get; set; }
         /// <summary>
         /// 获取或设置描述 Thickness 及其子元素之间的空间量的 Border 值。格式：all或者left,top,right,bottom
         /// <summary>
         [Parameter] public Thickness? Padding { get; set; }
         /// <summary>
+        /// 阴影宽度
+        /// <summary>
+        [Parameter] public byte? ShadowBlur { get; set; }
+        /// <summary>
+        /// 显示标题栏图标
+        /// <summary>
+        [Parameter] public bool? ShowIcon { get; set; }
+        /// <summary>
         /// 表示一个文本修饰，它是可添加到文本的视觉装饰（如下划线）。字符串格式： overline/Underline/Strikethrough/none [width[,Solid/Dash/Dot/DashDot/DashDotDot]] [color]
         /// <summary>
         [Parameter] public TextDecoration? TextDecoration { get; set; }
-        [Parameter] public EventCallback Checked { get; set; }
-        [Parameter] public EventCallback Indeterminate { get; set; }
-        [Parameter] public EventCallback Unchecked { get; set; }
-        [Parameter] public EventCallback<CPF.RoutedEventArgs> Click { get; set; }
         [Parameter] public EventCallback Initialized { get; set; }
 
     }

@@ -17,7 +17,7 @@ namespace CPF.Controls
     /// 通用窗体框架，包含窗体边框，系统按钮，阴影这些元素
     /// </summary>
     [Description("通用窗体框架，包含窗体边框，系统按钮，阴影这些元素")]
-    public class WindowFrame : Control
+    public class WindowFrame : ContentControl
     {
         /// <summary>
         /// 通用窗体框架，包含窗体边框，系统按钮，阴影这些元素
@@ -28,11 +28,11 @@ namespace CPF.Controls
         public WindowFrame(IWindow window, UIElement content, params UIElement[] systemButtons)
         {
             this.window = window;
-            this.content = content;
+            this.Content = content;
             this.systemButtons = systemButtons;
         }
 
-        protected WindowFrame() { }
+        public WindowFrame() { }
 
         /// <summary>
         /// 是否显示最大化还原按钮
@@ -54,15 +54,15 @@ namespace CPF.Controls
             get { return window; }
         }
 
-        UIElement content;
-        /// <summary>
-        /// 窗体的内容
-        /// </summary>
-        [NotCpfProperty]
-        public UIElement Content
-        {
-            get { return content; }
-        }
+        //UIElement content;
+        ///// <summary>
+        ///// 窗体的内容
+        ///// </summary>
+        //[NotCpfProperty]
+        //public UIElement Content
+        //{
+        //    get { return content; }
+        //}
 
         IEnumerable<UIElement> systemButtons;
         /// <summary>
@@ -96,7 +96,7 @@ namespace CPF.Controls
 
         protected override void InitializeComponent()
         {
-            
+
             ViewFill color = "#fff";
             ViewFill hoverColor = "255,255,255,40";
             Width = "100%";
@@ -142,6 +142,8 @@ namespace CPF.Controls
             {
                 Width = "100%",
                 Height = "100%",
+                Name = "contentGrid",
+                PresenterFor = this,
                 ColumnDefinitions =
                 {
                     new ColumnDefinition()
@@ -157,6 +159,19 @@ namespace CPF.Controls
 
                     }
                 },
+                Children =
+                {
+                    new Border
+                    {
+                        Name = "contentPresenter",
+                        Height = "100%",
+                        Width = "100%",
+                        BorderFill = null,
+                        BorderStroke="0",
+                        PresenterFor = this,
+                        [Grid.RowIndex]=1,
+                    }
+                }
             });
             //标题栏和按钮
             grid.Children.Add(
@@ -237,6 +252,7 @@ namespace CPF.Controls
                     new StackPanel
                     {
                         Name="controlBox",
+                        PresenterFor=this,
                         MarginRight=0,
                         Height = "100%",
                         Orientation= Orientation.Horizontal,
@@ -495,10 +511,10 @@ namespace CPF.Controls
                     }
                 }
             });
-            if (Content != null)
-            {
-                grid.Children.Add(Content, 0, 1);
-            }
+            //if (Content != null)
+            //{
+            //    grid.Children.Add(Content, 0, 1);
+            //}
         }
 
         protected void DoubleClickTitle()
@@ -513,6 +529,25 @@ namespace CPF.Controls
                      { Window.WindowState = WindowState.Normal; }
                  });
             }
+        }
+
+        protected override void OnAttachedToVisualTree()
+        {
+            var parent = Parent;
+            while (parent != null)
+            {
+                if (parent is IWindow window)
+                {
+                    this.window = window;
+                    break;
+                }
+                parent = parent.Parent;
+            }
+            if (window == null)
+            {
+                window = (IWindow)Root;
+            }
+            base.OnAttachedToVisualTree();
         }
 
     }

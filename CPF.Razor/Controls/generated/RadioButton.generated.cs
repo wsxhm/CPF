@@ -14,7 +14,7 @@ namespace CPF.Razor.Controls
     /// <summary>
     /// 表示可由用户选择但不能清除的按钮。 可以通过单击来设置 IsChecked 的 RadioButton 属性，但只能以编程方式清除该属性。
     /// </summary>
-    public partial class RadioButton : Element<CPF.Controls.RadioButton>
+    public partial class RadioButton : Element<CPF.Controls.RadioButton> ,IHandleChildContentText
     {
         
         /// <summary>

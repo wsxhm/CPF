@@ -31,7 +31,7 @@ namespace CPF.Razor
                     panel.Children.Add(childHandler.Element);
                 }
             }
-            else if (parentHandler.Element is CPF.Controls.Window win)
+            else if (parentHandler.Element is CPF.Controls.View win)
             {
                 if (physicalSiblingIndex <= win.Children.Count)
                 {
@@ -63,6 +63,14 @@ namespace CPF.Razor
             if (handler.Element.Parent is CPF.Controls.Panel panel)
             {
                 panel.Children.Remove(handler.Element);
+            }
+            else if (handler.Element.Parent is CPF.Controls.View win)
+            {
+                win.Children.Remove(handler.Element);
+            }
+            else if (handler.Element.Parent is CPF.Controls.ContentControl contentControl)
+            {
+                contentControl.Content = null;
             }
             else
             {

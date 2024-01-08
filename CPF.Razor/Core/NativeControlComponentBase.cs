@@ -50,7 +50,7 @@ namespace CPF.Razor
             builder.OpenElement(0, GetType().FullName);
             RenderAttributes(new AttributesBuilder(builder));
 
-            var childContent = GetChildContent();
+            var childContent = GetChild();
             if (childContent != null)
             {
                 builder.AddContent(2, childContent);
@@ -63,7 +63,7 @@ namespace CPF.Razor
         {
         }
 
-        protected virtual RenderFragment GetChildContent() => null;
+        protected virtual RenderFragment GetChild() => null;
 
         public abstract void ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName);
 

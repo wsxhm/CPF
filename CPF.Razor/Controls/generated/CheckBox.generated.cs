@@ -14,7 +14,7 @@ namespace CPF.Razor.Controls
     /// <summary>
     /// 表示用户可以选择和清除的控件。
     /// </summary>
-    public partial class CheckBox : Element<CPF.Controls.CheckBox>
+    public partial class CheckBox : Element<CPF.Controls.CheckBox> ,IHandleChildContentText
     {
         
         /// <summary>

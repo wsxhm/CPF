@@ -6,10 +6,8 @@ using System.Text;
 
 namespace CPF.Razor.Controls
 {
-    public partial class Panel : Element<CPF.Controls.Panel>
+    public partial class CheckBox
     {
-        //[Parameter] public string Background { get; set; }
-
         [Parameter] public RenderFragment ChildContent { get; set; }
         protected override RenderFragment GetChild() => ChildContent;
     }

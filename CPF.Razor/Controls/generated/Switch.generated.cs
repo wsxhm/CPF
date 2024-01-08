@@ -14,7 +14,7 @@ namespace CPF.Razor.Controls
     /// <summary>
     /// 左右切换的按钮
     /// </summary>
-    public partial class Switch : Element<CPF.Controls.Switch>
+    public partial class Switch : Element<CPF.Controls.Switch> ,IHandleChildContentText
     {
         
         /// <summary>

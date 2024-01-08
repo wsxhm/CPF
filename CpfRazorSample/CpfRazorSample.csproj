@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CPF.Linux\CPF.Linux.csproj" />
-    <ProjectReference Include="..\CPF.Mac\CPF.Mac.csproj" />
+    <!--<ProjectReference Include="..\CPF.Linux\CPF.Linux.csproj" />
+    <ProjectReference Include="..\CPF.Mac\CPF.Mac.csproj" />-->
     <ProjectReference Include="..\CPF.Razor\CPF.Razor.csproj" />
     <ProjectReference Include="..\CPF.Skia\CPF.Skia.csproj" />
     <ProjectReference Include="..\CPF.Windows\CPF.Windows.csproj" />
