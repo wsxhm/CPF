@@ -7,7 +7,7 @@
         {
             <Panel Background="#0f0" Width="20" Height="30" MarginLeft="10"></Panel>
         }
-        <TextBox @ref="textBox" Text="text" Width="100" Height="30" TextChanged="TextChanged"></TextBox>
+        <TextBox @ref="textBox" @bind-Text="text" Width="100" Height="30"></TextBox>
         <Button @ref="button"><CheckBox>@enable</CheckBox></Button>
         <ListBox @ref="listBox" Width="200" Height="200" Items="list"></ListBox>
     </StackPanel>

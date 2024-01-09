@@ -87,15 +87,19 @@ namespace CPF.Razor.Controls
         }
 
         Dictionary<string, ulong> handlerIds = new Dictionary<string, ulong>();
+
+        /// <summary>
+        /// 事件
+        /// </summary>
         HashSet<string> events = new HashSet<string>();
         /// <summary>
         /// 元素属性
         /// </summary>
-        Dictionary<string, System.Reflection.PropertyInfo> ePs = new Dictionary<string, System.Reflection.PropertyInfo>();
+        Dictionary<string, PropertyInfo> ePs = new Dictionary<string, PropertyInfo>();
         /// <summary>
         /// 依赖属性，用于绑定通知，TextChanged
         /// </summary>
-        Dictionary<string, System.Reflection.PropertyInfo> cPs = new Dictionary<string, System.Reflection.PropertyInfo>();
+        Dictionary<string, PropertyInfo> cPs = new Dictionary<string, PropertyInfo>();
 
         protected override T CreateElement()
         {
@@ -136,7 +140,7 @@ namespace CPF.Razor.Controls
                 events.Add(name);
             }
             r.Commands.Add(nameof(r.PropertyChanged), (s, e) =>
-            {
+            {//属性变换通知事件，给onXXXChanged
                 var pe = (CPFPropertyChangedEventArgs)e;
                 if (handlerIds.TryGetValue("on" + pe.PropertyName + "Changed", out var id))
                 {
@@ -154,7 +158,11 @@ namespace CPF.Razor.Controls
 
             return r;
         }
-
+        /// <summary>
+        /// 处理标签内部文字
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="text"></param>
         public void HandleText(int index, string text)
         {
             if (Element is CPF.Controls.ContentControl control)
@@ -162,7 +170,10 @@ namespace CPF.Razor.Controls
                 control.Content = text;
             }
         }
-
+        /// <summary>
+        /// 实现Razor控件自动转换成CPF控件
+        /// </summary>
+        /// <param name="element"></param>
         public static implicit operator T(Element<T> element)
         {
             return element.Element;
