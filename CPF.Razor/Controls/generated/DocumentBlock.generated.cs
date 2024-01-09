@@ -1,4 +1,4 @@
-// CPF自动生成.
+//CPF自动生成.
             
 using CPF;
 using CPF.Controls;
@@ -23,6 +23,13 @@ namespace CPF.Razor.Controls
         [Parameter] public string Foreground { get; set; }
         [Parameter] public string Text { get; set; }
         [Parameter] public TextDecoration? TextDecoration { get; set; }
+        [Parameter] public EventCallback<ViewFill> BackgroundChanged { get; set; }
+        [Parameter] public EventCallback<string> FontFamilyChanged { get; set; }
+        [Parameter] public EventCallback<float> FontSizeChanged { get; set; }
+        [Parameter] public EventCallback<FontStyles> FontStyleChanged { get; set; }
+        [Parameter] public EventCallback<ViewFill> ForegroundChanged { get; set; }
+        [Parameter] public EventCallback<string> TextChanged { get; set; }
+        [Parameter] public EventCallback<TextDecoration> TextDecorationChanged { get; set; }
 
     }
 }

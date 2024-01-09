@@ -1,4 +1,4 @@
-// CPF自动生成.
+//CPF自动生成.
             
 using CPF;
 using CPF.Charts;
@@ -134,6 +134,120 @@ namespace CPF.Razor.Controls
         /// <summary>
         [Parameter] public uint? YAxisScaleCount { get; set; }
         [Parameter] public EventCallback Initialized { get; set; }
+        /// <summary>
+        /// 背景填充
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> BackgroundChanged { get; set; }
+        /// <summary>
+        /// 边框线条填充
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> BorderFillChanged { get; set; }
+        /// <summary>
+        /// 获取或设置线条类型
+        /// <summary>
+        [Parameter] public EventCallback<Stroke> BorderStrokeChanged { get; set; }
+        /// <summary>
+        /// 四周边框粗细
+        /// <summary>
+        [Parameter] public EventCallback<Thickness> BorderThicknessChanged { get; set; }
+        /// <summary>
+        /// 边框类型，BorderStroke和BorderThickness
+        /// <summary>
+        [Parameter] public EventCallback<BorderType> BorderTypeChanged { get; set; }
+        /// <summary>
+        /// 是否可以缩放滚动
+        /// <summary>
+        [Parameter] public EventCallback<bool> CanScrollChanged { get; set; }
+        /// <summary>
+        /// 图表区域填充
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> ChartFillChanged { get; set; }
+        /// <summary>
+        /// 获取或设置一个值，该值表示将 Border 的角倒圆的程度。格式 一个数字或者四个数字 比如10或者 10,10,10,10  topLeft,topRight,bottomRight,bottomLeft
+        /// <summary>
+        [Parameter] public EventCallback<CornerRadius> CornerRadiusChanged { get; set; }
+        [Parameter] public EventCallback<IList<IChartData>> DataChanged { get; set; }
+        /// <summary>
+        /// 字体名
+        /// <summary>
+        [Parameter] public EventCallback<string> FontFamilyChanged { get; set; }
+        /// <summary>
+        /// 字体尺寸，点
+        /// <summary>
+        [Parameter] public EventCallback<float> FontSizeChanged { get; set; }
+        /// <summary>
+        /// 字体样式
+        /// <summary>
+        [Parameter] public EventCallback<FontStyles> FontStyleChanged { get; set; }
+        /// <summary>
+        /// 控件文字的填充
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> ForegroundChanged { get; set; }
+        /// <summary>
+        /// 网格填充
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> GridFillChanged { get; set; }
+        /// <summary>
+        /// 网格显示模式
+        /// <summary>
+        [Parameter] public EventCallback<GridShowMode> GridShowModeChanged { get; set; }
+        /// <summary>
+        /// 水平缩放值 大于等于1
+        /// <summary>
+        [Parameter] public EventCallback<float> HorizontalScalingChanged { get; set; }
+        /// <summary>
+        /// 鼠标移入选中的线条填充
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> HoverSelectLineFillChanged { get; set; }
+        /// <summary>
+        /// 鼠标移入选中的坐标轴提示背景填充
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> HoverSelectTipBackFillChanged { get; set; }
+        /// <summary>
+        /// 鼠标移入选中的坐标轴提示文字填充
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> HoverSelectTipFillChanged { get; set; }
+        /// <summary>
+        /// Y轴最大值
+        /// <summary>
+        [Parameter] public EventCallback<Nullable<double>> MaxValueChanged { get; set; }
+        /// <summary>
+        /// Y轴最小值
+        /// <summary>
+        [Parameter] public EventCallback<Nullable<double>> MinValueChanged { get; set; }
+        /// <summary>
+        /// 鼠标移入图表的时候显示信息
+        /// <summary>
+        [Parameter] public EventCallback<bool> MouseHoverShowTipChanged { get; set; }
+        /// <summary>
+        /// 获取或设置描述 Thickness 及其子元素之间的空间量的 Border 值。格式：all或者left,top,right,bottom
+        /// <summary>
+        [Parameter] public EventCallback<Thickness> PaddingChanged { get; set; }
+        /// <summary>
+        /// 显示滚动缩放值的线条填充
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> ScrollLineFillChanged { get; set; }
+        [Parameter] public EventCallback<float> ScrollValueChanged { get; set; }
+        /// <summary>
+        /// 表示一个文本修饰，它是可添加到文本的视觉装饰（如下划线）。字符串格式： overline/Underline/Strikethrough/none [width[,Solid/Dash/Dot/DashDot/DashDotDot]] [color]
+        /// <summary>
+        [Parameter] public EventCallback<TextDecoration> TextDecorationChanged { get; set; }
+        /// <summary>
+        /// X轴文字
+        /// <summary>
+        [Parameter] public EventCallback<IList<string>> XAxisChanged { get; set; }
+        /// <summary>
+        /// X轴颜色
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> XAxisFillChanged { get; set; }
+        /// <summary>
+        /// Y轴颜色
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> YAxisFillChanged { get; set; }
+        /// <summary>
+        /// Y轴刻度分割数量，大于等于1
+        /// <summary>
+        [Parameter] public EventCallback<uint> YAxisScaleCountChanged { get; set; }
 
     }
 }

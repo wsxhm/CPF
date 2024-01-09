@@ -1,4 +1,4 @@
-// CPF自动生成.
+//CPF自动生成.
             
 using CPF;
 using CPF.Controls;
@@ -25,6 +25,15 @@ namespace CPF.Razor.Controls
         [Parameter] public Point? StartPoint { get; set; }
         [Parameter] public string StrokeFill { get; set; }
         [Parameter] public Stroke? StrokeStyle { get; set; }
+        [Parameter] public EventCallback<Point> EndPointChanged { get; set; }
+        [Parameter] public EventCallback<ViewFill> FillChanged { get; set; }
+        /// <summary>
+        /// 事件响应范围是路径的线条上还是路径围成的范围内，true就是在线条上
+        /// <summary>
+        [Parameter] public EventCallback<bool> IsHitTestOnPathChanged { get; set; }
+        [Parameter] public EventCallback<Point> StartPointChanged { get; set; }
+        [Parameter] public EventCallback<ViewFill> StrokeFillChanged { get; set; }
+        [Parameter] public EventCallback<Stroke> StrokeStyleChanged { get; set; }
 
     }
 }

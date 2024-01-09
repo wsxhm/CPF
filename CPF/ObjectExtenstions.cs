@@ -362,7 +362,7 @@ namespace CPF
 
         internal static readonly HashSet<Type> ConvertTypes = new HashSet<Type>() {
             //typeof(System.Empty),
-            typeof(Object),
+            //typeof(Object),
             typeof(System.DBNull),
             typeof(Boolean),
             typeof(Char),
@@ -378,7 +378,7 @@ namespace CPF
             typeof(Double),
             typeof(Decimal),
             typeof(DateTime),
-            typeof(Object), //TypeCode is discontinuous so we need a placeholder.
+           // typeof(Object), //TypeCode is discontinuous so we need a placeholder.
             typeof(String)
         };
 
@@ -407,7 +407,7 @@ namespace CPF
                 throw new Exception(obj.GetType() + "无法转换成" + type, e);
             }
             var vType = obj.GetType();
-            if (vType == type || vType.IsSubclassOf(type))
+            if (vType == type || vType.IsSubclassOf(type) || (type.IsInterface && type.IsAssignableFrom(vType)))
             {
                 return obj;
             }
@@ -990,7 +990,7 @@ namespace CPF
             List<PropertyMetadataAttribute> list = new List<PropertyMetadataAttribute>();
             foreach (DataColumn item in row.Table.Columns)
             {
-                list.Add(new PropertyMetadataAttribute { PropertyName = item.ColumnName, PropertyType = item.DataType,  });
+                list.Add(new PropertyMetadataAttribute { PropertyName = item.ColumnName, PropertyType = item.DataType, });
             }
             return list;
         }

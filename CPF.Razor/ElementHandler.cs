@@ -22,6 +22,7 @@ namespace CPF.Razor
         public CPF.UIElement Element { get; }
         public object TargetElement => Element;
 
+        public int ComponentId { get; set; }
         NativeComponentRenderer ICpfElementHandler.Renderer { get; set; }
 
         public virtual void ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName)

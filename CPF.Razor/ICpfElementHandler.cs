@@ -9,5 +9,6 @@ namespace CPF.Razor
     {
         UIElement Element { get; }
         NativeComponentRenderer Renderer { get; set; }
+        int ComponentId { get; set; }
     }
 }

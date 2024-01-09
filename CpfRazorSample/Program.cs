@@ -18,6 +18,7 @@ namespace CpfRazorSample
             //, (OperatingSystemType.OSX, new CPF.Mac.MacPlatform(), new SkiaDrawingFactory())//如果需要支持Mac才需要
             //, (OperatingSystemType.Linux, new CPF.Linux.LinuxPlatform(), new SkiaDrawingFactory())//如果需要支持Linux才需要
             );
+            //Create();
 
             var host = Host.CreateDefaultBuilder()
             .ConfigureServices((hostContext, services) =>
@@ -28,9 +29,9 @@ namespace CpfRazorSample
             .Build();
 
             var window = new CPF.Controls.Window { Width = 500, Height = 500, Background = null };
+            window.LoadStyleFile("res://CpfRazorSample/Stylesheet1.css");
             host.AddComponent<Test>(window);
             Application.Run(window);
-
 
         }
 

@@ -75,6 +75,7 @@ namespace ComponentWrapperGenerator
             };
 
             // props
+            Dictionary<string, PropertyInfo> cps = new Dictionary<string, PropertyInfo>();
             var propertyDeclarationBuilder = new StringBuilder();
             if (propertiesToGenerate.Any())
             {
@@ -82,6 +83,10 @@ namespace ComponentWrapperGenerator
             }
             foreach (var prop in propertiesToGenerate)
             {
+                if (prop.GetCustomAttribute(typeof(CPF.NotCpfProperty)) == null)
+                {
+                    cps.Add(prop.Name + "Changed", prop);
+                }
                 propertyDeclarationBuilder.Append(GetPropertyDeclaration(prop, usings));
             }
 
@@ -90,9 +95,18 @@ namespace ComponentWrapperGenerator
             {
                 if (typeToGenerate == typeof(CPF.UIElement) || (typeToGenerate != typeof(CPF.UIElement) && prop.DeclaringType != typeof(CPF.UIElement) && prop.DeclaringType != typeof(CPF.Visual) && prop.DeclaringType != typeof(CPF.CpfObject)))
                 {
-                    propertyDeclarationBuilder.Append(GetEventDeclaration(prop, usings));
+                    if (!cps.ContainsKey(prop.Name))
+                    {
+                        propertyDeclarationBuilder.Append(GetEventDeclaration(prop, usings));
+                    }
                 }
             }
+
+            foreach (var item in cps)
+            {
+                propertyDeclarationBuilder.Append(GetPropertyChangedDeclaration(item.Value, usings));
+            }
+
 
             var propertyDeclarations = propertyDeclarationBuilder.ToString();
 
@@ -176,7 +190,7 @@ namespace {Settings.RootNamespace}
         {
             var propertyType = prop.PropertyType;
             string propertyTypeName;
-            if (propertyType == typeof(IList<string>) || propertyType == typeof(CPF.ViewFill) || propertyType == typeof(CPF.Drawing.Color) || propertyType == typeof(CPF.Drawing.Brush))
+            if (propertyType == typeof(IList<string>) || propertyType == typeof(CPF.ViewFill) || propertyType == typeof(CPF.Drawing.Color) || propertyType == typeof(CPF.Drawing.Brush) || propertyType == typeof(CPF.Classes))
             {
                 // Lists of strings are special-cased because they are handled specially by the handlers as a comma-separated list
                 propertyTypeName = "string";
@@ -210,12 +224,12 @@ namespace {Settings.RootNamespace}
             }
             else
             {
-                //propertyTypeName = GetTypeNameAndAddNamespace(propertyType, usings);
-                //if (propertyType.IsValueType)
-                //{
-                //    propertyTypeName += "?";
-                //}
-                propertyTypeName = $"EventCallback<{propertyType.GetGenericArguments()[0]}>";
+                propertyTypeName = GetTypeNameAndAddNamespace(propertyType.GetGenericArguments()[0], usings);
+                if (propertyType.GetGenericArguments()[0].IsValueType)
+                {
+                    propertyTypeName += "?";
+                }
+                propertyTypeName = $"EventCallback<{propertyTypeName}>";
             }
             var des = "";
             var d = prop.GetCustomAttribute<System.ComponentModel.DescriptionAttribute>();
@@ -224,6 +238,25 @@ namespace {Settings.RootNamespace}
                 des = $"        /// <summary>\r\n        /// {d.Description}\r\n        /// <summary>\r\n";
             }
             return $@"{des}        [Parameter] public {propertyTypeName} {GetIdentifierName(prop.Name)} {{ get; set; }}
+";
+        }
+
+        static string GetPropertyChangedDeclaration(PropertyInfo prop, IList<UsingStatement> usings)
+        {
+            var propertyType = prop.PropertyType;
+            string propertyTypeName = GetTypeNameAndAddNamespace(propertyType, usings);
+            //if (propertyType.IsValueType && (!propertyType.IsGenericType || propertyType.GetGenericTypeDefinition() == typeof(Nullable)))
+            //{
+            //    propertyTypeName += "?";
+            //}
+            propertyTypeName = $"EventCallback<{propertyTypeName}>";
+            var des = "";
+            var d = prop.GetCustomAttribute<System.ComponentModel.DescriptionAttribute>();
+            if (d != null)
+            {
+                des = $"        /// <summary>\r\n        /// {d.Description}\r\n        /// <summary>\r\n";
+            }
+            return $@"{des}        [Parameter] public {propertyTypeName} {GetIdentifierName(prop.Name + "Changed")} {{ get; set; }}
 ";
         }
 
@@ -613,7 +646,7 @@ namespace {Settings.RootNamespace}
             {
                 return false;
             }
-            return propInfo.GetGetMethod() != null && propInfo.GetSetMethod() != null && propInfo.GetCustomAttribute(typeof(CPF.NotCpfProperty)) == null;
+            return propInfo.GetGetMethod() != null && propInfo.GetSetMethod() != null && (propInfo.GetCustomAttribute(typeof(CPF.NotCpfProperty)) == null || propInfo.PropertyType == typeof(CPF.Classes));
         }
 
         private static bool IsPropertyBrowsable(PropertyInfo propInfo)

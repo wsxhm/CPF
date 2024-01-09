@@ -1,4 +1,4 @@
-// CPF自动生成.
+//CPF自动生成.
             
 using CPF;
 using CPF.Controls;
@@ -24,6 +24,14 @@ namespace CPF.Razor.Controls
         /// 设置对应平台的控件句柄
         /// <summary>
         [Parameter] public object Content { get; set; }
+        /// <summary>
+        /// 背景色，有些平台可能无法透明
+        /// <summary>
+        [Parameter] public EventCallback<Color> BackColorChanged { get; set; }
+        /// <summary>
+        /// 设置对应平台的控件句柄
+        /// <summary>
+        [Parameter] public EventCallback<object> ContentChanged { get; set; }
 
     }
 }

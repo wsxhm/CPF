@@ -1,24 +1,49 @@
 ﻿<WindowFrame MaximizeBox="true" Width='"100%"' Height="@("100%")">
-    <StackPanel Background="#f00" Width='"100%"' Height="@("100%")">
-        <Button Width="80" Height="30" MouseDown="OnMouseDown" Content="text">
+    <StackPanel Width='"100%"' Height="@("100%")">
+        <Button Width="80" Height="30" MouseDown="OnMouseDown" Content="test">
         </Button>
         <CheckBox Content="12"></CheckBox>
         @if (visible)
         {
             <Panel Background="#0f0" Width="20" Height="30" MarginLeft="10"></Panel>
         }
-        <Button>1234dsggs</Button>
-        <TextBox Text="@text"></TextBox>
-        <Button><CheckBox></CheckBox></Button>
+        <TextBox @ref="textBox" Text="text" Width="100" Height="30" TextChanged="TextChanged"></TextBox>
+        <Button @ref="button"><CheckBox>@enable</CheckBox></Button>
+        <ListBox @ref="listBox" Width="200" Height="200" Items="list"></ListBox>
     </StackPanel>
 </WindowFrame>
 @code
 {
+    string key = "textBox";
+    TextBox textBox;
+    CPF.Controls.Button button;
     bool visible = false;
     string text = "test";
+    List<string> list = new List<string>()
+{
+        "1","2","3"
+    };
+    ListBox listBox;
+    object test = "test";
+    bool enable;
     void OnMouseDown(CPF.Input.MouseButtonEventArgs e)
     {
+        //enable = visible;
+        button.IsEnabled = visible;
+
         text = "test" + visible;
         visible = !visible;
+        list.Add(list.Count.ToString());
+        test = list.Count;
+    }
+
+    void TextChanged()
+    {
+
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
     }
 }

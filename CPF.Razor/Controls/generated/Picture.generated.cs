@@ -1,4 +1,4 @@
-// CPF自动生成.
+//CPF自动生成.
             
 using CPF;
 using CPF.Controls;
@@ -29,6 +29,18 @@ namespace CPF.Razor.Controls
         /// <summary>
         [Parameter] public StretchDirection? StretchDirection { get; set; }
         [Parameter] public EventCallback ImageFailed { get; set; }
+        /// <summary>
+        /// 图片源，可以是路径、Url、Drawing.Image对象、Stream、byte[]
+        /// <summary>
+        [Parameter] public EventCallback<object> SourceChanged { get; set; }
+        /// <summary>
+        /// 图片缩放模式
+        /// <summary>
+        [Parameter] public EventCallback<Stretch> StretchChanged { get; set; }
+        /// <summary>
+        /// 描述如何对内容应用缩放，并限制对已命名像素类型的缩放。
+        /// <summary>
+        [Parameter] public EventCallback<StretchDirection> StretchDirectionChanged { get; set; }
 
     }
 }

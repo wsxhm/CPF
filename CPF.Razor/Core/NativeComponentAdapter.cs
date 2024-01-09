@@ -261,6 +261,7 @@ namespace CPF.Razor
             if (elementHandler is ICpfElementHandler handler)
             {
                 handler.Renderer = Renderer;
+                handler.ComponentId = componentId;
             }
 
             if (siblingIndex != 0)

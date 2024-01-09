@@ -34,6 +34,7 @@ namespace CPF.Razor
             get => _Renderer;
             set => _Renderer = value;
         }
+        public int ComponentId { get ; set; }
 
         //public void SetElementReference(IElementHandler elementHandler)
         //{

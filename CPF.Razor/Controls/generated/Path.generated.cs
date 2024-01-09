@@ -1,4 +1,4 @@
-// CPF自动生成.
+//CPF自动生成.
             
 using CPF;
 using CPF.Controls;
@@ -28,6 +28,18 @@ namespace CPF.Razor.Controls
         [Parameter] public Stretch? Stretch { get; set; }
         [Parameter] public string StrokeFill { get; set; }
         [Parameter] public Stroke? StrokeStyle { get; set; }
+        [Parameter] public EventCallback<PathGeometry> DataChanged { get; set; }
+        [Parameter] public EventCallback<ViewFill> FillChanged { get; set; }
+        /// <summary>
+        /// 事件响应范围是路径的线条上还是路径围成的范围内，true就是在线条上
+        /// <summary>
+        [Parameter] public EventCallback<bool> IsHitTestOnPathChanged { get; set; }
+        /// <summary>
+        /// 获取或设置 Stretch 模式，该模式确定内容适应可用空间的方式。
+        /// <summary>
+        [Parameter] public EventCallback<Stretch> StretchChanged { get; set; }
+        [Parameter] public EventCallback<ViewFill> StrokeFillChanged { get; set; }
+        [Parameter] public EventCallback<Stroke> StrokeStyleChanged { get; set; }
 
     }
 }

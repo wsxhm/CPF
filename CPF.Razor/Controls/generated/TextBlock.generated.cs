@@ -1,4 +1,4 @@
-// CPF自动生成.
+//CPF自动生成.
             
 using CPF;
 using CPF.Controls;
@@ -40,6 +40,30 @@ namespace CPF.Razor.Controls
         /// 文本在垂直方向的对齐方式
         /// <summary>
         [Parameter] public VerticalAlignment? VerticalAlignment { get; set; }
+        [Parameter] public EventCallback<ViewFill> BackgroundChanged { get; set; }
+        [Parameter] public EventCallback<string> FontFamilyChanged { get; set; }
+        [Parameter] public EventCallback<float> FontSizeChanged { get; set; }
+        [Parameter] public EventCallback<FontStyles> FontStyleChanged { get; set; }
+        [Parameter] public EventCallback<ViewFill> ForegroundChanged { get; set; }
+        [Parameter] public EventCallback<string> TextChanged { get; set; }
+        [Parameter] public EventCallback<TextAlignment> TextAlignmentChanged { get; set; }
+        [Parameter] public EventCallback<TextDecoration> TextDecorationChanged { get; set; }
+        /// <summary>
+        /// 文字描边
+        /// <summary>
+        [Parameter] public EventCallback<Stroke> TextStrokeChanged { get; set; }
+        /// <summary>
+        /// 文字描边
+        /// <summary>
+        [Parameter] public EventCallback<ViewFill> TextStrokeFillChanged { get; set; }
+        /// <summary>
+        /// 文本裁剪
+        /// <summary>
+        [Parameter] public EventCallback<TextTrimming> TextTrimmingChanged { get; set; }
+        /// <summary>
+        /// 文本在垂直方向的对齐方式
+        /// <summary>
+        [Parameter] public EventCallback<VerticalAlignment> VerticalAlignmentChanged { get; set; }
 
     }
 }
