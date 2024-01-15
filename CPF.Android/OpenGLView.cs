@@ -257,5 +257,10 @@ namespace CPF.Android
         const string lib = "/system/lib/egl/libEGL_mali.so";
         [DllImport(lib)]
         public extern static IntPtr eglGetProcAddress(string procname);
+
+        public void MakeCurrent()
+        {
+            
+        }
     }
 }

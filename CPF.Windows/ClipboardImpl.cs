@@ -406,8 +406,22 @@ namespace CPF.Windows
                             case DataFormat.Text:
                                 if (formatId == (int)UnmanagedMethods.ClipboardFormat.CF_TEXT)
                                 {
-                                    var rv = Marshal.PtrToStringAnsi(hText);
-                                    return rv;
+                                    try
+                                    {
+                                        var rv = Marshal.PtrToStringAnsi(hText);//在Unity 里会报错
+                                        return rv;
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        System.Diagnostics.Debug.WriteLine(e);
+                                        Console.WriteLine(e);
+                                        var dwBufSize = (int)UnmanagedMethods.GlobalSize(hText);
+                                        //var ss = new String((sbyte*)hText, 0, dwBufSize);
+                                        byte[] cc = new byte[dwBufSize];
+                                        Marshal.Copy(hText, cc, 0, (int)dwBufSize);
+                                        string ss = Encoding.GetEncoding("GBK").GetString(cc).TrimEnd('\0');
+                                        return ss;
+                                    }
                                 }
                                 else
                                 {
@@ -464,7 +478,7 @@ namespace CPF.Windows
 #if Net4
                                         var bmp = (UnmanagedMethods.BITMAPINFOHEADER)Marshal.PtrToStructure(ptr, typeof(UnmanagedMethods.BITMAPINFOHEADER));
 #else
-                                    var bmp = Marshal.PtrToStructure<UnmanagedMethods.BITMAPINFOHEADER>(ptr);
+                                        var bmp = Marshal.PtrToStructure<UnmanagedMethods.BITMAPINFOHEADER>(ptr);
 
 #endif
                                         IntPtr screenDC = UnmanagedMethods.GetDC(IntPtr.Zero);
@@ -478,7 +492,7 @@ namespace CPF.Windows
                                         var hBitmap = UnmanagedMethods.CreateDIBSection(memDc, ref info, 0, out IntPtr ppvBits, IntPtr.Zero, 0);
                                         var oldBits = UnmanagedMethods.SelectObject(memDc, hBitmap);//将位图载入上下文
                                                                                                     //_ = UnmanagedMethods.GlobalLock(hText);
-                                        _ = UnmanagedMethods.StretchDIBits(memDc, 0, 0, bmp.biWidth, bmp.biHeight, 0, 0, bmp.biWidth, bmp.biHeight, (ptr + sizeof(UnmanagedMethods.BITMAPINFOHEADER)), ref info, 0, (uint)TernaryRasterOperations.SRCCOPY);
+                                        _ = UnmanagedMethods.StretchDIBits(memDc, 0, 0, bmp.biWidth, Math.Abs(bmp.biHeight), 0, 0, bmp.biWidth, Math.Abs(bmp.biHeight), (ptr + sizeof(UnmanagedMethods.BITMAPINFOHEADER)), ref info, 0, (uint)TernaryRasterOperations.SRCCOPY);
                                         //sizeof(UnmanagedMethods.BITMAPFILEHEADER) +
                                         //var c = sizeof(UnmanagedMethods.BITMAPINFOHEADER);
 

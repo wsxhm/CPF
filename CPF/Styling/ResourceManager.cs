@@ -78,6 +78,22 @@ namespace CPF.Styling
             }
             set { errorImage = value; }
         }
+        static Image loadingImage;
+        /// <summary>
+        /// 获取或设置加载图片
+        /// </summary>
+        public static Image LoadingImage
+        {
+            get
+            {
+                if (loadingImage == null || loadingImage.ImageImpl == null)
+                {
+                    GetImage("res://CPF/loading.gif", a => loadingImage = a);
+                }
+                return loadingImage;
+            }
+            set { loadingImage = value; }
+        }
 
         static ConcurrentDictionary<string, WeakReference<Image>> res = new ConcurrentDictionary<string, WeakReference<Image>>();
         static ConcurrentDictionary<string, ConcurrentBag<Action<Image>>> downloading = new ConcurrentDictionary<string, ConcurrentBag<Action<Image>>>();

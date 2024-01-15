@@ -27,6 +27,17 @@ namespace CPF.Controls
         }
 
         /// <summary>
+        /// 加载中显示的图片
+        /// </summary>
+        [TypeConverter(typeof(StringConverter)), CPF.Design.FileBrowser(".png;.jpg;.bmp;.gif")]
+        [PropertyMetadata(null)]
+        [Description("加载中显示的图片")]
+        public Image LoadingImage
+        {
+            get { return GetValue<Image>(); }
+            set { SetValue(value); }
+        }
+        /// <summary>
         /// 图片源，可以是路径、Url、Drawing.Image对象、Stream、byte[]
         /// </summary>
         [TypeConverter(typeof(StringConverter)), CPF.Design.FileBrowser(".png;.jpg;.bmp;.gif")]
@@ -124,6 +135,10 @@ namespace CPF.Controls
                     timer = null;
                 }
             }
+            if (img != null && img != ResourceManager.ErrorImage && img != LoadingImage)
+            {
+                RaiseEvent(EventArgs.Empty, nameof(ImageLoaded));
+            }
         }
         //int frameTimer = 0;
         private void Timer_Tick(object sender, EventArgs e)
@@ -165,8 +180,18 @@ namespace CPF.Controls
                 Invalidate();
             }
         }
+
+        [PropertyChanged(nameof(LoadingImage))]
+        void OnLoadingImage(object newValue, object oldValue, PropertyMetadataAttribute attribute)
+        {
+            var load = newValue as Image;
+            if (load != null && img == null)
+            {
+                SetImage(load);
+            }
+        }
         [PropertyChanged(nameof(Source))]
-        void RegisterSource(object newValue, object oldValue, PropertyMetadataAttribute attribute)
+        void OnSource(object newValue, object oldValue, PropertyMetadataAttribute attribute)
         {
             if (newValue != null)
             {
@@ -183,6 +208,11 @@ namespace CPF.Controls
                 else if (newValue is string)
                 {
                     var s = newValue as string;
+                    var load = LoadingImage;
+                    if (load != null)
+                    {
+                        SetImage(load);
+                    }
                     ResourceManager.GetImage(s, a =>
                     {
                         Invoke(() =>
@@ -398,6 +428,15 @@ namespace CPF.Controls
         /// 图片加载失败
         /// </summary>
         public event EventHandler ImageFailed
+        {
+            add { AddHandler(value); }
+            remove { RemoveHandler(value); }
+        }
+
+        /// <summary>
+        /// 图片加载
+        /// </summary>
+        public event EventHandler ImageLoaded
         {
             add { AddHandler(value); }
             remove { RemoveHandler(value); }
