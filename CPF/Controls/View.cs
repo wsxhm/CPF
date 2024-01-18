@@ -2512,6 +2512,11 @@ namespace CPF.Controls
         {
             views.TryRemove(this, out _);
             base.Dispose(disposing);
+            if (viewImpl != null)
+            {
+                viewImpl.Dispose();
+                //viewImpl = null;
+            }
         }
     }
     /// <summary>

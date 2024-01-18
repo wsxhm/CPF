@@ -63,8 +63,8 @@ namespace CPF.Svg
         public float Opacity { get; set; } = 1;
 
         public virtual Transform Transform { get; private set; }
-        public SvgShape Parent { get; set; }
-        public SvgShape(XmlNode node) : this(node, null) { }
+        public SvgShape Parent { get; private set; }
+        //public SvgShape(XmlNode node) : this(node, null) { }
         public SvgShape(XmlNode node, SvgShape parent) : base(node)
         {
             Parent = parent;
@@ -81,6 +81,18 @@ namespace CPF.Svg
                     if (m_stroke != null)
                     {
                         m_stroke.Opacity *= Opacity;
+                    }
+                }
+                if (parent != null && parent.Opacity != 1)
+                {
+                    if (m_fill != null)
+                    {
+                        m_fill.Opacity *= parent.Opacity;
+                        m_fill.FillBrush = null;
+                    }
+                    if (m_stroke != null)
+                    {
+                        m_stroke.Opacity *= parent.Opacity;
                     }
                 }
             }
@@ -308,7 +320,7 @@ namespace CPF.Svg
         public float Height { get; set; }
         public float RX { get; set; }
         public float RY { get; set; }
-        public RectangleShape(XmlNode node) : base(node)
+        public RectangleShape(XmlNode node, SvgShape parent) : base(node, parent)
         {
             X = (float)XmlUtil.AttrValue(node, "x", 0);
             Y = (float)XmlUtil.AttrValue(node, "y", 0);
@@ -399,7 +411,7 @@ namespace CPF.Svg
         public float CX { get; set; }
         public float CY { get; set; }
         public float R { get; set; }
-        public CircleShape(XmlNode node) : base(node)
+        public CircleShape(XmlNode node, SvgShape parent) : base(node, parent)
         {
             CX = (float)XmlUtil.AttrValue(node, "cx", 0);
             CY = (float)XmlUtil.AttrValue(node, "cy", 0);
@@ -456,7 +468,7 @@ namespace CPF.Svg
         public float CY { get; set; }
         public float RX { get; set; }
         public float RY { get; set; }
-        public EllipseShape(XmlNode node) : base(node)
+        public EllipseShape(XmlNode node, SvgShape parent) : base(node, parent)
         {
             CX = (float)XmlUtil.AttrValue(node, "cx", 0);
             CY = (float)XmlUtil.AttrValue(node, "cy", 0);
@@ -510,7 +522,7 @@ namespace CPF.Svg
     {
         public Point P1 { get; private set; }
         public Point P2 { get; private set; }
-        public LineShape(XmlNode node) : base(node)
+        public LineShape(XmlNode node, SvgShape parent) : base(node, parent)
         {
             double x1 = XmlUtil.AttrValue(node, "x1", 0);
             double y1 = XmlUtil.AttrValue(node, "y1", 0);
@@ -532,7 +544,7 @@ namespace CPF.Svg
     class PolylineShape : SvgShape
     {
         public Point[] Points { get; private set; }
-        public PolylineShape(XmlNode node) : base(node)
+        public PolylineShape(XmlNode node, SvgShape parent) : base(node, parent)
         {
             string points = XmlUtil.AttrValue(node, SVGTags.sPoints, string.Empty);
             ShapeUtil.StringSplitter split = new ShapeUtil.StringSplitter(points);
@@ -562,7 +574,7 @@ namespace CPF.Svg
     class PolygonShape : SvgShape
     {
         public Point[] Points { get; private set; }
-        public PolygonShape(XmlNode node) : base(node)
+        public PolygonShape(XmlNode node, SvgShape parent) : base(node, parent)
         {
             string points = XmlUtil.AttrValue(node, SVGTags.sPoints, string.Empty);
             ShapeUtil.StringSplitter split = new ShapeUtil.StringSplitter(points);
@@ -595,7 +607,7 @@ namespace CPF.Svg
         public double X { get; set; }
         public double Y { get; set; }
         public string hRef { get; set; }
-        public UseShape(XmlNode node) : base(node)
+        public UseShape(XmlNode node, SvgShape parent) : base(node, parent)
         {
             X = XmlUtil.AttrValue(node, "x", 0);
             Y = XmlUtil.AttrValue(node, "y", 0);
@@ -646,21 +658,21 @@ namespace CPF.Svg
             get { return m_elements; }
         }
 
-        SvgShape AddChild(SvgShape shape)
+        //SvgShape AddChild(SvgShape shape)
+        //{
+        //    m_elements.Add(shape);
+        //    shape.Parent = this;
+        //    return shape;
+        //}
+        public Group(XmlNode node, SvgShape parent) : base(node, parent)
         {
-            m_elements.Add(shape);
-            shape.Parent = this;
-            return shape;
-        }
-        public Group(XmlNode node, SvgShape parent) : base(node)
-        {
-            // parent on group must be set before children are added
-            this.Parent = parent;
+            //// parent on group must be set before children are added
+            //this.Parent = parent;
             foreach (XmlNode childnode in node.ChildNodes)
             {
                 SvgShape shape = AddToList(m_elements, childnode, this);
-                if (shape != null)
-                    shape.Parent = this;
+                //if (shape != null)
+                //    shape.Parent = this;
             }
             //if (Id.Length > 0)
             //	svg.AddShape(Id, this);
@@ -671,37 +683,37 @@ namespace CPF.Svg
                 return null;
             if (childnode.Name == SVGTags.sShapeRect)
             {
-                list.Add(new RectangleShape(childnode));
+                list.Add(new RectangleShape(childnode, parent));
                 return list[list.Count - 1];
             }
             if (childnode.Name == SVGTags.sShapeCircle)
             {
-                list.Add(new CircleShape(childnode));
+                list.Add(new CircleShape(childnode, parent));
                 return list[list.Count - 1];
             }
             if (childnode.Name == SVGTags.sShapeEllipse)
             {
-                list.Add(new EllipseShape(childnode));
+                list.Add(new EllipseShape(childnode, parent));
                 return list[list.Count - 1];
             }
             if (childnode.Name == SVGTags.sShapeLine)
             {
-                list.Add(new LineShape(childnode));
+                list.Add(new LineShape(childnode, parent));
                 return list[list.Count - 1];
             }
             if (childnode.Name == SVGTags.sShapePolyline)
             {
-                list.Add(new PolylineShape(childnode));
+                list.Add(new PolylineShape(childnode, parent));
                 return list[list.Count - 1];
             }
             if (childnode.Name == SVGTags.sShapePolygon)
             {
-                list.Add(new PolygonShape(childnode));
+                list.Add(new PolygonShape(childnode, parent));
                 return list[list.Count - 1];
             }
             if (childnode.Name == SVGTags.sShapePath)
             {
-                list.Add(new PathShape(childnode));
+                list.Add(new PathShape(childnode, parent));
                 return list[list.Count - 1];
             }
             if (childnode.Name == SVGTags.sShapeGroup)
@@ -726,7 +738,7 @@ namespace CPF.Svg
             }
             if (childnode.Name == SVGTags.sShapeUse)
             {
-                list.Add(new UseShape(childnode));
+                list.Add(new UseShape(childnode, parent));
                 return list[list.Count - 1];
             }
             //if (childnode.Name == SVGTags.sShapeImage)

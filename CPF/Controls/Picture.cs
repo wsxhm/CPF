@@ -217,6 +217,10 @@ namespace CPF.Controls
                     {
                         Invoke(() =>
                         {
+                            if (!s.Equals(Source))
+                            {
+                                return;
+                            }
                             SetImage(a);
                             needDisposeImg = false;
                             if (a == null)

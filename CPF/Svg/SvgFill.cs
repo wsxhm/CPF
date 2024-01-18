@@ -25,11 +25,13 @@ namespace CPF.Svg
             get
             {
 
-                if (Color != null)
-                    return Color.GetBrush(Opacity);
                 if (fillBrush != null)
                     return fillBrush;
-                return null;
+                if (Color != null)
+                {
+                    return Color.GetBrush(Opacity);
+                }
+                return fillBrush;
             }
 
             set

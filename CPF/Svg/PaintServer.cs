@@ -147,8 +147,8 @@ namespace CPF.Svg
 
         public override ViewFill GetBrush(double opacity)
         {
-            byte a = (byte)(255 * opacity / 100);
             Color c = Color;
+            byte a = (byte)(c.A * opacity / 100);
             Color newcol = Color.FromArgb(a, c.R, c.G, c.B);
             if (sb == null || sb.IsDisposed)
             {
@@ -158,7 +158,7 @@ namespace CPF.Svg
             return sb;
         }
     }
-    abstract class GradientColor : PaintServer
+    internal abstract class GradientColor : PaintServer
     {
         // http://www.w3.org/TR/SVG11/pservers.html#LinearGradients
         List<GradientStop> m_stops = new List<GradientStop>();
@@ -244,7 +244,11 @@ namespace CPF.Svg
         {
             LinearGradientFill b = new LinearGradientFill();
             foreach (GradientStop stop in Stops)
-                b.GradientStops.Add(stop);
+            {
+                var c = stop.Color;
+                byte a = (byte)(c.A * opacity / 100);
+                b.GradientStops.Add(new GradientStop(Color.FromArgb(a, c.R, c.G, c.B), stop.Position));
+            }
 
             //b.MappingMode = BrushMappingMode.RelativeToBoundingBox;
             b.StartPoint = "0, 0";
@@ -336,7 +340,11 @@ namespace CPF.Svg
         {
             RadialGradientFill b = new RadialGradientFill();
             foreach (GradientStop stop in Stops)
-                b.GradientStops.Add(stop);
+            {
+                var c = stop.Color;
+                byte a = (byte)(c.A * opacity / 100);
+                b.GradientStops.Add(new GradientStop(Color.FromArgb(a, c.R, c.G, c.B), stop.Position));
+            }
 
             //b.GradientOrigin = new System.Windows.Point(0.5, 0.5);
             b.Center = "50%,50%";

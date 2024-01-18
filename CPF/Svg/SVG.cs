@@ -206,7 +206,10 @@ namespace CPF.Svg
             var fill = Fill;
             foreach (var item in m_elements)
             {
-                item.GetFill().FillBrush = fill;
+                if (item.GetFill().Color == null)
+                {
+                    item.GetFill().FillBrush = fill;
+                }
             }
         }
 
@@ -245,7 +248,10 @@ namespace CPF.Svg
             var fill = newValue as ViewFill;
             foreach (var item in m_elements)
             {
-                item.GetFill().FillBrush = fill;
+                if (item.GetFill().Color == null)
+                {
+                    item.GetFill().FillBrush = fill;
+                }
             }
         }
 
@@ -505,9 +511,22 @@ namespace CPF.Svg
                 }
                 if (item.Fill != null && item.Fill.FillBrush != null)
                 {
-                    using (var brush = item.Fill.FillBrush.CreateBrush(item.Geometry.GetBounds(), Root.RenderScaling))
+                    if (item.Fill.Color is GradientColor svgFill)
                     {
-                        dc.FillPath(brush, item.Geometry);
+                        using (var brush = item.Fill.FillBrush.CreateBrush(svgFill.GradientUnits == SVGTags.sGradientUserSpace ? new Rect(0, 0, naturalSize.Width, naturalSize.Height) : item.Geometry.GetBounds(), Root.RenderScaling))
+                        {
+                            dc.FillPath(brush, item.Geometry);
+                        }
+                    }
+                    else
+                    {
+                        if (item.Fill.Color != null)
+                        {
+                            using (var brush = item.Fill.FillBrush.CreateBrush(item.Geometry.GetBounds(), Root.RenderScaling))
+                            {
+                                dc.FillPath(brush, item.Geometry);
+                            }
+                        }
                     }
                 }
             }

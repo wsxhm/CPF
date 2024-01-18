@@ -529,11 +529,11 @@ namespace CPF.Controls
             RaiseEvent(e, nameof(Closed));
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            windowImpl.Dispose();
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    windowImpl.Dispose();
+        //    base.Dispose(disposing);
+        //}
     }
 
     public class ClosingEventArgs : EventArgs
