@@ -520,7 +520,7 @@ namespace CPF.Svg
                     }
                     else
                     {
-                        if (item.Fill.Color != null)
+                        //if (item.Fill.Color != null)
                         {
                             using (var brush = item.Fill.FillBrush.CreateBrush(item.Geometry.GetBounds(), Root.RenderScaling))
                             {
