@@ -295,7 +295,7 @@ namespace CPF.GDIPlus
             {
                 if (h == -1)
                 {
-                    h = Font.Height;
+                    h = Font.Height + 0.01f;//有些字体用行高计算字符尺寸的时候会有问题，只能加0.01
                 }
                 return h;
             }
