@@ -663,8 +663,8 @@ namespace CPF.Controls
                         dc.FillRectangle(backBrush, backRect);
                     }
                 }
-                lastOffset = line.X + line.Width;
-                lastTop = line.Y;
+                lastOffset = document.Left + line.X + line.Width;
+                lastTop = document.Top + line.Y;
             }
             foreach (var line in documentContainer.Lines)
             {
@@ -802,6 +802,6 @@ namespace CPF.Controls
             timer.Dispose();
         }
 
-        
+
     }
 }

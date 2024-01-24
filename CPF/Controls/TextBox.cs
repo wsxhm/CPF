@@ -1442,24 +1442,40 @@ namespace CPF.Controls
                 sb.Append("<pre>");
                 StringBuilder textSb = new StringBuilder();
                 IDocumentContainer documentContainer = Document;
-                var l = Math.Min(caretIndex.Count, selectionEnd.Count);
+                var cs = caretIndex.ToList();
+                var ss = selectionEnd.ToList();
+                var l = Math.Max(cs.Count, ss.Count);
+                if (cs.Count < l)
+                {//假如两个索引层级不一样，要补充索引
+                    for (int i = 0; i < l - cs.Count; i++)
+                    {
+                        cs.Add(0);
+                    }
+                }
+                if (ss.Count < l)
+                {
+                    for (int i = 0; i < l - ss.Count; i++)
+                    {
+                        ss.Add(0);
+                    }
+                }
                 for (int i = 0; i < l; i++)
                 {
-                    if (caretIndex[i] > selectionEnd[i])
+                    if (cs[i] > ss[i])
                     {
-                        GetText(sb, textSb, i, documentContainer, caretIndex, selectionEnd);
+                        GetText(sb, textSb, i, documentContainer, cs, ss);
                         break;
                     }
-                    else if (caretIndex[i] < selectionEnd[i])
+                    else if (cs[i] < ss[i])
                     {
-                        GetText(sb, textSb, i, documentContainer, selectionEnd, caretIndex);
+                        GetText(sb, textSb, i, documentContainer, ss, cs);
                         break;
                     }
                     else
                     {
                         if (i < l - 1)
                         {
-                            documentContainer = documentContainer.Children[(int)caretIndex[i]] as IDocumentContainer;
+                            documentContainer = documentContainer.Children[(int)cs[i]] as IDocumentContainer;
                             if (documentContainer == null)
                             {
                                 break;
@@ -1499,7 +1515,23 @@ namespace CPF.Controls
             sb.Append("<pre>");
             StringBuilder textSb = new StringBuilder();
             IDocumentContainer documentContainer = Document;
-            var l = Math.Min(start.Count, end.Count);
+            start = start.ToList();
+            end = end.ToList();
+            var l = Math.Max(start.Count, end.Count);
+            if (start.Count < l)
+            {//假如两个索引层级不一样，要补充索引
+                for (int i = 0; i < l - start.Count; i++)
+                {
+                    start.Add(0);
+                }
+            }
+            if (end.Count < l)
+            {
+                for (int i = 0; i < l - end.Count; i++)
+                {
+                    end.Add(0);
+                }
+            }
             for (int i = 0; i < l; i++)
             {
                 if (start[i] > end[i])
