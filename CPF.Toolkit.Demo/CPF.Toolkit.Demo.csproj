@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants />
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Stylesheet1.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Stylesheet1.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CPF.Linux\CPF.Linux.csproj" />
+    <ProjectReference Include="..\CPF.Mac\CPF.Mac.csproj" />
+    <ProjectReference Include="..\CPF.Skia\CPF.Skia.csproj" />
+    <ProjectReference Include="..\CPF.Toolkit\CPF.Toolkit.csproj" />
+    <ProjectReference Include="..\CPF.Windows\CPF.Windows.csproj" />
+    <ProjectReference Include="..\CPF\CPF.csproj" />
+  </ItemGroup>
+
+</Project>

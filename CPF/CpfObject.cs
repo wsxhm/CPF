@@ -178,6 +178,42 @@ namespace CPF
             }
         }
 
+        internal IList<Behavior> behaviors;
+        [NotCpfProperty]
+        [Category("绑定")]
+        [Description("设置行为")]
+        public IList<Behavior> Behaviors
+        {
+            get
+            {
+                if (this.behaviors == null)
+                {
+                    var b = new Collection<Behavior>();
+                    b.CollectionChanged -= Behavior_CollectionChanged;
+                    b.CollectionChanged += Behavior_CollectionChanged;
+                    this.behaviors = b;
+                }
+                return this.behaviors;
+            }
+        }
+
+        private void Behavior_CollectionChanged(object sender, CollectionChangedEventArgs<Behavior> e)
+        {
+            switch (e.Action)
+            {
+                case CollectionChangedAction.Add:
+                    (e.NewItem as IBehaviorObject).BehaviorTo(this);
+                    break;
+                case CollectionChangedAction.Remove:
+                    (e.NewItem as IBehaviorObject).DetachFrom(this);
+                    break;
+                case CollectionChangedAction.Replace:
+                    break;
+                case CollectionChangedAction.Sort:
+                    break;
+            }
+        }
+
         Type type;
         /// <summary>
         /// 设置绑定
@@ -1387,7 +1423,6 @@ namespace CPF
                 {
                     SetCommand(cpc, list1);
                 }
-
                 RaiseEvent(cpc, strPropertyChanged);
 
                 //PropertyChangedEventHandler handler = (PropertyChangedEventHandler)Events["INotifyPropertyChanged"];
@@ -1499,7 +1534,6 @@ namespace CPF
                 }
             }
         }
-
 
         /// <summary>
         /// 当要设置属性值的时候，返回值为true的时候将设置值
