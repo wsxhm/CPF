@@ -8,9 +8,12 @@ using System.Text;
 
 namespace CPF.Toolkit
 {
-    public class ViewModelBase : INotifyPropertyChanged, ILoaded, IDisposable, ICloseable
+    public class ViewModelBase : INotifyPropertyChanged, ILoaded, IDisposable, ICloseable, IDialog
     {
         WeakEventHandlerList events = new WeakEventHandlerList();
+
+        IDialogService IDialog.Dialog { get; set; }
+
         event EventHandler<ClosingEventArgs> ICloseable.Closable { add => AddHandler(value); remove => RemoveHandler(value); }
 
         public virtual void Dispose() { }
@@ -18,6 +21,8 @@ namespace CPF.Toolkit
         void ICloseable.OnClosable(ClosingEventArgs e) => this.OnClosing(e);
 
         void ILoaded.OnLoaded() => this.OnLoaded();
+
+        protected IDialogService Dialog => (this as IDialog).Dialog;
 
         protected virtual void OnLoaded() { }
         protected void Close() => this.RaiseEvent(new ClosingEventArgs(), nameof(ICloseable.Closable));

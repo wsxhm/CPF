@@ -9,6 +9,7 @@ namespace CPF.Toolkit
     {
         protected override void OnBehaviorTo(Window window)
         {
+            this.DataContextChanged(window);
             window.PropertyChanged += Window_PropertyChanged;
             window.Loaded += Window_Loaded;
             window.Closing += Window_Closing;
@@ -52,28 +53,38 @@ namespace CPF.Toolkit
             }
         }
 
-        private void Window_PropertyChanged(object sender, CPFPropertyChangedEventArgs e)
+        void DataContextChanged(Window window)
         {
-            switch (e.PropertyName)
+            if (window == null) throw new ArgumentNullException(nameof(window));
+            if (window.DataContext is ICloseable closeable)
             {
-                case nameof(DataContext):
-                    {
-                        if (e.NewValue is ICloseable closeable)
-                        {
-                            closeable.Closable -= Closeable_Closable;
-                            closeable.Closable += Closeable_Closable;
-                        }
-                    }
-                    break;
+                closeable.Closable -= Closeable_Closable;
+                closeable.Closable += Closeable_Closable;
+            }
+
+            if (window.DataContext is IDialog dialog)
+            {
+                dialog.Dialog = new DialogService(window);
             }
 
             void Closeable_Closable(object _, ClosingEventArgs ee)
             {
                 if (!ee.Cancel)
                 {
-                    var window = (Window)sender;
                     window.Close();
                 }
+            }
+        }
+
+        private void Window_PropertyChanged(object sender, CPFPropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(DataContext):
+                    {
+                        DataContextChanged(sender as Window);
+                    }
+                    break;
             }
         }
     }

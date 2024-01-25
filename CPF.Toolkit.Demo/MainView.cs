@@ -18,7 +18,6 @@ namespace CPF.Toolkit.Demo
         protected override void InitializeComponent()
         {
             //LoadStyleFile("res://CPF.Toolkit.Demo/Stylesheet1.css");
-            this.Behaviors.Add(new ViewBehavior());
 
             this.Title = "标题";
             this.Width = 500;
@@ -39,6 +38,7 @@ namespace CPF.Toolkit.Demo
                     }
                 },
             }));
+            this.Behaviors.Add(new ViewBehavior());
         }
     }
 }

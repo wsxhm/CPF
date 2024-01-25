@@ -15,7 +15,7 @@ namespace CPF.Toolkit.Demo
 
         public void Test()
         {
-            this.Close();
+            this.Dialog.Alert("确定删除所选的文件吗？", "确定删除", DialogType.Warn, "", "取消", "删除");
         }
 
         //protected override void OnClosing(ClosingEventArgs e)
