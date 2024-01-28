@@ -15,9 +15,9 @@ using System.ComponentModel;
 namespace CPF.Controls
 {
     /// <summary>
-    /// 表示一个控件，该控件可用于显示或编辑无格式文本。
+    /// 表示一个控件，该控件可用于显示或编辑简单富文本。
     /// </summary>
-    [Description("表示一个控件，该控件可用于显示或编辑无格式文本。")]
+    [Description("表示一个控件，该控件可用于显示或编辑简单富文本。")]
     [DefaultProperty(nameof(TextBox.Text))]
     public class TextBox : Control, IDocumentStyle, IEditor
     {

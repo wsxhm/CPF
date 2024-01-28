@@ -602,8 +602,8 @@ namespace CPF.Controls
 
         void Render(DrawingContext dc, Rect source, Point location, HybridDictionary<int, Cache> cache, IDocumentContainer documentContainer, Cache parent)
         {
-            float lastOffset = 0;
-            float lastTop = 0;
+            float lastOffset = location.X;
+            float lastTop = location.Y;
             float lastHeight = 0;
             foreach (var line in documentContainer.Lines)
             {
@@ -663,8 +663,8 @@ namespace CPF.Controls
                         dc.FillRectangle(backBrush, backRect);
                     }
                 }
-                lastOffset = document.Left + line.X + line.Width;
-                lastTop = document.Top + line.Y;
+                lastOffset = location.X + line.X + line.Width;
+                lastTop = location.Y + line.Y;
             }
             foreach (var line in documentContainer.Lines)
             {

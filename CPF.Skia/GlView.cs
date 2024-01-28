@@ -24,6 +24,13 @@ namespace CPF.Skia
         /// 支持OpenGL绘制的控件，在GLRender事件里绘制，开启GPU硬件加速才能使用 new SkiaDrawingFactory { UseGPU = true }
         /// </summary>
         public GLView() { }
+        /// <summary>
+        /// 绑定的FB id
+        /// </summary>
+        public int FramebufferId
+        {
+            get { return Id; }
+        }
 
         //IGlContext context;
         protected unsafe override void OnRender(DrawingContext dc)

@@ -58,7 +58,7 @@ namespace CPF.Controls
                     throw new Exception("需要有主窗体");
                 }
             }
-            Window window = new Window { CanResize = false, Background = null, Title = title == null ? "" : title, Icon = main.Icon, MinWidth = 200, Name = "messageBox" };
+            Window window = new Window { CanResize = false, Background = null, Title = title == null ? "" : title, Icon = main.Icon, MinWidth = 200, Name = "messageBox", TopMost = main.TopMost };
             window.LoadStyle(main);
             window.Children.Add(new WindowFrame(window, new Panel
             {

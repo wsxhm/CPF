@@ -8,7 +8,7 @@ using System.Text;
 namespace CPF.Controls
 {
     [Browsable(false)]
-    public class ITextBoxView : UIElement, IDocumentStyle
+    public abstract class ITextBoxView : UIElement, IDocumentStyle
     {
         private void Error() {
             throw new Exception("你看到此错误说明没有被重写，禁止调用,请使用override重写");
