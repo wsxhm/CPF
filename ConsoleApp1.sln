@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29324.140
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{ABE4ED47-CB9F-4183-9CE3-65E3E521BE2A}"
 EndProject
@@ -63,12 +63,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPF.Razor", "CPF.Razor\CPF.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CpfRazorSample", "CpfRazorSample\CpfRazorSample.csproj", "{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPF.Toolkit", "CPF.Toolkit\CPF.Toolkit.csproj", "{0CB0CC36-940B-45C1-83D1-0A9FF68CB157}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPF.Toolkit.Demo", "CPF.Toolkit.Demo\CPF.Toolkit.Demo.csproj", "{BC4120CE-5AE4-4577-98D4-BFF7C4B067B4}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Private\SharedVSIX\SharedVSIX.projitems*{db53e8d7-dfb6-48eb-a7b6-d1cf762acb9b}*SharedItemsImports = 4
-		Private\SharedVSIX\SharedVSIX.projitems*{df526631-d060-47f2-afd4-62c6cea2fe9a}*SharedItemsImports = 4
-		Private\SharedVSIX\SharedVSIX.projitems*{f34cffee-546f-490e-a76a-2792840b284d}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -240,6 +239,18 @@ Global
 		{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}.类库d|Any CPU.ActiveCfg = Debug|Any CPU
 		{25A4EE47-F5BD-4F1E-B143-3E3B50C5AC2A}.类库d|Any CPU.Build.0 = Debug|Any CPU
+		{0CB0CC36-940B-45C1-83D1-0A9FF68CB157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CB0CC36-940B-45C1-83D1-0A9FF68CB157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CB0CC36-940B-45C1-83D1-0A9FF68CB157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CB0CC36-940B-45C1-83D1-0A9FF68CB157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CB0CC36-940B-45C1-83D1-0A9FF68CB157}.类库d|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CB0CC36-940B-45C1-83D1-0A9FF68CB157}.类库d|Any CPU.Build.0 = Debug|Any CPU
+		{BC4120CE-5AE4-4577-98D4-BFF7C4B067B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC4120CE-5AE4-4577-98D4-BFF7C4B067B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC4120CE-5AE4-4577-98D4-BFF7C4B067B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC4120CE-5AE4-4577-98D4-BFF7C4B067B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC4120CE-5AE4-4577-98D4-BFF7C4B067B4}.类库d|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC4120CE-5AE4-4577-98D4-BFF7C4B067B4}.类库d|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -259,5 +270,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16FB883C-167C-4E1A-B311-6D74452A3CD6}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Private\SharedVSIX\SharedVSIX.projitems*{db53e8d7-dfb6-48eb-a7b6-d1cf762acb9b}*SharedItemsImports = 4
+		Private\SharedVSIX\SharedVSIX.projitems*{df526631-d060-47f2-afd4-62c6cea2fe9a}*SharedItemsImports = 4
+		Private\SharedVSIX\SharedVSIX.projitems*{f34cffee-546f-490e-a76a-2792840b284d}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

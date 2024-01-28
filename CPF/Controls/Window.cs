@@ -28,6 +28,12 @@ namespace CPF.Controls
 
         IWindowImpl windowImpl;
 
+        bool isLoaded = false;
+        public event EventHandler Loaded
+        {
+            add => AddHandler(value);
+            remove => RemoveHandler(value);
+        }
         public event EventHandler Closed
         {
             add { AddHandler(value); }
@@ -144,6 +150,11 @@ namespace CPF.Controls
 
         public void Show()
         {
+            if (!this.isLoaded)
+            {
+                this.BeginInvoke(() => RaiseEvent(EventArgs.Empty, nameof(Loaded)));
+                this.isLoaded = true;
+            }
             //windowImpl.Show();
             Visibility = Visibility.Visible;
         }
