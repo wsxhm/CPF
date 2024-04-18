@@ -184,6 +184,8 @@ namespace CPF.Linux
             else
             {
                 XLib.XReparentWindow(x11info.Display, Handle, x11info.Info.DefaultRootWindow, 0, 0);
+                visible = false;
+                XLib.XUnmapWindow(x11info.Display, Handle);
             }
             this.parent = parent as X11Window;
         }

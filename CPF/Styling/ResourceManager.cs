@@ -17,16 +17,37 @@ namespace CPF.Styling
     /// </summary>
     public class ResourceManager
     {
+        //private static Encoding s_defaultEncoding = Encoding.UTF8;
+        internal class ResourceCache
+        {
+            internal Assembly _assembly;
+            internal HashSet<string> _resourceKeys;
+            //internal ConcurrentDictionary<string, WeakReference<string>> _stringCache;
+            //internal ConcurrentDictionary<string, WeakReference<Image>> _imageCache;
+            internal ResourceCache(Assembly assembly)
+            {
+                _assembly = assembly;
+                var ns = assembly.GetManifestResourceNames();
+                _resourceKeys = new HashSet<string>();
+                foreach (var item in ns)
+                {
+                    _resourceKeys.Add(item);
+                }
+                //_stringCache = new ConcurrentDictionary<string, WeakReference<string>>();
+                //_imageCache = new ConcurrentDictionary<string, WeakReference<Image>>();
+            }
+        }
+        static List<ResourceCache> s_cacheList;
+        static ReaderWriterLockSlim s_lock;
         static ResourceManager()
         {
-            //Register(Assembly.GetExecutingAssembly());
-            //Register(Assembly.GetEntryAssembly());
-            //Register(Assembly.GetCallingAssembly());
-            foreach (var item in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                Register(item);
-            }
+            s_cacheList = new List<ResourceCache>();
+            s_lock = new ReaderWriterLockSlim();
             AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                Register(assembly);
+            }
         }
 
         private static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
@@ -34,7 +55,7 @@ namespace CPF.Styling
             Register(args.LoadedAssembly);
         }
 
-        static Dictionary<string, Assembly> assemblies = new Dictionary<string, Assembly>();
+        //static Dictionary<string, Assembly> assemblies = new Dictionary<string, Assembly>();
         /// <summary>
         /// 注册资源程序集，资源必须是内嵌的才能读取，程序集名称不能重复。一般情况下会自动注册，不需要手动调用
         /// </summary>
@@ -45,20 +66,63 @@ namespace CPF.Styling
             {
                 return;
             }
-            if (assemblies.ContainsKey(assembly.FullName))
+            if (assembly.IsDynamic || string.IsNullOrEmpty(assembly.FullName))
+                return;
+            s_lock.EnterWriteLock();
+            try
             {
-                assemblies.Remove(assembly.FullName);
+                var rc = new ResourceCache(assembly);
+                if (rc._resourceKeys.Count > 0)
+                {
+                    s_cacheList.Add(rc);
+                }
             }
-            assemblies.Add(assembly.FullName, assembly);
+            finally
+            {
+                s_lock.ExitWriteLock();
+            }
         }
+
+        public static void Unregister(Assembly assembly)
+        {
+            s_lock.EnterWriteLock();
+            try
+            {
+                for (int i = 0; i < s_cacheList.Count; i++)
+                {
+                    if (s_cacheList[i]._assembly == assembly)
+                    {
+                        s_cacheList.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+            finally
+            {
+                s_lock.ExitWriteLock();
+            }
+        }
+
         /// <summary>
         /// 移除程序集
         /// </summary>
         public static void RemoveAssembly(string assemblyFullName)
         {
-            if (assemblies.ContainsKey(assemblyFullName))
+            s_lock.EnterWriteLock();
+            try
             {
-                assemblies.Remove(assemblyFullName);
+                for (int i = 0; i < s_cacheList.Count; i++)
+                {
+                    if (s_cacheList[i]._assembly.FullName == assemblyFullName)
+                    {
+                        s_cacheList.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+            finally
+            {
+                s_lock.ExitWriteLock();
             }
         }
 
@@ -135,10 +199,11 @@ namespace CPF.Styling
         /// </summary>
         /// <param name="path"></param>
         /// <param name="action"></param>
-        public static void GetImage(string path, Action<Image> action)
+        /// <param name="cache">是否弱引用缓存资源</param>
+        public static void GetImage(string path, Action<Image> action, bool cache = true)
         {
             Image img = null;
-            if (!res.TryGetValue(path, out WeakReference<Image> image) || !image.TryGetTarget(out img))
+            if (!res.TryGetValue(path, out WeakReference<Image> image) || !image.TryGetTarget(out img) || img.ImageImpl == null)
             {
                 res.TryRemove(path, out var v);
                 var lower = path.ToLower();
@@ -169,7 +234,10 @@ namespace CPF.Styling
                                     using (Stream stream = response.GetResponseStream())
                                     {
                                         img = Image.FromStream(stream);
-                                        res.TryAdd(path, new WeakReference<Image>(img));
+                                        if (cache)
+                                        {
+                                            res.TryAdd(path, new WeakReference<Image>(img));
+                                        }
                                         //action(img);
                                     }
                                 }
@@ -202,22 +270,30 @@ namespace CPF.Styling
                         if (!string.IsNullOrWhiteSpace(CPF.Design.DesignerLoadStyleAttribute.ProjectPath) && File.Exists(Path.Combine(CPF.Design.DesignerLoadStyleAttribute.ProjectPath, str.Substring(l + 1))))
                         {
                             var image1 = Image.FromFile(Path.Combine(CPF.Design.DesignerLoadStyleAttribute.ProjectPath, str.Substring(l + 1)));
-                            res.TryAdd(path, new WeakReference<Image>(image1));
+                            if (cache)
+                            {
+                                res.TryAdd(path, new WeakReference<Image>(image1));
+                            }
                             action(image1);
                         }
                         else
                         {
-                            var name = str.Substring(0, l) + ",";
+                            //var name = str.Substring(0, l) + ",";
                             Image image1 = null;
-                            foreach (var item in assemblies)
+                            var p = str.Replace('/', '.').Replace('\\', '.');
+                            for (int i = 0; i < s_cacheList.Count; i++)
                             {
-                                if (item.Value.FullName.StartsWith(name))
+                                ResourceCache last = s_cacheList[s_cacheList.Count - i - 1];
+                                if (last._resourceKeys.Contains(p))
                                 {
-                                    Stream fs = item.Value.GetManifestResourceStream(str.Replace('/', '.').Replace('\\', '.'));
+                                    Stream fs = last._assembly.GetManifestResourceStream(p);
                                     if (fs != null)
                                     {
                                         var im = Image.FromStream(fs);
-                                        res.TryAdd(path, new WeakReference<Image>(im));
+                                        if (cache)
+                                        {
+                                            res.TryAdd(path, new WeakReference<Image>(im));
+                                        }
                                         fs.Dispose();
                                         image1 = im;
                                     }
@@ -244,7 +320,10 @@ namespace CPF.Styling
                         {
                             var b = Convert.FromBase64String(path.Substring(s + 1));
                             i = Image.FromBuffer(b);
-                            res.TryAdd(path, new WeakReference<Image>(i));
+                            if (cache)
+                            {
+                                res.TryAdd(path, new WeakReference<Image>(i));
+                            }
                         }
                         catch (Exception e)
                         {
@@ -267,7 +346,10 @@ namespace CPF.Styling
                         using (var im = Image.FromFile(s))
                         {
                             i = im.Clone() as Image;
-                            res.TryAdd(path, new WeakReference<Image>(i));
+                            if (cache)
+                            {
+                                res.TryAdd(path, new WeakReference<Image>(i));
+                            }
                         }
                         action(i);
                     }
@@ -289,7 +371,8 @@ namespace CPF.Styling
         /// </summary>
         /// <param name="path"></param>
         /// <param name="action"></param>
-        public static void GetText(string path, Action<string> action)
+        /// <param name="cache"></param>
+        public static void GetText(string path, Action<string> action, bool cache = true)
         {
             if (!texts.TryGetValue(path, out string text))
             {
@@ -318,7 +401,10 @@ namespace CPF.Styling
                                     {
                                         text = text.TrimStart((char)65279);
                                     }
-                                    texts.Add(path, text);
+                                    if (cache)
+                                    {
+                                        texts.Add(path, text);
+                                    }
                                 }
                             }
                         }
@@ -349,12 +435,14 @@ namespace CPF.Styling
                         }
                         else
                         {
-                            var name = str.Substring(0, l) + ",";
-                            foreach (var item in assemblies)
+                            //var name = str.Substring(0, l) + ",";
+                            var p = str.Replace('/', '.').Replace('\\', '.');
+                            for (int i = 0; i < s_cacheList.Count; i++)
                             {
-                                if (item.Value.FullName.StartsWith(name))
+                                ResourceCache last = s_cacheList[s_cacheList.Count - i - 1];
+                                if (last._resourceKeys.Contains(p))
                                 {
-                                    Stream fs = item.Value.GetManifestResourceStream(str.Replace('\\', '.').Replace('/', '.'));
+                                    Stream fs = last._assembly.GetManifestResourceStream(p);
                                     if (fs != null)
                                     {
                                         var data = new byte[fs.Length];
@@ -364,7 +452,10 @@ namespace CPF.Styling
                                         {
                                             text = text.TrimStart((char)65279);
                                         }
-                                        texts.Add(path, text);
+                                        if (cache)
+                                        {
+                                            texts.Add(path, text);
+                                        }
                                         fs.Dispose();
                                     }
                                     break;
@@ -393,7 +484,10 @@ namespace CPF.Styling
                         {
                             text = text.TrimStart((char)65279);
                         }
-                        texts.Add(path, text);
+                        if (cache)
+                        {
+                            texts.Add(path, text);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -409,8 +503,9 @@ namespace CPF.Styling
         /// 读取文件或者内嵌或者网络的文本，弱引用缓存。
         /// </summary>
         /// <param name="path"></param>
+        /// <param name="cache"></param>
         /// <returns></returns>
-        public static Task<string> GetText(string path)
+        public static Task<string> GetText(string path, bool cache = true)
         {
             //var task = Task.Factory.StartNew(() =>
             //{
@@ -422,7 +517,7 @@ namespace CPF.Styling
                 completionSource.SetResult(a);
                 //result = a;
                 //invokeMre.Set();
-            });
+            }, cache);
             //invokeMre.WaitOne();
             //return result;
             return completionSource.Task;
@@ -433,8 +528,9 @@ namespace CPF.Styling
         /// 读取文件或者内嵌或者网络的图片，弱引用缓存
         /// </summary>
         /// <param name="path"></param>
+        /// <param name="cache"></param>
         /// <returns></returns>
-        public static Task<Image> GetImage(string path)
+        public static Task<Image> GetImage(string path, bool cache = true)
         {
             var task = Task.Factory.StartNew(() =>
             {
@@ -444,7 +540,7 @@ namespace CPF.Styling
                 {
                     result = a;
                     invokeMre.Set();
-                });
+                }, cache);
                 invokeMre.WaitOne();
                 return result;
             });
@@ -497,11 +593,13 @@ namespace CPF.Styling
                     var l = str.IndexOf('/');
                     var name = str.Substring(0, l) + ",";
                     Stream fs = null;
-                    foreach (var item in assemblies)
+                    var p = str.Replace('/', '.').Replace('\\', '.');
+                    for (int i = 0; i < s_cacheList.Count; i++)
                     {
-                        if (item.Value.FullName.StartsWith(name))
+                        ResourceCache last = s_cacheList[s_cacheList.Count - i - 1];
+                        if (last._resourceKeys.Contains(p))
                         {
-                            fs = item.Value.GetManifestResourceStream(str.Replace('/', '.').Replace('\\', '.'));
+                            fs = last._assembly.GetManifestResourceStream(p);
                             //if (fs != null)
                             //{
                             //    var data = new byte[fs.Length];
