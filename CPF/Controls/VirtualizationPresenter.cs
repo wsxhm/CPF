@@ -1031,7 +1031,7 @@ namespace CPF.Controls
                                 item.IsSetOnOwner = false;
                                 OnSetItem(item);
                             }
-                            else
+                            else if(index < Items.Count)
                             {
                                 var item = stackPanel.Children[i] as T;
                                 item.DataContext = Items[index];
