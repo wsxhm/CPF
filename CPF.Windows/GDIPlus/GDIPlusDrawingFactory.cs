@@ -1,4 +1,4 @@
-﻿#if Net4
+﻿//#if Net4
 using CPF.Platform;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,8 @@ namespace CPF.GDIPlus
         /// <summary>
         /// GDI+不支持GPU加速
         /// </summary>
-        public override bool UseGPU { get => false; set => throw new NotSupportedException("GDI+不支持GPU加速"); }
+        private bool _useGPU = false;
+        public override bool UseGPU { get => _useGPU; set => _useGPU = false; }
 
         public override IImageImpl ImageFromFile(string path)
         {
@@ -333,4 +334,4 @@ namespace CPF.GDIPlus
         }
     }
 }
-#endif
+//#endif

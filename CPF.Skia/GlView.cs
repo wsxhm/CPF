@@ -43,7 +43,7 @@ namespace CPF.Skia
 
             var size = new PixelSize((int)Math.Round(cSize.Width * Root.RenderScaling), (int)Math.Round(cSize.Height * Root.RenderScaling));
             var skia = dc as SkiaDrawingContext;
-            var _gl = skia.GlContext;
+            var _gl = skia?.GlContext;
             if (_gl == null)
             {
                 return;
