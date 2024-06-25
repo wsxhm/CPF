@@ -126,8 +126,8 @@ namespace CPF.Skia
             BITMAP BITMAP = new BITMAP();
             UnmanagedMethods.GetObject(hbitmap, Marshal.SizeOf(typeof(BITMAP)), BITMAP);
 
-            var bitmap = new SKBitmap(BITMAP.bmWidth, BITMAP.bmHeight);
-            bitmap.SetPixels(BITMAP.bmBits);
+            var bitmap = new SKBitmap();
+            bitmap.InstallPixels(new SKImageInfo(BITMAP.bmWidth, BITMAP.bmHeight, SKImageInfo.PlatformColorType), BITMAP.bmBits, BITMAP.bmWidthBytes);
 
             this.bitmap = bitmap;
             canvas = new SKCanvas(this.bitmap);
