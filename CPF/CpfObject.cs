@@ -346,7 +346,7 @@ namespace CPF
                 List<PropertyMetadataAttribute> propertyList = new List<PropertyMetadataAttribute>();
                 var list = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
 
-                list = list.OrderBy(a => a, new TypeCompar()).ThenBy(a => a.Name).ToArray();
+                list = list.OrderBy(a => a, new TypeCompar()).ThenBy(a => a.Name, StringComparer.Ordinal).ToArray();
 
                 OverrideMetadata om = new OverrideMetadata();
                 OnOverrideMetadata(om);

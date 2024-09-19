@@ -30,7 +30,7 @@ namespace CPF.Controls
         public bool IsSelected
         {
             get { return GetValue<bool>(); }
-            internal set { SetValue(value); }
+            set { SetValue(value); }
         }
         /// <summary>
         /// 获取或设置标记控件的项

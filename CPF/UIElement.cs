@@ -373,8 +373,8 @@ namespace CPF
         [Description("键盘焦点")]
         public bool IsKeyboardFocused
         {
-            get { return (bool)GetValue(21); }
-            private set { SetValue(value, 21); }
+            get { return (bool)GetValue(22); }
+            private set { SetValue(value, 22); }
         }
         /// <summary>
         /// 获取一个值，该值指示键盘焦点是否位于元素或其可视化树子元素内的任意位置
@@ -383,8 +383,8 @@ namespace CPF
         [Description("获取一个值，该值指示键盘焦点是否位于元素或其可视化树子元素内的任意位置")]
         public bool IsKeyboardFocusWithin
         {
-            get { return (bool)GetValue(22); }
-            private set { SetValue(value, 22); }
+            get { return (bool)GetValue(21); }
+            private set { SetValue(value, 21); }
         }
         /// <summary>
         /// 获取焦点的导航方式
@@ -393,8 +393,8 @@ namespace CPF
         [PropertyMetadata(null)]
         public NavigationMethod? FocusMethod
         {
-            get { return (NavigationMethod?)GetValue(14); }
-            private set { SetValue(value, 14); }
+            get { return (NavigationMethod?)GetValue(13); }
+            private set { SetValue(value, 13); }
         }
 
         /// <summary>
@@ -404,8 +404,8 @@ namespace CPF
         [PropertyMetadata(false)]
         public bool Focusable
         {
-            get { return GetValue<bool>(10); }
-            set { SetValue(value, 10); }
+            get { return GetValue<bool>(14); }
+            set { SetValue(value, 14); }
         }
 
         /// <summary>
@@ -444,8 +444,8 @@ namespace CPF
         [PropertyMetadata(typeof(ViewFill), "#000")]
         public ViewFill FocusFrameFill
         {
-            get { return GetValue<ViewFill>(11); }
-            set { SetValue(value, 11); }
+            get { return GetValue<ViewFill>(10); }
+            set { SetValue(value, 10); }
         }
         /// <summary>
         /// 按tab键切换焦点显示的聚焦框
@@ -454,8 +454,8 @@ namespace CPF
         [PropertyMetadata(typeof(Stroke), "1,Dash")]
         public Stroke FocusFrameStroke
         {
-            get { return GetValue<Stroke>(13); }
-            set { SetValue(value, 13); }
+            get { return GetValue<Stroke>(12); }
+            set { SetValue(value, 12); }
         }
         /// <summary>
         /// 聚焦框到元素边缘距离
@@ -463,8 +463,8 @@ namespace CPF
         [UIPropertyMetadata(typeof(Thickness), "3", UIPropertyOptions.AffectsRender), Description("聚焦框到元素边缘距离")]
         public Thickness FocusFramePadding
         {
-            get { return GetValue<Thickness>(12); }
-            set { SetValue(value, 12); }
+            get { return GetValue<Thickness>(11); }
+            set { SetValue(value, 11); }
         }
 
         /// <summary>
@@ -1052,6 +1052,10 @@ namespace CPF
             {
                 toolTipElement.Dispose();
                 toolTipElement = null;
+            }
+            if (newValue is string str && string.IsNullOrEmpty(str))
+            {
+                return;
             }
             if (newValue != null)
             {
