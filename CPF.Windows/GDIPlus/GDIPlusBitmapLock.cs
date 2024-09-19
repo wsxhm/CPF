@@ -1,4 +1,4 @@
-﻿#if Net4
+﻿//#if Net4
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -166,4 +166,4 @@ namespace CPF.GDIPlus
         }
     }
 }
-#endif
+//#endif
